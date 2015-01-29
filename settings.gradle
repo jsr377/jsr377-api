@@ -1,0 +1,9 @@
+include 'spec'
+include 'api'
+
+rootProject.name = 'jsr377-api'
+rootProject.children.each { project ->
+    project.buildFileName = "${project.name}.gradle"
+    assert project.projectDir.isDirectory()
+    assert project.buildFile.isFile()
+}

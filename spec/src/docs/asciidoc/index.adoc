@@ -1,0 +1,3 @@
+= JSR377 {project-version} Specification
+:toclevels: 1
+:numbered:
