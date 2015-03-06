@@ -1,0 +1,39 @@
+
+[[architecture]]
+= Architecture
+
+This specification defines a powerful set of complementary services that help improve the structure of application code.
+
+ * dependency injection via JSR330.
+ * common application structure.
+ * application life-cycle.
+ * localized resources.
+ * resource injection.
+ * localized configuration.
+ * decouple state from UI (binding).
+ * persistence session state (preferences).
+ * action management.
+ * component life-cycle.
+ * light-weight event bus.
+ * honor threading concerns (specific to UI toolkit).
+ * application extensibility via plugins (implies modularity).
+
+Lorem ipsum dolor sit amet.
+
+== Contracts
+
+This specification defines the responsibilities of:
+
+ * the application developer who uses these services, and
+ * the vendor who implements the functionality defined by this specification and provides a runtime environment in which the application executes.
+
+Lorem ipsum dolor sit amet.
+
+== Relationship to other specifications
+
+Lorem ipsum dolor sit amet.
+
+=== Relationship to Dependency Injection for Java
+
+The Dependency Injection for Java specification defines a set of annotations for the declaring injected fields, methods and constructors of a bean. The dependency injection service makes use of these annotations.
+

@@ -1,0 +1,30 @@
+
+:numbered!:
+["preface",sectnum="0"]
+
+= Preface
+
+== Evaluation license
+
+include::_license_jcp.adoc[]
+
+== Foreword
+
+Desktop|Embedded Application API 1.0 is lorem ipsum dolor sit amet.
+
+== Conventions and Terms
+
+=== Typography
+
+A fixed width, non-serif typeface (`sample`) indicates the term is a Java package, class, interface, or member name. Text written in this typeface is always related to coding.
+Emphasis (_sample_) is used the first time an important concept is introduced. Its explanation usually follows directly after the introduction.
+
+=== Key Words
+
+This specification consistently uses the words may, should, and must. Their meaning is well-defined in <<_ref_1,[1]>> _Bradner, S., Key words for use in RFCs to Indicate Requirement Levels_. A summary follows.
+
+ * _must_ – An absolute requirement. Both the Framework implementation and bundles have obligations that are required to be fulfilled to conform to this specification.
+ * _should_ – Recommended. It is strongly recommended to follow the description, but reasons may exist to deviate from this recommendation.
+ * _may_ or _can_ – Optional. Implementations must still be interoperable when these items are not implemented.
+
+:numbered:

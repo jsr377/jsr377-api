@@ -1,3 +1,9 @@
 = JSR377 {project-version} Specification
-:toclevels: 1
+:toclevels: 3
 :numbered:
+
+:leveloffset: 1
+include::preface.adoc[]
+include::architecture.adoc[]
+include::references.adoc[]
+

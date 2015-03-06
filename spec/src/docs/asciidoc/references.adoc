@@ -1,0 +1,7 @@
+
+= References
+
+[[_ref_1]]
+[1] _Bradner, S., Key words for use in RFCs to Indicate Requirement Levels_ +
+    http://tools.ietf.org/html/rfc2119
+
