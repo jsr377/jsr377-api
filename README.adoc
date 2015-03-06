@@ -1,8 +1,20 @@
 = JSR 377 - Desktop|Embedded Application API
+:linkattrs:
 
 Contains the specification and API sources for link:https://jcp.org/en/jsr/detail?id=377[JSR-377].
 
 image:https://badges.gitter.im/Join%20Chat.svg[Gitter, link="https://gitter.im/jsr377/jsr377-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"]
 
+== Contributing
+
+ - All contributions made by JSR377 Expert Group members are governed by the JSPA.
+ - All contributions made by non Expert Group members are governed by the Apache Software License v2.
+
+If you'd like to join the EG then please send your nomination to link:https://jcp.org/en/jsr/egnom?id=377[https://jcp.org/en/jsr/egnom?id=377, window="_blank"] Please bear in mind that you must be an JCP member and have signed the JSPA. You may require an additional signed Exhibit B depending on your membership type.
+
+To get started (non-EG contributors), link:https://www.clahub.com/agreements/jsr377/jsr377-api[sign the Contributor License Agreement, window="_blank"].
+
 == Additional resources
-link:http://jsr377-api.40747.n7.nabble.com[Forum / Mailing List]
+
+ * link:http://jsr377.github.io/site/[JSR377 website, window="_blank"]
+ * link:http://jsr377-api.40747.n7.nabble.com[Forum / Mailing List, window="_blank"]
