@@ -1,0 +1,27 @@
+= Contribution Guidelines
+
+We love to see contributions to the project and have tried to make it easy to
+do so. If you wish to contribute documentation, then please keep to the following
+guidelines to ensure consistency within the sources and that we have happy users.
+
+== Guidelines
+
+ . A single page per chapter. This allows reviewers to have a quick glance at the
+ whole content without having to browse additional files.
+ . Please insert a blank line at the top and at the end of each document. This allows
+ inclusion of files without adding so much white space in between. For example, without
+ these blank lines one would have to write the following to include two files
+....
+
+include::chapter1.adoc[]
+
+include::chapter2.adoc[]
+
+....
+ 
+ where as adding the blank lines removes the need to define them in the including document
+
+....
+include::chapter1.adoc[]
+include::chapter2.adoc[]
+....
