@@ -15,28 +15,9 @@
  */
 package javax.application;
 
-import java.util.Locale;
+public interface ExitState {
 
-public interface Application {
-    void initialize();
-
-    void startup();
-
-    void ready();
-
-    ExitState shutdown();
+    int exitCode();
 
     boolean canShutdown();
-
-    void addShutdownHandler(ShutdownHandler handler);
-
-    void removeShutdownHandler(ShutdownHandler handler);
-
-    Configuration getConfiguration();
-
-    ApplicationPhase getPhase();
-
-    Locale getLocale();
-
-    String[] getStartupArguments();
 }
