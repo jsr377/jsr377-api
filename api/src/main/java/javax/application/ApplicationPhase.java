@@ -15,6 +15,9 @@
  */
 package javax.application;
 
+/**
+ * @author Andres Almiray
+ */
 public enum ApplicationPhase {
     INITIALIZE, STARTUP, READY, MAIN, SHUTDOWN
 }

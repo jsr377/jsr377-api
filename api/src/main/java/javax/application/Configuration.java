@@ -15,6 +15,9 @@
  */
 package javax.application;
 
+/**
+ * @author Andres Almiray
+ */
 public interface Configuration {
 
 }

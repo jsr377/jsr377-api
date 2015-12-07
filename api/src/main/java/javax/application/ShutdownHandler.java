@@ -15,6 +15,23 @@
  */
 package javax.application;
 
+/**
+ * @author Andres Almiray
+ */
 public interface ShutdownHandler {
+    /**
+     * Asks this handler if the application's shutdown sequence can proceed or not.<p>
+     * Return <tt>false</tt> if the shutdown sequence must be aborted.
+     *
+     * @param application the current running application
+     * @return true if the shutdown sequence can proceed, false otherwise
+     */
+    boolean canShutdown(Application application);
 
+    /**
+     * Called when the shutdown sequence continues
+     *
+     * @param application the current running application
+     */
+    void onShutdown(Application application);
 }

@@ -17,6 +17,9 @@ package javax.application;
 
 import java.util.Locale;
 
+/**
+ * @author Andres Almiray
+ */
 public interface Application {
     void initialize();
 
@@ -26,17 +29,49 @@ public interface Application {
 
     ExitState shutdown();
 
+    /**
+     * Queries any available ShutdownHandlers.
+     *
+     * @return true if the shutdown sequence can proceed, false otherwise
+     */
     boolean canShutdown();
 
+    /**
+     * Registers a ShutdownHandler on this application
+     *
+     * @param handler the shutdown handler to be registered; null and/or
+     *                duplicated values should be ignored
+     */
     void addShutdownHandler(ShutdownHandler handler);
 
+    /**
+     * Removes a ShutdownHandler from this application
+     *
+     * @param handler the shutdown handler to be removed; null and/or
+     *                duplicated values should be ignored
+     */
     void removeShutdownHandler(ShutdownHandler handler);
 
     Configuration getConfiguration();
 
+    /**
+     * Returns the current phase.
+     *
+     * @return returns the current ApplicationPhase. Never returns null.
+     */
     ApplicationPhase getPhase();
 
+    /**
+     * Gets the application locale.
+     *
+     * @return the current Locale used by the application. Never returns null.
+     */
     Locale getLocale();
 
+    /**
+     * Returns the arguments set on the command line (if any).<p>
+     *
+     * @return an array of command line arguments. Never returns null.
+     */
     String[] getStartupArguments();
 }

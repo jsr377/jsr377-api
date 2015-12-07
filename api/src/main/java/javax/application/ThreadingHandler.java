@@ -17,14 +17,32 @@ package javax.application;
 
 import java.util.concurrent.Callable;
 
+/**
+ * @author Andres Almiray
+ */
 public interface ThreadingHandler {
+    /**
+     * True if the current thread is the UI thread.
+     */
     boolean isUIThread();
 
+    /**
+     * Executes a code block asynchronously on the UI thread.
+     */
     void runInsideUIAsync(Runnable runnable);
 
+    /**
+     * Executes a code block synchronously on the UI thread.
+     */
     void runInsideUISync(Runnable runnable);
 
+    /**
+     * Executes a code block synchronously on the UI thread.
+     */
     <R> R runInsideUISync(Callable<R> callable);
 
+    /**
+     * Executes a code block outside of the UI thread.
+     */
     void runOutsideUI(Runnable runnable);
 }

@@ -15,6 +15,53 @@
  */
 package javax.application;
 
-public class NoSuchMessageException extends RuntimeException {
+import java.util.Locale;
 
+import static java.util.Objects.requireNonNull;
+
+/**
+ * @author Andres Almiray
+ */
+public class NoSuchMessageException extends RuntimeException {
+    private final String key;
+    private final Locale locale;
+
+    /**
+     * Create a new exception.
+     *
+     * @param key    message that could not be resolved for given locale
+     * @param locale locale that was used to search for the code within
+     */
+    public NoSuchMessageException(String key, Locale locale) {
+        super("No message found under key '" + requireNonNull(key, "key") + "' for locale '" + requireNonNull(locale, "locale") + "'.");
+        this.key = key;
+        this.locale = locale;
+    }
+
+    /**
+     * Create a new exception.
+     *
+     * @param key key that could not be resolved for given locale
+     */
+    public NoSuchMessageException(String key) {
+        this(key, Locale.getDefault());
+    }
+
+    /**
+     * Get the key without a valid value
+     *
+     * @return The key
+     */
+    public String getKey() {
+        return key;
+    }
+
+    /**
+     * Get the locale without a valid value
+     *
+     * @return The locale
+     */
+    public Locale getLocale() {
+        return locale;
+    }
 }
