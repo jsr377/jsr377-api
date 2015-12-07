@@ -28,7 +28,7 @@ public interface ResourceResolver {
      * @return The resolved resource at the given key for the default locale
      * @throws NoSuchResourceException if no resource is found
      */
-    Object resolveResource(String key) throws NoSuchResourceException;
+    <T> T resolveResource(String key) throws NoSuchResourceException;
 
     /**
      * Attempt to resolve the resource.
@@ -38,7 +38,7 @@ public interface ResourceResolver {
      * @return The resolved resource at the given key for the given locale
      * @throws NoSuchResourceException if no resource is found
      */
-    Object resolveResource(String key, Locale locale) throws NoSuchResourceException;
+    <T> T resolveResource(String key, Locale locale) throws NoSuchResourceException;
 
     /**
      * Attempt to resolve the resource.
@@ -49,7 +49,7 @@ public interface ResourceResolver {
      * @return The resolved resource at the given key for the default locale
      * @throws NoSuchResourceException if no resource is found
      */
-    Object resolveResource(String key, Object[] args) throws NoSuchResourceException;
+    <T> T resolveResource(String key, Object[] args) throws NoSuchResourceException;
 
     /**
      * Attempt to resolve the resource.
@@ -61,7 +61,7 @@ public interface ResourceResolver {
      * @return The resolved resource at the given key for the given locale
      * @throws NoSuchResourceException if no resource is found
      */
-    Object resolveResource(String key, Object[] args, Locale locale) throws NoSuchResourceException;
+    <T> T resolveResource(String key, Object[] args, Locale locale) throws NoSuchResourceException;
 
     /**
      * Attempt to resolve the resource. Return default resource if no resource was found.
@@ -70,7 +70,7 @@ public interface ResourceResolver {
      * @param defaultValue Message to return if the lookup fails
      * @return The resolved resource at the given key for the default locale
      */
-    Object resolveResource(String key, Object defaultValue);
+    <T> T resolveResource(String key, T defaultValue);
 
     /**
      * Attempt to resolve the resource. Return default resource if no resource was found.
@@ -80,7 +80,7 @@ public interface ResourceResolver {
      * @param defaultValue Message to return if the lookup fails
      * @return The resolved resource at the given key for the given locale
      */
-    Object resolveResource(String key, Locale locale, Object defaultValue);
+    <T> T resolveResource(String key, Locale locale, T defaultValue);
 
     /**
      * Attempt to resolve the resource. Return default resource if no resource was found.
@@ -91,7 +91,7 @@ public interface ResourceResolver {
      * @param defaultValue Message to return if the lookup fails
      * @return The resolved resource at the given key for the default locale
      */
-    Object resolveResource(String key, Object[] args, Object defaultValue);
+    <T> T resolveResource(String key, Object[] args, T defaultValue);
 
     /**
      * Attempt to resolve the resource. Return default resource if no resource was found.
@@ -103,7 +103,7 @@ public interface ResourceResolver {
      * @param defaultValue Message to return if the lookup fails
      * @return The resolved resource at the given key for the given locale
      */
-    Object resolveResource(String key, Object[] args, Locale locale, Object defaultValue);
+    <T> T resolveResource(String key, Object[] args, Locale locale, T defaultValue);
 
     /**
      * Attempt to resolve the resource. The value is converted to type <tt>T</tt> if found using a {@code Converter}.
