@@ -15,18 +15,60 @@
  */
 package javax.application;
 
+import java.util.Set;
+
 /**
  * @author Andres Almiray
  */
-public interface Configuration {
+public interface Context {
     /**
-     * Searches for the key in this configuration.
+     * Searches for the key in this context and its hierarchy.
      *
      * @param key the key to search.
      *
-     * @return <tt>true</tt> if the context (or its parent) contains the given key, <tt><false/tt> otherwise.
+     * @return <tt>true</tt> if the context (or its parent) contains the given key, <tt>false</tt> otherwise.
      */
     boolean containsKey(String key);
+
+    /**
+     * Searches for the key in this context only.
+     *
+     * @param key the key to search.
+     *
+     * @return <tt>true</tt> if the context contains the given key, <tt>false</tt> otherwise.
+     */
+    boolean hasKey(String key);
+
+    /**
+     * Removes a key from this context. Does not affect the context's hierarchy.
+     * Blindly casts the returned value.
+     *
+     * @param key the key to be removed.
+     *
+     * @return the value associated with the key or <tt>null</tt> if there wasn't any value.
+     */
+    <T> T remove(String key);
+
+    /**
+     * Removes a key from this context. Does not affect the context's hierarchy. The value is
+     * converted to type <tt>T</tt> if found using a {@code PropertyEditor}.
+     *
+     * @param key  the key to be removed.
+     * @param type the type to be returned.
+     *
+     * @return the value associated with the key or <tt>null</tt> if there wasn't any value.
+     */
+    <T> T removeConverted(String key, Class<T> type);
+
+    /**
+     * Sets a key/value pair on this context. If the context has a parent and if the
+     * key matches a parent key then the value will shadow the parent's, that is, the parent
+     * value will not be overwritten.
+     *
+     * @param key   the key to be registered.
+     * @param value the value to save.
+     */
+    <T> void put(String key, T value);
 
     /**
      * /**
@@ -46,6 +88,23 @@ public interface Configuration {
      * @param defaultValue the value to be returned if the key is not found.
      */
     <T> T get(String key, T defaultValue);
+
+    /**
+     * Destroys this context. Once destroyed a context should not be used anymore.
+     */
+    void destroy();
+
+    /**
+     * Returns the parent {@code Context} if it exists.
+     */
+    Context getParentContext();
+
+    /**
+     * Returns a {@link Set} view of the keys contained in this context.
+     *
+     * @return a set view of the keys contained in this map
+     */
+    Set<String> keySet();
 
     /**
      * Finds a value associated with the given key. The value is
@@ -156,6 +215,7 @@ public interface Configuration {
     String getAsString(String key, String defaultValue);
 
     /**
+     * /**
      * Finds a value associated with the given key. The value is
      * converted to type <tt>T</tt> if found using a {@code Converter}.
      *
@@ -174,4 +234,14 @@ public interface Configuration {
      * @param defaultValue the value to be returned if the key is not found.
      */
     <T> T getConverted(String key, Class<T> type, T defaultValue);
+
+    /**
+     * Inject properties and members annotated with {@code javax.application.Contextual}.
+     *
+     * @param instance the instance on which contextual members will be injected.
+     * @param <T>      the type of the instance.
+     *
+     * @return the instance on which contextual members where injected.
+     */
+    <T> T injectMembers(T instance);
 }
