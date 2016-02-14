@@ -22,12 +22,10 @@ buildscript {
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.6'
-        classpath 'com.bluepapa32:gradle-watch-plugin:0.1.5'
     }
 }
 
 apply plugin: 'org.asciidoctor.convert'
-apply plugin: 'com.bluepapa32.watch'
 
 asciidoctor {
     options doctype: 'book'
@@ -40,11 +38,4 @@ asciidoctor {
                icon                    : 'font',
                linkattrs               : true,
                encoding                : 'utf-8'
-}
-
-watch {
-    asciidoc {
-        files fileTree(dir: 'src/docs/asciidoc', include: '**/*.adoc')
-        tasks 'asciidoctor'
-    }
 }
