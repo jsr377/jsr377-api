@@ -18,6 +18,6 @@ package javax.application;
 /**
  * @author Andres Almiray
  */
-public interface Converter<FROM,TO> {
+public interface Converter<FROM, TO> {
     TO convert(FROM object);
 }

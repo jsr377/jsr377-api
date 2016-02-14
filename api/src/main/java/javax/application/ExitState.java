@@ -16,7 +16,6 @@
 package javax.application;
 
 public interface ExitState {
-
     int exitCode();
 
     boolean canShutdown();

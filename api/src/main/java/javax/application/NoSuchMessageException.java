@@ -23,19 +23,19 @@ import static java.util.Objects.requireNonNull;
  * @author Andres Almiray
  */
 public class NoSuchMessageException extends RuntimeException {
+    private static final long serialVersionUID = -3197770339868054069L;
+
     private final String key;
     private final Locale locale;
 
     /**
      * Create a new exception.
      *
-     * @param key    message that could not be resolved for given locale
+     * @param key    key that could not be resolved for given locale
      * @param locale locale that was used to search for the code within
      */
     public NoSuchMessageException(String key, Locale locale) {
-        super("No message found under key '" + requireNonNull(key, "key") + "' for locale '" + requireNonNull(locale, "locale") + "'.");
-        this.key = key;
-        this.locale = locale;
+        this(key, locale, null);
     }
 
     /**
@@ -45,6 +45,29 @@ public class NoSuchMessageException extends RuntimeException {
      */
     public NoSuchMessageException(String key) {
         this(key, Locale.getDefault());
+    }
+
+    /**
+     * Create a new exception.
+     *
+     * @param key   key that could not be resolved for given locale
+     * @param cause throwable that caused this exception
+     */
+    public NoSuchMessageException(String key, Throwable cause) {
+        this(key, Locale.getDefault(), cause);
+    }
+
+    /**
+     * Create a new exception.
+     *
+     * @param key    key that could not be resolved for given locale
+     * @param locale locale that was used to search for the code within
+     * @param cause  throwable that caused this exception
+     */
+    public NoSuchMessageException(String key, Locale locale, Throwable cause) {
+        super("No message found under key '" + requireNonNull(key, "key") + "' for locale '" + requireNonNull(locale, "locale") + "'.", cause);
+        this.key = key;
+        this.locale = locale;
     }
 
     /**
