@@ -26,7 +26,7 @@ public interface Context {
      *
      * @param key the key to search.
      *
-     * @return <tt>true</tt> if the context (or its parent) contains the given key, <tt>false</tt> otherwise.
+     * @return {@code true} if the context (or its parent) contains the given key, {@code false} otherwise.
      */
     boolean containsKey(String key);
 
@@ -35,7 +35,7 @@ public interface Context {
      *
      * @param key the key to search.
      *
-     * @return <tt>true</tt> if the context contains the given key, <tt>false</tt> otherwise.
+     * @return {@code true} if the context contains the given key, {@code false} otherwise.
      */
     boolean hasKey(String key);
 
@@ -45,18 +45,18 @@ public interface Context {
      *
      * @param key the key to be removed.
      *
-     * @return the value associated with the key or <tt>null</tt> if there wasn't any value.
+     * @return the value associated with the key or {@code null} if there wasn't any value.
      */
     <T> T remove(String key);
 
     /**
      * Removes a key from this context. Does not affect the context's hierarchy. The value is
-     * converted to type <tt>T</tt> if found using a {@code PropertyEditor}.
+     * converted to type {@code T} if found using a {@code PropertyEditor}.
      *
      * @param key  the key to be removed.
      * @param type the type to be returned.
      *
-     * @return the value associated with the key or <tt>null</tt> if there wasn't any value.
+     * @return the value associated with the key or {@code null} if there wasn't any value.
      */
     <T> T removeConverted(String key, Class<T> type);
 
@@ -73,7 +73,7 @@ public interface Context {
     /**
      * /**
      * Finds a value associated with the given key. The value is
-     * blindly cast to type <tt>T</tt> if found.
+     * blindly cast to type {@code T} if found.
      *
      * @param key the key to search.
      */
@@ -81,8 +81,8 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * blindly cast to type <tt>T</tt> if found. If not found then the
-     * supplied <tt>defaultValue</tt> will be returned.
+     * blindly cast to type {@code T} if found. If not found then the
+     * supplied {@code defaultValue} will be returned.
      *
      * @param key          the key to search.
      * @param defaultValue the value to be returned if the key is not found.
@@ -108,7 +108,7 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>boolean</tt> if found.
+     * converted to a {@code boolean} if found.
      *
      * @param key the key to search.
      */
@@ -116,8 +116,8 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>boolean</tt> if found. If not found then the
-     * supplied <tt>defaultValue</tt> will be returned.
+     * converted to a {@code boolean} if found. If not found then the
+     * supplied {@code defaultValue} will be returned.
      *
      * @param key          the key to search.
      * @param defaultValue the value to be returned if the key is not found.
@@ -126,7 +126,7 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to an <tt>int</tt> if found.
+     * converted to an {@code int} if found.
      *
      * @param key the key to search.
      */
@@ -134,8 +134,8 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to an <tt>int</tt> if found. If not found then the
-     * supplied <tt>defaultValue</tt> will be returned.
+     * converted to an {@code int} if found. If not found then the
+     * supplied {@code defaultValue} will be returned.
      *
      * @param key          the key to search.
      * @param defaultValue the value to be returned if the key is not found.
@@ -144,7 +144,7 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>long</tt> if found.
+     * converted to a {@code long} if found.
      *
      * @param key the key to search.
      */
@@ -152,8 +152,8 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>long</tt> if found. If not found then the
-     * supplied <tt>defaultValue</tt> will be returned.
+     * converted to a {@code long} if found. If not found then the
+     * supplied {@code defaultValue} will be returned.
      *
      * @param key          the key to search.
      * @param defaultValue the value to be returned if the key is not found.
@@ -162,7 +162,7 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>float</tt> if found.
+     * converted to a {@code float} if found.
      *
      * @param key the key to search.
      */
@@ -170,8 +170,8 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>float</tt> if found. If not found then the
-     * supplied <tt>defaultValue</tt> will be returned.
+     * converted to a {@code float} if found. If not found then the
+     * supplied {@code defaultValue} will be returned.
      *
      * @param key          the key to search.
      * @param defaultValue the value to be returned if the key is not found.
@@ -180,7 +180,7 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>double</tt> if found.
+     * converted to a {@code double} if found.
      *
      * @param key the key to search.
      */
@@ -188,8 +188,8 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>double</tt> if found. If not found then the
-     * supplied <tt>defaultValue</tt> will be returned.
+     * converted to a {@code double} if found. If not found then the
+     * supplied {@code defaultValue} will be returned.
      *
      * @param key          the key to search.
      * @param defaultValue the value to be returned if the key is not found.
@@ -198,7 +198,7 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>String</tt> if found.
+     * converted to a {@code String} if found.
      *
      * @param key the key to search.
      */
@@ -206,8 +206,8 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to a <tt>String</tt> if found. If not found then the
-     * supplied <tt>defaultValue</tt> will be returned.
+     * converted to a {@code String} if found. If not found then the
+     * supplied {@code defaultValue} will be returned.
      *
      * @param key          the key to search.
      * @param defaultValue the value to be returned if the key is not found.
@@ -217,7 +217,7 @@ public interface Context {
     /**
      * /**
      * Finds a value associated with the given key. The value is
-     * converted to type <tt>T</tt> if found using a {@code Converter}.
+     * converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key  the key to search.
      * @param type the type to be returned.
@@ -226,8 +226,8 @@ public interface Context {
 
     /**
      * Finds a value associated with the given key. The value is
-     * converted to type <tt>T</tt> if found using a {@code Converter}.
-     * If not found then the supplied <tt>defaultValue</tt> will be returned.
+     * converted to type {@code T} if found using a {@code Converter}.
+     * If not found then the supplied {@code defaultValue} will be returned.
      *
      * @param key          the key to search.
      * @param type         the type to be returned.

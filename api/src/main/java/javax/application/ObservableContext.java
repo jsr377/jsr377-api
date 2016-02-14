@@ -21,21 +21,21 @@ import static java.util.Objects.requireNonNull;
  * A specialization of {@code Context} that can trigger events when a key/value pair changes.
  * The following rules apply to determine if an event will be triggered:
  * <ul>
- * <strong><tt>ContextEvent.Type.ADD</tt></strong>
- * <li>The <tt>key</tt> did not exist before in this context or its parent.</li>
+ * <strong>{@code ContextEvent.Type.ADD}</strong>
+ * <li>The {@code key} did not exist before in this context or its parent.</li>
  * </ul>
  * <p>
  * <ul>
- * <strong><tt>ContextEvent.Type.UPDATE</tt></strong>
- * <li>The <tt>key</tt> is found in this context and its previous value differs from the new one.</li>
- * <li>The <tt>key</tt> is found in the parent context and its value differs from the parent's value.</li>
- * <li>A <tt>key</tt> is removed from this context; the parent context also contains <tt>key</tt> and its value differs from the value just removed from this context.</li>
+ * <strong>{@code ContextEvent.Type.UPDATE}</strong>
+ * <li>The {@code key} is found in this context and its previous value differs from the new one.</li>
+ * <li>The {@code key} is found in the parent context and its value differs from the parent's value.</li>
+ * <li>A {@code key} is removed from this context; the parent context also contains {@code key} and its value differs from the value just removed from this context.</li>
  * </ul>
  * <p>
  * <ul>
- * <strong><tt>ContextEvent.Type.REMOVE</tt></strong>
- * <li>The <tt>key</tt> is removed from this context; the <tt>key</tt> is not found in its parent context.</li>
- * <li>The <tt>key</tt> is removed from the  parent context; the <tt>key</tt> is not found in this context.</li>
+ * <strong>{@code ContextEvent.Type.REMOVE}</strong>
+ * <li>The {@code key} is removed from this context; the {@code key} is not found in its parent context.</li>
+ * <li>The {@code key} is removed from the  parent context; the {@code key} is not found in this context.</li>
  * </ul>
  *
  * @author Andres Almiray
@@ -45,7 +45,7 @@ public interface ObservableContext extends Context {
      * Registers a {@code ContextEventListener} with this Context.
      * <strong>Implementation notes:</strong>
      * <ul>
-     * <li><tt>null</tt> arguments are ignored.</li>
+     * <li>{@code null} arguments are ignored.</li>
      * <li>duplicate values are discarded.</li>
      * </ul>
      *
@@ -57,7 +57,7 @@ public interface ObservableContext extends Context {
      * UnRegisters a {@code ContextEventListener} from this {@code ObservableContext}.
      * <strong>Implementation notes:</strong>
      * <ul>
-     * <li><tt>null</tt> arguments are ignored.</li>
+     * <li>{@code null} arguments are ignored.</li>
      * <li>removing a listener that's not registered has no effect.</li>
      * </ul>
      *
@@ -74,7 +74,7 @@ public interface ObservableContext extends Context {
     ContextEventListener[] getContextEventListeners();
 
     /**
-     * A <tt>ContextEvent</tt> event gets fired whenever a context key is added, changes value, or is removed
+     * A {@code ContextEvent} event gets fired whenever a context key is added, changes value, or is removed
      * from a context or its context hierarchy.
      */
     interface ContextEventListener {
@@ -154,6 +154,15 @@ public interface ObservableContext extends Context {
         }
 
         @Override
+        public int hashCode() {
+            int result = type.hashCode();
+            result = 31 * result + key.hashCode();
+            result = 31 * result + (oldValue != null ? oldValue.hashCode() : 0);
+            result = 31 * result + (newValue != null ? newValue.hashCode() : 0);
+            return result;
+        }
+
+        @Override
         public boolean equals(Object o) {
             if (this == o) { return true; }
             if (o == null || getClass() != o.getClass()) { return false; }
@@ -164,15 +173,6 @@ public interface ObservableContext extends Context {
                 !(newValue != null ? !newValue.equals(that.newValue) : that.newValue != null) &&
                 !(oldValue != null ? !oldValue.equals(that.oldValue) : that.oldValue != null) &&
                 type == that.type;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = type.hashCode();
-            result = 31 * result + key.hashCode();
-            result = 31 * result + (oldValue != null ? oldValue.hashCode() : 0);
-            result = 31 * result + (newValue != null ? newValue.hashCode() : 0);
-            return result;
         }
 
         @Override

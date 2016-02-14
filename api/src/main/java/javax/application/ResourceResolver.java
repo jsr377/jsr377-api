@@ -25,7 +25,9 @@ public interface ResourceResolver {
      * Attempt to resolve the resource.
      *
      * @param key Key to lookup, such as 'sample.SampleModel.icon'
+     *
      * @return The resolved resource at the given key for the default locale
+     *
      * @throws NoSuchResourceException if no resource is found
      */
     <T> T resolveResource(String key) throws NoSuchResourceException;
@@ -35,7 +37,9 @@ public interface ResourceResolver {
      *
      * @param key    Key to lookup, such as 'sample.SampleModel.icon'
      * @param locale Locale in which to lookup
+     *
      * @return The resolved resource at the given key for the given locale
+     *
      * @throws NoSuchResourceException if no resource is found
      */
     <T> T resolveResource(String key, Locale locale) throws NoSuchResourceException;
@@ -46,7 +50,9 @@ public interface ResourceResolver {
      * @param key  Key to lookup, such as 'sample.SampleModel.icon'
      * @param args Arguments that will be filled in for params within the resource (params look like "{0}" within a
      *             resource, but this might differ between implementations), or null if none.
+     *
      * @return The resolved resource at the given key for the default locale
+     *
      * @throws NoSuchResourceException if no resource is found
      */
     <T> T resolveResource(String key, Object[] args) throws NoSuchResourceException;
@@ -58,7 +64,9 @@ public interface ResourceResolver {
      * @param args   Arguments that will be filled in for params within the resource (params look like "{0}" within a
      *               resource, but this might differ between implementations), or null if none.
      * @param locale Locale in which to lookup
+     *
      * @return The resolved resource at the given key for the given locale
+     *
      * @throws NoSuchResourceException if no resource is found
      */
     <T> T resolveResource(String key, Object[] args, Locale locale) throws NoSuchResourceException;
@@ -68,6 +76,7 @@ public interface ResourceResolver {
      *
      * @param key          Key to lookup, such as 'sample.SampleModel.icon'
      * @param defaultValue Message to return if the lookup fails
+     *
      * @return The resolved resource at the given key for the default locale
      */
     <T> T resolveResource(String key, T defaultValue);
@@ -78,6 +87,7 @@ public interface ResourceResolver {
      * @param key          Key to lookup, such as 'sample.SampleModel.icon'
      * @param locale       Locale in which to lookup
      * @param defaultValue Message to return if the lookup fails
+     *
      * @return The resolved resource at the given key for the given locale
      */
     <T> T resolveResource(String key, Locale locale, T defaultValue);
@@ -89,6 +99,7 @@ public interface ResourceResolver {
      * @param args         Arguments that will be filled in for params within the resource (params look like "{0}"
      *                     within a resource, but this might differ between implementations), or null if none.
      * @param defaultValue Message to return if the lookup fails
+     *
      * @return The resolved resource at the given key for the default locale
      */
     <T> T resolveResource(String key, Object[] args, T defaultValue);
@@ -101,95 +112,107 @@ public interface ResourceResolver {
      *                     within a resource, but this might differ between implementations), or null if none.
      * @param locale       Locale in which to lookup
      * @param defaultValue Message to return if the lookup fails
+     *
      * @return The resolved resource at the given key for the given locale
      */
     <T> T resolveResource(String key, Object[] args, Locale locale, T defaultValue);
 
     /**
-     * Attempt to resolve the resource. The value is converted to type <tt>T</tt> if found using a {@code Converter}.
+     * Attempt to resolve the resource. The value is converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key  Key to lookup, such as 'sample.SampleModel.icon'
      * @param type the type to be returned
+     *
      * @return The resolved resource at the given key for the default locale
+     *
      * @throws NoSuchResourceException if no resource is found
      */
     <T> T resolveResourceConverted(String key, Class<T> type) throws NoSuchResourceException;
 
     /**
-     * Attempt to resolve the resource. The value is converted to type <tt>T</tt> if found using a {@code Converter}.
+     * Attempt to resolve the resource. The value is converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key    Key to lookup, such as 'sample.SampleModel.icon'
      * @param locale Locale in which to lookup
      * @param type   the type to be returned
+     *
      * @return The resolved resource at the given key for the given locale
+     *
      * @throws NoSuchResourceException if no resource is found
      */
     <T> T resolveResourceConverted(String key, Locale locale, Class<T> type) throws NoSuchResourceException;
 
     /**
-     * Attempt to resolve the resource. The value is converted to type <tt>T</tt> if found using a {@code Converter}.
+     * Attempt to resolve the resource. The value is converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key  Key to lookup, such as 'sample.SampleModel.icon'
      * @param args Arguments that will be filled in for params within the resource (params look like "{0}" within a
      *             resource, but this might differ between implementations), or null if none.
      * @param type the type to be returned
+     *
      * @return The resolved resource at the given key for the default locale
+     *
      * @throws NoSuchResourceException if no resource is found
      */
     <T> T resolveResourceConverted(String key, Object[] args, Class<T> type) throws NoSuchResourceException;
 
     /**
-     * Attempt to resolve the resource. The value is converted to type <tt>T</tt> if found using a {@code Converter}.
+     * Attempt to resolve the resource. The value is converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key    Key to lookup, such as 'sample.SampleModel.icon'
      * @param args   Arguments that will be filled in for params within the resource (params look like "{0}" within a
      *               resource, but this might differ between implementations), or null if none.
      * @param locale Locale in which to lookup
      * @param type   the type to be returned
+     *
      * @return The resolved resource at the given key for the given locale
+     *
      * @throws NoSuchResourceException if no resource is found
      */
     <T> T resolveResourceConverted(String key, Object[] args, Locale locale, Class<T> type) throws NoSuchResourceException;
 
     /**
      * Attempt to resolve the resource. Returns default value if no resource was found.
-     * The value is converted to type <tt>T</tt> if found using a {@code Converter}.
+     * The value is converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key          Key to lookup, such as 'sample.SampleModel.icon'
      * @param defaultValue Message to return if the lookup fails
      * @param type         the type to be returned
+     *
      * @return The resolved resource at the given key for the default locale
      */
     <T> T resolveResourceConverted(String key, T defaultValue, Class<T> type);
 
     /**
      * Attempt to resolve the resource. Returns default value if no resource was found.
-     * The value is converted to type <tt>T</tt> if found using a {@code Converter}.
+     * The value is converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key          Key to lookup, such as 'sample.SampleModel.icon'
      * @param locale       Locale in which to lookup
      * @param defaultValue Message to return if the lookup fails
      * @param type         the type to be returned
+     *
      * @return The resolved resource at the given key for the given locale
      */
     <T> T resolveResourceConverted(String key, Locale locale, T defaultValue, Class<T> type);
 
     /**
      * Attempt to resolve the resource. Returns default value if no resource was found.
-     * The value is converted to type <tt>T</tt> if found using a {@code Converter}.
+     * The value is converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key          Key to lookup, such as 'sample.SampleModel.icon'
      * @param args         Arguments that will be filled in for params within the resource (params look like "{0}"
      *                     within a resource, but this might differ between implementations), or null if none.
      * @param defaultValue Message to return if the lookup fails
      * @param type         the type to be returned
+     *
      * @return The resolved resource at the given key for the default locale
      */
     <T> T resolveResourceConverted(String key, Object[] args, T defaultValue, Class<T> type);
 
     /**
      * Attempt to resolve the resource. Returns default value if no resource was found.
-     * The value is converted to type <tt>T</tt> if found using a {@code Converter}.
+     * The value is converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key          Key to lookup, such as 'sample.SampleModel.icon'
      * @param args         Arguments that will be filled in for params within the resource (params look like "{0}"
@@ -197,6 +220,7 @@ public interface ResourceResolver {
      * @param locale       Locale in which to lookup
      * @param defaultValue Message to return if the lookup fails
      * @param type         the type to be returned
+     *
      * @return The resolved resource at the given key for the given locale
      */
     <T> T resolveResourceConverted(String key, Object[] args, Locale locale, T defaultValue, Class<T> type);
@@ -207,6 +231,7 @@ public interface ResourceResolver {
      * @param resource The resource following a predefined format.
      * @param args     Arguments that will be filled in for params within the resource (params look like "{0}"
      *                 within a resource, but this might differ between implementations), or null if none.
+     *
      * @return the formatted resource with all matching placeholders with their substituted values.
      */
     String formatResource(String resource, Object[] args);
