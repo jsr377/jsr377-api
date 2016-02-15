@@ -22,7 +22,7 @@ public interface Configuration {
     /**
      * Searches for the key in this configuration.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
      *
      * @return {@code true} if the context (or its parent) contains the given key, {@code false} otherwise.
      */
@@ -33,7 +33,9 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * blindly cast to type {@code T} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, {@code null} otherwise.
      */
     <T> T get(String key);
 
@@ -42,8 +44,10 @@ public interface Configuration {
      * blindly cast to type {@code T} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
-     * @param defaultValue the value to be returned if the key is not found.
+     * @param key          the key to search. Must not be {@code null}.
+     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     <T> T get(String key, T defaultValue);
 
@@ -51,7 +55,9 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to a {@code boolean} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code false} if it was not found.
      */
     boolean getAsBoolean(String key);
 
@@ -60,8 +66,10 @@ public interface Configuration {
      * converted to a {@code boolean} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
+     * @param key          the key to search. Must not be {@code null}.
      * @param defaultValue the value to be returned if the key is not found.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     boolean getAsBoolean(String key, boolean defaultValue);
 
@@ -69,7 +77,9 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to an {@code int} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code 0} if it was not found.
      */
     int getAsInt(String key);
 
@@ -78,8 +88,10 @@ public interface Configuration {
      * converted to an {@code int} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
+     * @param key          the key to search. Must not be {@code null}.
      * @param defaultValue the value to be returned if the key is not found.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     int getAsInt(String key, int defaultValue);
 
@@ -87,7 +99,9 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to a {@code long} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code 0L} if it was not found.
      */
     long getAsLong(String key);
 
@@ -96,8 +110,10 @@ public interface Configuration {
      * converted to a {@code long} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
+     * @param key          the key to search. Must not be {@code null}.
      * @param defaultValue the value to be returned if the key is not found.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     long getAsLong(String key, long defaultValue);
 
@@ -105,7 +121,9 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to a {@code float} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code 0.0f} if it was not found.
      */
     float getAsFloat(String key);
 
@@ -114,8 +132,10 @@ public interface Configuration {
      * converted to a {@code float} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
+     * @param key          the key to search. Must not be {@code null}.
      * @param defaultValue the value to be returned if the key is not found.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     float getAsFloat(String key, float defaultValue);
 
@@ -123,7 +143,9 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to a {@code double} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code 0.0d} if it was not found.
      */
     double getAsDouble(String key);
 
@@ -132,8 +154,10 @@ public interface Configuration {
      * converted to a {@code double} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
+     * @param key          the key to search. Must not be {@code null}.
      * @param defaultValue the value to be returned if the key is not found.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     double getAsDouble(String key, double defaultValue);
 
@@ -141,7 +165,9 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to a {@code String} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the literal value associated with {@code key}, or {@code null} if it was not found.
      */
     String getAsString(String key);
 
@@ -150,8 +176,10 @@ public interface Configuration {
      * converted to a {@code String} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
-     * @param defaultValue the value to be returned if the key is not found.
+     * @param key          the key to search. Must not be {@code null}.
+     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     String getAsString(String key, String defaultValue);
 
@@ -159,8 +187,10 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to type {@code T} if found using a {@code Converter}.
      *
-     * @param key  the key to search.
-     * @param type the type to be returned.
+     * @param key  the key to search. Must not be {@code null}.
+     * @param type the type to be returned. Must not be {@code null}.
+     *
+     * @return the converted value associated with {@code key}, or {@code null} if it was not found.
      */
     <T> T getConverted(String key, Class<T> type);
 
@@ -169,9 +199,11 @@ public interface Configuration {
      * converted to type {@code T} if found using a {@code Converter}.
      * If not found then the supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
-     * @param type         the type to be returned.
-     * @param defaultValue the value to be returned if the key is not found.
+     * @param key          the key to search. Must not be {@code null}.
+     * @param type         the type to be returned. Must not be {@code null}.
+     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
+     *
+     * @return the converted value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     <T> T getConverted(String key, Class<T> type, T defaultValue);
 }

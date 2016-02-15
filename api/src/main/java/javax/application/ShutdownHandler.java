@@ -23,16 +23,16 @@ public interface ShutdownHandler {
      * Asks this handler if the application's shutdown sequence can proceed or not.<p>
      * Return {@code false} if the shutdown sequence must be aborted.
      *
-     * @param application the current running application
+     * @param application the current running application. Must not be {@code null}.
      *
      * @return true if the shutdown sequence can proceed, false otherwise
      */
     boolean canShutdown(Application application);
 
     /**
-     * Called when the shutdown sequence continues
+     * Called when the shutdown sequence continues.
      *
-     * @param application the current running application
+     * @param application the current running application. Must not be {@code null}.
      */
     void onShutdown(Application application);
 }

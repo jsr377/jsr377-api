@@ -31,8 +31,8 @@ public class NoSuchMessageException extends RuntimeException {
     /**
      * Create a new exception.
      *
-     * @param key    key that could not be resolved for given locale
-     * @param locale locale that was used to search for the code within
+     * @param key    key that could not be resolved for given locale. Must not be {@code null}.
+     * @param locale locale that was used to search for the code within. Must not be {@code null}.
      */
     public NoSuchMessageException(String key, Locale locale) {
         this(key, locale, null);
@@ -41,7 +41,7 @@ public class NoSuchMessageException extends RuntimeException {
     /**
      * Create a new exception.
      *
-     * @param key key that could not be resolved for given locale
+     * @param key key that could not be resolved for given locale. Must not be {@code null}.
      */
     public NoSuchMessageException(String key) {
         this(key, Locale.getDefault());
@@ -50,8 +50,8 @@ public class NoSuchMessageException extends RuntimeException {
     /**
      * Create a new exception.
      *
-     * @param key   key that could not be resolved for given locale
-     * @param cause throwable that caused this exception
+     * @param key   key that could not be resolved for given locale. Must not be {@code null}.
+     * @param cause throwable that caused this exception. May be {@code null}.
      */
     public NoSuchMessageException(String key, Throwable cause) {
         this(key, Locale.getDefault(), cause);
@@ -60,9 +60,9 @@ public class NoSuchMessageException extends RuntimeException {
     /**
      * Create a new exception.
      *
-     * @param key    key that could not be resolved for given locale
-     * @param locale locale that was used to search for the code within
-     * @param cause  throwable that caused this exception
+     * @param key    key that could not be resolved for given locale. Must not be {@code null}.
+     * @param locale locale that was used to search for the code within. Must not be {@code null}.
+     * @param cause  throwable that caused this exception. May be {@code null}.
      */
     public NoSuchMessageException(String key, Locale locale, Throwable cause) {
         super("No message found under key '" + requireNonNull(key, "key") + "' for locale '" + requireNonNull(locale, "locale") + "'.", cause);
@@ -73,7 +73,7 @@ public class NoSuchMessageException extends RuntimeException {
     /**
      * Get the key without a valid value
      *
-     * @return The key
+     * @return The key. Never returns {@code null}.
      */
     public String getKey() {
         return key;
@@ -82,7 +82,7 @@ public class NoSuchMessageException extends RuntimeException {
     /**
      * Get the locale without a valid value
      *
-     * @return The locale
+     * @return The locale. Never returns {@code null}.
      */
     public Locale getLocale() {
         return locale;

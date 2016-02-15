@@ -21,57 +21,81 @@ import java.util.Locale;
  * @author Andres Almiray
  */
 public interface Application {
+    /**
+     * Lifecycle method. Signals the application to bootstrap itself and load its configuration.
+     * {@code ApplicationPhase} should be set automatically to {@code ApplicationPhase.INITIALIZE}.
+     */
     void initialize();
 
+    /**
+     * Lifecycle method. Signals the application to assemble its components/artifacts.
+     * {@code ApplicationPhase} should be set automatically to {@code ApplicationPhase.STARTUP}.
+     */
     void startup();
 
+    /**
+     * Lifecycle method. Signals the application to display its main entry point (Window).
+     * {@code ApplicationPhase} should be set automatically to {@code ApplicationPhase.READY}, followed
+     * immediately with {@code ApplicationPhase.MAIN} once the ready sequence has finished.
+     */
     void ready();
 
+    /**
+     * Lifecycle method. Shutdowns the application gracefully.
+     * {@code ApplicationPhase} should be set automatically to {@code ApplicationPhase.SHUTDOWN}.
+     *
+     * @return the exit code that may be sent to the underlying platform process as exit value.
+     */
     ExitState shutdown();
 
     /**
-     * Queries any available ShutdownHandlers.
+     * Queries any available {@code ShutdownHandler}s do determine if the application can be shutdown.
      *
-     * @return true if the shutdown sequence can proceed, false otherwise
+     * @return {@code true} if the shutdown sequence can proceed, (@code false} otherwise
      */
     boolean canShutdown();
 
     /**
-     * Registers a ShutdownHandler on this application
+     * Registers a {@code ShutdownHandler} on this application
      *
-     * @param handler the shutdown handler to be registered; null and/or
-     *                duplicated values should be ignored
+     * @param handler the shutdown handler to be registered; {@code null} and/or
+     *                duplicate values must be ignored.
      */
     void addShutdownHandler(ShutdownHandler handler);
 
     /**
-     * Removes a ShutdownHandler from this application
+     * Removes a {@code ShutdownHandler} from this application
      *
-     * @param handler the shutdown handler to be removed; null and/or
-     *                duplicated values should be ignored
+     * @param handler the shutdown handler to be removed; {@code null} and/or
+     *                duplicate values must be ignored.
      */
     void removeShutdownHandler(ShutdownHandler handler);
 
+    /**
+     * Retrieves the {@code Configuration} of this application.
+     *
+     * @return the {@code Configuration} used by this application.
+     */
     Configuration getConfiguration();
 
     /**
      * Returns the current phase.
      *
-     * @return returns the current ApplicationPhase. Never returns null.
+     * @return returns the current {@code ApplicationPhase}. Never returns {@code null}.
      */
     ApplicationPhase getPhase();
 
     /**
      * Gets the application locale.
      *
-     * @return the current Locale used by the application. Never returns null.
+     * @return the current Locale used by the application. Never returns {@code null}.
      */
     Locale getLocale();
 
     /**
      * Returns the arguments set on the command line (if any).<p>
      *
-     * @return an array of command line arguments. Never returns null.
+     * @return an array of command line arguments. Never returns {@code null}.
      */
     String[] getStartupArguments();
 }

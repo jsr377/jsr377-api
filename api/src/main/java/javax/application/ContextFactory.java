@@ -24,9 +24,10 @@ public interface ContextFactory {
     /**
      * Creates a new {@code Context} with an optional parent {@code Context}.
      *
-     * @param parentContext the parent {@code Context}, may be {@code null}.
+     * @param parentContext the parent {@code Context}. May be {@code null}.
      *
-     * @return a non-null instance of {@code Context} whose {@code parentContext} is set to the given argument.
+     * @return an instance of {@code Context} whose {@code parentContext} is set to the given argument.
+     * Never returns {@code null}.
      */
     Context create(Context parentContext);
 }

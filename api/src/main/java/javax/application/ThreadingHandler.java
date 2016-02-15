@@ -28,21 +28,29 @@ public interface ThreadingHandler {
 
     /**
      * Executes a code block asynchronously on the UI thread.
+     *
+     * @param runnable block of code that must be executed. Must not be {@code null}.
      */
     void runInsideUIAsync(Runnable runnable);
 
     /**
      * Executes a code block synchronously on the UI thread.
+     *
+     * @param runnable block of code that must be executed. Must not be {@code null}.
      */
     void runInsideUISync(Runnable runnable);
 
     /**
      * Executes a code block synchronously on the UI thread.
+     *
+     * @param callable block of code that must be executed. Must not be {@code null}.
      */
     <R> R runInsideUISync(Callable<R> callable);
 
     /**
      * Executes a code block outside of the UI thread.
+     *
+     * @param runnable block of code that must be executed. Must not be {@code null}.
      */
     void runOutsideUI(Runnable runnable);
 }

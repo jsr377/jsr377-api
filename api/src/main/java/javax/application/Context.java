@@ -24,7 +24,7 @@ public interface Context {
     /**
      * Searches for the key in this context and its hierarchy.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
      *
      * @return {@code true} if the context (or its parent) contains the given key, {@code false} otherwise.
      */
@@ -33,7 +33,7 @@ public interface Context {
     /**
      * Searches for the key in this context only.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
      *
      * @return {@code true} if the context contains the given key, {@code false} otherwise.
      */
@@ -43,7 +43,7 @@ public interface Context {
      * Removes a key from this context. Does not affect the context's hierarchy.
      * Blindly casts the returned value.
      *
-     * @param key the key to be removed.
+     * @param key the key to be removed. Must not be {@code null}.
      *
      * @return the value associated with the key or {@code null} if there wasn't any value.
      */
@@ -53,8 +53,8 @@ public interface Context {
      * Removes a key from this context. Does not affect the context's hierarchy. The value is
      * converted to type {@code T} if found using a {@code PropertyEditor}.
      *
-     * @param key  the key to be removed.
-     * @param type the type to be returned.
+     * @param key  the key to be removed. Must not be {@code null}.
+     * @param type the type to be returned. Must not be {@code null}.
      *
      * @return the value associated with the key or {@code null} if there wasn't any value.
      */
@@ -65,8 +65,8 @@ public interface Context {
      * key matches a parent key then the value will shadow the parent's, that is, the parent
      * value will not be overwritten.
      *
-     * @param key   the key to be registered.
-     * @param value the value to save.
+     * @param key   the key to be registered. Must not be {@code null}.
+     * @param value the value to save. May be {@code null}.
      */
     <T> void put(String key, T value);
 
@@ -75,7 +75,9 @@ public interface Context {
      * Finds a value associated with the given key. The value is
      * blindly cast to type {@code T} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, {@code null} otherwise.
      */
     <T> T get(String key);
 
@@ -84,8 +86,10 @@ public interface Context {
      * blindly cast to type {@code T} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
-     * @param defaultValue the value to be returned if the key is not found.
+     * @param key          the key to search. Must not be {@code null}.
+     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     <T> T get(String key, T defaultValue);
 
@@ -96,13 +100,15 @@ public interface Context {
 
     /**
      * Returns the parent {@code Context} if it exists.
+     *
+     * @return the parent context if it exists, {@code null} otherwise.
      */
     Context getParentContext();
 
     /**
      * Returns a {@link Set} view of the keys contained in this context.
      *
-     * @return a set view of the keys contained in this map
+     * @return a set view of the keys contained in this map. Never returns {@code null}.
      */
     Set<String> keySet();
 
@@ -110,7 +116,9 @@ public interface Context {
      * Finds a value associated with the given key. The value is
      * converted to a {@code boolean} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code false} if it was not found.
      */
     boolean getAsBoolean(String key);
 
@@ -119,8 +127,10 @@ public interface Context {
      * converted to a {@code boolean} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
-     * @param defaultValue the value to be returned if the key is not found.
+     * @param key          the key to search. Must not be {@code null}.
+     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     boolean getAsBoolean(String key, boolean defaultValue);
 
@@ -128,7 +138,9 @@ public interface Context {
      * Finds a value associated with the given key. The value is
      * converted to an {@code int} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code 0} if it was not found.
      */
     int getAsInt(String key);
 
@@ -137,8 +149,10 @@ public interface Context {
      * converted to an {@code int} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
+     * @param key          the key to search. Must not be {@code null}.
      * @param defaultValue the value to be returned if the key is not found.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     int getAsInt(String key, int defaultValue);
 
@@ -146,7 +160,9 @@ public interface Context {
      * Finds a value associated with the given key. The value is
      * converted to a {@code long} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code 0L} if it was not found.
      */
     long getAsLong(String key);
 
@@ -155,8 +171,10 @@ public interface Context {
      * converted to a {@code long} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
+     * @param key          the key to search. Must not be {@code null}.
      * @param defaultValue the value to be returned if the key is not found.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     long getAsLong(String key, long defaultValue);
 
@@ -164,7 +182,9 @@ public interface Context {
      * Finds a value associated with the given key. The value is
      * converted to a {@code float} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code 0.0f} if it was not found.
      */
     float getAsFloat(String key);
 
@@ -173,8 +193,10 @@ public interface Context {
      * converted to a {@code float} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
+     * @param key          the key to search. Must not be {@code null}.
      * @param defaultValue the value to be returned if the key is not found.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     float getAsFloat(String key, float defaultValue);
 
@@ -182,7 +204,9 @@ public interface Context {
      * Finds a value associated with the given key. The value is
      * converted to a {@code double} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code 0.0d} if it was not found.
      */
     double getAsDouble(String key);
 
@@ -191,8 +215,10 @@ public interface Context {
      * converted to a {@code double} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
+     * @param key          the key to search. Must not be {@code null}.
      * @param defaultValue the value to be returned if the key is not found.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     double getAsDouble(String key, double defaultValue);
 
@@ -200,7 +226,9 @@ public interface Context {
      * Finds a value associated with the given key. The value is
      * converted to a {@code String} if found.
      *
-     * @param key the key to search.
+     * @param key the key to search. Must not be {@code null}.
+     *
+     * @return the literal value associated with {@code key}, or {@code null} if it was not found.
      */
     String getAsString(String key);
 
@@ -209,8 +237,10 @@ public interface Context {
      * converted to a {@code String} if found. If not found then the
      * supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
-     * @param defaultValue the value to be returned if the key is not found.
+     * @param key          the key to search. Must not be {@code null}.
+     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     String getAsString(String key, String defaultValue);
 
@@ -219,8 +249,10 @@ public interface Context {
      * Finds a value associated with the given key. The value is
      * converted to type {@code T} if found using a {@code Converter}.
      *
-     * @param key  the key to search.
-     * @param type the type to be returned.
+     * @param key  the key to search. Must not be {@code null}.
+     * @param type the type to be returned. Must not be {@code null}.
+     *
+     * @return the converted value associated with {@code key}, or {@code null} if it was not found.
      */
     <T> T getConverted(String key, Class<T> type);
 
@@ -229,19 +261,21 @@ public interface Context {
      * converted to type {@code T} if found using a {@code Converter}.
      * If not found then the supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search.
-     * @param type         the type to be returned.
-     * @param defaultValue the value to be returned if the key is not found.
+     * @param key          the key to search. Must not be {@code null}.
+     * @param type         the type to be returned. Must not be {@code null}.
+     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
+     *
+     * @return the converted value associated with {@code key}, or {@code defaultValue} if it was not found.
      */
     <T> T getConverted(String key, Class<T> type, T defaultValue);
 
     /**
      * Inject properties and members annotated with {@code javax.application.Contextual}.
      *
-     * @param instance the instance on which contextual members will be injected.
+     * @param instance the instance on which contextual members will be injected. Must not be {@code null}.
      * @param <T>      the type of the instance.
      *
-     * @return the instance on which contextual members where injected.
+     * @return the instance on which contextual members where injected. Never returns {@code null}.
      */
     <T> T injectMembers(T instance);
 }

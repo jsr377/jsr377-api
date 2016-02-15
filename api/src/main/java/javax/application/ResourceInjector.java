@@ -19,5 +19,11 @@ package javax.application;
  * @author Andres Almiray
  */
 public interface ResourceInjector {
+    /**
+     * Performs resource injection into the given instance. Candidates for resource injection must be annotated with
+     * {@code @javax.annotation.InjectedResource}.
+     *
+     * @param instance the instance on which resource injection will be executed. Must not be {@code null}.
+     */
     void injectResources(Object instance);
 }

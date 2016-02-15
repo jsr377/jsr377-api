@@ -43,25 +43,17 @@ import static java.util.Objects.requireNonNull;
 public interface ObservableContext extends Context {
     /**
      * Registers a {@code ContextEventListener} with this Context.
-     * <strong>Implementation notes:</strong>
-     * <ul>
-     * <li>{@code null} arguments are ignored.</li>
-     * <li>duplicate values are discarded.</li>
-     * </ul>
      *
-     * @param listener the listener to be added.
+     * @param listener the listener to be added; {@code null} and/or
+     *                 duplicate values must be ignored.
      */
     void addContextEventListener(ContextEventListener listener);
 
     /**
      * UnRegisters a {@code ContextEventListener} from this {@code ObservableContext}.
-     * <strong>Implementation notes:</strong>
-     * <ul>
-     * <li>{@code null} arguments are ignored.</li>
-     * <li>removing a listener that's not registered has no effect.</li>
-     * </ul>
      *
-     * @param listener the listener to be removed.
+     * @param listener the listener to be removed; {@code null} and/or
+     *                 duplicate values must be ignored.
      */
     void removeContextEventListener(ContextEventListener listener);
 
@@ -69,7 +61,7 @@ public interface ObservableContext extends Context {
      * Returns an array of all the listeners that were added to this {@code ObservableContext}.
      *
      * @return all of the <code>ContextEventListener</code> added or an
-     * empty array if no listeners have been added.
+     * empty array if no listeners have been added. Never returns {@code null}.
      */
     ContextEventListener[] getContextEventListeners();
 
@@ -81,7 +73,7 @@ public interface ObservableContext extends Context {
         /**
          * Handle value changes published by instances of {@code ObservableContext}.
          *
-         * @param contextEvent an event triggered when the value of a context key changed.
+         * @param contextEvent an event triggered when the value of a context key changed. Must not be {@code null}.
          */
         void contextChanged(ContextEvent contextEvent);
     }
@@ -108,10 +100,10 @@ public interface ObservableContext extends Context {
         /**
          * Constructs a new {@code ContextEvent}.
          *
-         * @param type     the type of event
-         * @param key      the programmatic name of the key that was changed
-         * @param oldValue the old value of the key
-         * @param newValue the new value of the key
+         * @param type     the type of event. Must not be {@code null}.
+         * @param key      the programmatic name of the key that was changed. Must not be {@code null}.
+         * @param oldValue the old value of the key. May be {@code null}.
+         * @param newValue the new value of the key. May be {@code null}.
          *
          * @throws NullPointerException if either {@code type} or {@code key} are {@code null}.
          */
@@ -122,6 +114,11 @@ public interface ObservableContext extends Context {
             this.newValue = newValue;
         }
 
+        /**
+         * Gets the type of this event.
+         *
+         * @return One of {@code ADD}, {@code UPDATE}, or {@code REMOVE}. Never returns {@code null}.
+         */
         public Type getType() {
             return type;
         }
@@ -129,7 +126,7 @@ public interface ObservableContext extends Context {
         /**
          * Gets the programmatic name of the key that was changed.
          *
-         * @return The programmatic name of the key that was changed.
+         * @return The programmatic name of the key that was changed. Never returns {@code null}.
          */
         public String getKey() {
             return key;
@@ -138,7 +135,7 @@ public interface ObservableContext extends Context {
         /**
          * Gets the new value for the key, expressed as an Object.
          *
-         * @return The new value for the key, expressed as an Object.
+         * @return The new value for the key, expressed as an Object. May be {@code null}.
          */
         public Object getOldValue() {
             return oldValue;
@@ -147,7 +144,7 @@ public interface ObservableContext extends Context {
         /**
          * Gets the old value for the key, expressed as an Object.
          *
-         * @return The old value for the key, expressed as an Object.
+         * @return The old value for the key, expressed as an Object. May be {@code null}.
          */
         public Object getNewValue() {
             return newValue;
@@ -187,7 +184,7 @@ public interface ObservableContext extends Context {
         }
 
         /**
-         *
+         * Describes the type of a {@code ContextEvent}.
          */
         public enum Type {
             ADD,

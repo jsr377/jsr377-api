@@ -19,5 +19,12 @@ package javax.application;
  * @author Andres Almiray
  */
 public interface Converter<FROM, TO> {
-    TO convert(FROM object);
+    /**
+     * Converts the input argument of type {@code FROM} to the given type {@code TO}.
+     *
+     * @param value the value to be converted. May be {@code null}.
+     *
+     * @return the converted value. May be {@code null}.
+     */
+    TO convert(FROM value);
 }
