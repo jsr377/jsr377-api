@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application.resources;
+package javax.application.converter;
 
 /**
  * @author Andres Almiray
  */
-public interface ResourceInjector {
-    /**
-     * Performs resource injection into the given instance. Candidates for resource injection must be annotated with
-     * {@code @javax.annotation.resources.InjectedResource}.
-     *
-     * @param instance the instance on which resource injection will be executed. Must not be {@code null}.
-     */
-    void injectResources(Object instance);
+public class NoopConverter implements Converter<Object, Object> {
+    @Override
+    public Object convert(Object value) {
+        return value;
+    }
 }

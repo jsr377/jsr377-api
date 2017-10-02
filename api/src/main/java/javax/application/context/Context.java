@@ -15,6 +15,7 @@
  */
 package javax.application.context;
 
+import javax.application.converter.ConversionException;
 import java.util.Set;
 
 /**
@@ -46,6 +47,8 @@ public interface Context {
      * @param key the key to be removed. Must not be {@code null}.
      *
      * @return the value associated with the key or {@code null} if there wasn't any value.
+     *
+     * @throws ClassCastException if the value is not of the expected type.
      */
     <T> T remove(String key);
 
@@ -57,6 +60,8 @@ public interface Context {
      * @param type the type to be returned. Must not be {@code null}.
      *
      * @return the value associated with the key or {@code null} if there wasn't any value.
+     *
+     * @throws ClassCastException if the value is not of the expected type.
      */
     <T> T removeConverted(String key, Class<T> type);
 
@@ -78,6 +83,8 @@ public interface Context {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, {@code null} otherwise.
+     *
+     * @throws ClassCastException if the value is not of the expected type.
      */
     <T> T get(String key);
 
@@ -90,6 +97,8 @@ public interface Context {
      * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ClassCastException if the value is not of the expected type.
      */
     <T> T get(String key, T defaultValue);
 
@@ -119,6 +128,8 @@ public interface Context {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code false} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to a {@code boolean}.
      */
     boolean getAsBoolean(String key);
 
@@ -131,6 +142,8 @@ public interface Context {
      * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to a {@code boolean}.
      */
     boolean getAsBoolean(String key, boolean defaultValue);
 
@@ -141,6 +154,8 @@ public interface Context {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code 0} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to an {@code int}.
      */
     int getAsInt(String key);
 
@@ -153,6 +168,8 @@ public interface Context {
      * @param defaultValue the value to be returned if the key is not found.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to an {@code int}.
      */
     int getAsInt(String key, int defaultValue);
 
@@ -163,6 +180,8 @@ public interface Context {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code 0L} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to a {@code long}.
      */
     long getAsLong(String key);
 
@@ -175,6 +194,8 @@ public interface Context {
      * @param defaultValue the value to be returned if the key is not found.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to a {@code long}.
      */
     long getAsLong(String key, long defaultValue);
 
@@ -185,6 +206,8 @@ public interface Context {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code 0.0f} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to a {@code float}.
      */
     float getAsFloat(String key);
 
@@ -197,6 +220,8 @@ public interface Context {
      * @param defaultValue the value to be returned if the key is not found.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to a {@code float}.
      */
     float getAsFloat(String key, float defaultValue);
 
@@ -207,6 +232,8 @@ public interface Context {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code 0.0d} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to a {@code double}.
      */
     double getAsDouble(String key);
 
@@ -219,6 +246,8 @@ public interface Context {
      * @param defaultValue the value to be returned if the key is not found.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to a {@code double}.
      */
     double getAsDouble(String key, double defaultValue);
 
@@ -253,6 +282,8 @@ public interface Context {
      * @param type the type to be returned. Must not be {@code null}.
      *
      * @return the converted value associated with {@code key}, or {@code null} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type);
 
@@ -266,6 +297,8 @@ public interface Context {
      * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
      *
      * @return the converted value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the value could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type, T defaultValue);
 
@@ -275,7 +308,7 @@ public interface Context {
      * @param instance the instance on which contextual members will be injected. Must not be {@code null}.
      * @param <T>      the type of the instance.
      *
-     * @return the instance on which contextual members where injected. Never returns {@code null}.
+     * @return the instance on which contextual members were injected. Never returns {@code null}.
      */
     <T> T injectMembers(T instance);
 }

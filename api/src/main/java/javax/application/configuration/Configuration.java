@@ -15,6 +15,8 @@
  */
 package javax.application.configuration;
 
+import javax.application.converter.ConversionException;
+
 /**
  * @author Andres Almiray
  */
@@ -36,6 +38,8 @@ public interface Configuration {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, {@code null} otherwise.
+     *
+     * @throws ClassCastException if the value is not of the expected type.
      */
     <T> T get(String key);
 
@@ -48,6 +52,8 @@ public interface Configuration {
      * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ClassCastException if the value is not of the expected type.
      */
     <T> T get(String key, T defaultValue);
 
@@ -58,6 +64,8 @@ public interface Configuration {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code false} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to a {@code boolean}.
      */
     boolean getAsBoolean(String key);
 
@@ -70,6 +78,8 @@ public interface Configuration {
      * @param defaultValue the value to be returned if the key is not found.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to a {@code boolean}.
      */
     boolean getAsBoolean(String key, boolean defaultValue);
 
@@ -80,6 +90,8 @@ public interface Configuration {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code 0} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to an {@code int}.
      */
     int getAsInt(String key);
 
@@ -92,6 +104,8 @@ public interface Configuration {
      * @param defaultValue the value to be returned if the key is not found.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to an {@code int}.
      */
     int getAsInt(String key, int defaultValue);
 
@@ -102,6 +116,8 @@ public interface Configuration {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code 0L} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to a {@code long}.
      */
     long getAsLong(String key);
 
@@ -114,6 +130,8 @@ public interface Configuration {
      * @param defaultValue the value to be returned if the key is not found.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to a {@code long}.
      */
     long getAsLong(String key, long defaultValue);
 
@@ -124,6 +142,8 @@ public interface Configuration {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code 0.0f} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to a {@code float}.
      */
     float getAsFloat(String key);
 
@@ -136,6 +156,8 @@ public interface Configuration {
      * @param defaultValue the value to be returned if the key is not found.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to a {@code float}.
      */
     float getAsFloat(String key, float defaultValue);
 
@@ -146,6 +168,8 @@ public interface Configuration {
      * @param key the key to search. Must not be {@code null}.
      *
      * @return the value associated with {@code key}, or {@code 0.0d} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to a {@code double}.
      */
     double getAsDouble(String key);
 
@@ -158,6 +182,8 @@ public interface Configuration {
      * @param defaultValue the value to be returned if the key is not found.
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to a {@code double}.
      */
     double getAsDouble(String key, double defaultValue);
 
@@ -187,8 +213,12 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to type {@code T} if found using a {@code Converter}.
      *
-     * @param key  the key to search
-     * @param type the type to be returned
+     * @param key  the key to search. Must not be {@code null}.
+     * @param type the type to be returned. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type);
 
@@ -196,9 +226,13 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to type {@code T}if found using a {@code Converter}.
      *
-     * @param key    the key to search
-     * @param type   the type to be returned
-     * @param format format used to convert the value
+     * @param key    the key to search. Must not be {@code null}.
+     * @param type   the type to be returned. Must not be {@code null}.
+     * @param format format used to convert the value. Must not be {@code null}.
+     *
+     * @return the value associated with {@code key}, {@code null} otherwise.
+     *
+     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type, String format);
 
@@ -207,9 +241,13 @@ public interface Configuration {
      * converted to type {@code T} if found using a {@code Converter}.
      * If not found then the supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search
-     * @param type         the type to be returned
-     * @param defaultValue the value to be returned if the key is not found
+     * @param key          the key to search. Must not be {@code null}.
+     * @param type         the type to be returned. Must not be {@code null}.
+     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type, T defaultValue);
 
@@ -218,10 +256,14 @@ public interface Configuration {
      * converted to type {@code T} if found using a {@code Converter}.
      * If not found then the supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search
-     * @param type         the type to be returned
-     * @param format       format used to convert the value
-     * @param defaultValue the value to be returned if the key is not found
+     * @param key          the key to search. Must not be {@code null}.
+     * @param type         the type to be returned. Must not be {@code null}.
+     * @param format       format used to convert the value. Must not be {@code null}.
+     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
+     *
+     * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
+     *
+     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type, String format, T defaultValue);
 }

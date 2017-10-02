@@ -15,8 +15,8 @@
  */
 package javax.application.resources;
 
-import javax.application.Converter;
-import javax.application.NoopConverter;
+import javax.application.converter.Converter;
+import javax.application.converter.NoopConverter;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

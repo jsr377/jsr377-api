@@ -13,14 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
-
-/**
- * @author Andres Almiray
- */
-public class NoopConverter implements Converter<Object, Object> {
-    @Override
-    public Object convert(Object value) {
-        return value;
-    }
-}
+package javax.application.converter;
