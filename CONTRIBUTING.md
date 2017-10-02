@@ -1,16 +1,21 @@
-= Contribution Guidelines
+# Contribution Guidelines
 
 We love to see contributions to the project and have tried to make it easy to
 do so, for example by keeping its scope small and the code equally so. If you
 wish to contribute code, then please keep to the following guidelines to
 ensure consistency within the codebase and that we have happy users.
 
-== Philosophy
+## Conribution License Agreement
+
+Please make sure to sign the [JSR-377 CLA](https://www.clahub.com/agreements/jsr377/jsr377-api) first if you want to make
+any contributions to the specification.
+
+## Philosophy
 
 Our approach to the project is to keep it small and narrowly focused. Expect new
 features to be discussed in-depth before being accepted (or rejected).
 
-== Documentation
+## Documentation
 
 If you contribute anything that changes the behaviour of the application,
 document it in the README! This includes new features, additional variants
@@ -19,7 +24,7 @@ of behaviour and breaking changes.
 Make a note of breaking changes in the pull request because they will need
 to go into the release notes.
 
-== Commit messages
+## Commit messages
 
 It may seem anal to request a particular format for commit messages, but these
 are a historical record of what's happening in the code base and consistency
@@ -46,7 +51,7 @@ Here's an example git message:
 > Fixes issue #3. The examples for async and sync usages were mixed up.
 > Also, fixed a few typos.
 
-== Formatting
+## Formatting
 
 The rules are simple: use the same formatting as the rest of the code. The
 following is a list of the styles we are particularly particular about:
