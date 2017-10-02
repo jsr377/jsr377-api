@@ -74,6 +74,7 @@ subprojects { subproj ->
         subproj.tasks.withType(JavaCompile) {
             sourceCompatibility = rootProject.sourceCompatibility
             targetCompatibility = rootProject.sourceCompatibility
+            options.compilerArgs = ['-Xlint:all', '-Xlint:deprecation', '-Xlint:unchecked']
         }
 
         dependencies {

@@ -40,5 +40,5 @@ public @interface InjectedResource {
 
     String format() default "";
 
-    Class<? extends Converter> converter() default NoopConverter.class;
+    Class<? extends Converter<?, ?>> converter() default NoopConverter.class;
 }
