@@ -59,23 +59,23 @@ public interface Application {
     /**
      * Registers a {@code ShutdownHandler} on this application
      *
-     * @param handler the shutdown handler to be registered; {@code null} and/or
-     *                duplicate values must be ignored.
+     * @param handler the shutdown handler to be registered. Must not be {@code null}.
+     *                Duplicate values must be ignored.
      */
     void addShutdownHandler(ShutdownHandler handler);
 
     /**
      * Removes a {@code ShutdownHandler} from this application
      *
-     * @param handler the shutdown handler to be removed; {@code null} and/or
-     *                duplicate values must be ignored.
+     * @param handler the shutdown handler to be removed. Must not be {@code null}.
+     *                Duplicate values must be ignored.
      */
     void removeShutdownHandler(ShutdownHandler handler);
 
     /**
      * Retrieves the {@code Configuration} of this application.
      *
-     * @return the {@code Configuration} used by this application.
+     * @return the {@code Configuration} used by this application. Never returns {@code null}.
      */
     Configuration getConfiguration();
 

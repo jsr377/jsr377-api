@@ -25,7 +25,7 @@ public interface ActionHandler {
      * Update the action's properties.
      * <p/>
      *
-     * @param action the action to be updated
+     * @param action the action to be updated. Must not be {@code null}.
      */
     void update(Action action);
 
@@ -36,8 +36,8 @@ public interface ActionHandler {
      * required by the action. handlers have the option to cache such inspections
      * and recall them during {@code before()}, {@code after()} and {@code exception()}.
      *
-     * @param action the action to be configured
-     * @param method the method that represents the action itself
+     * @param action the action to be configured. Must not be {@code null}.
+     * @param method the method that represents the action itself. Must not be {@code null}.
      */
     void configure(Action action, Method method);
 
@@ -50,8 +50,8 @@ public interface ActionHandler {
      * to modify the arguments as it deem necessary. Failure to return an appropriate
      * value will most likely cause an error during the action's execution.
      *
-     * @param action the action to execute
-     * @param args   the action's arguments
+     * @param action the action to execute. Must not be {@code null}.
+     * @param args   the action's arguments. Must not be {@code null}.
      *
      * @return arguments to be sent to the action
      *
@@ -64,10 +64,10 @@ public interface ActionHandler {
      * occurred during execution.
      * <p/>
      *
-     * @param status a flag that indicates the execution status of the action
-     * @param action the action to execute
-     * @param args   the arguments sent to the action
-     * @param result the result of executing the action
+     * @param status a flag that indicates the execution status of the action. Must not be {@code null}.
+     * @param action the action to execute. Must not be {@code null}.
+     * @param args   the arguments sent to the action. Must not be {@code null}.
+     * @param result the result of executing the action. May be {@code null}.
      */
     Object after(ActionExecutionStatus status, Action action, Object[] args, Object result);
 
@@ -78,12 +78,12 @@ public interface ActionHandler {
      * The exception will be rethrown by the ActionManager if is not handled by
      * any interceptor.
      *
-     * @param exception the exception thrown during the action's execution
-     * @param action    the action to execute
-     * @param args      the arguments sent to the action during execution
+     * @param exception the exception thrown during the action's execution. Must not be {@code null}.
+     * @param action    the action to execute. Must not be {@code null}.
+     * @param args      the arguments sent to the action during execution. Must not be {@code null}.
      *
-     * @return <code>true</code> if the exception was handled successfully,
-     * <code>false</code> otherwise.
+     * @return {@code true} if the exception was handled successfully,
+     * {@code false} otherwise.
      */
     boolean exception(Exception exception, Action action, Object[] args);
 }

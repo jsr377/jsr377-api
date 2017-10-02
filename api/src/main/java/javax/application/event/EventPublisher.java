@@ -27,15 +27,15 @@ public interface EventPublisher {
     /**
      * Adds an event handler.<p>
      *
-     * @param handler an event handler
+     * @param handler an event handler. Must not be {@code null}.
      */
     void addEventHandler(Object handler);
 
     /**
      * Adds a {@code Consumer} as event handler.<p>
      *
-     * @param eventType    the type of the event
-     * @param eventHandler an event handler
+     * @param eventType    the type of the event. Must not be {@code null}.
+     * @param eventHandler an event handler. Must not be {@code null}.
      * @param eventFilters event filters to be applied (if any)
      */
     <E> void addEventHandler(Class<E> eventType, Consumer<? extends E> eventHandler, Consumer<? extends E>... eventFilters);
@@ -43,15 +43,15 @@ public interface EventPublisher {
     /**
      * Removes an event handler.<p>
      *
-     * @param handler an event handler
+     * @param handler an event handler. Must not be {@code null}.
      */
     void removeEventHandler(Object handler);
 
     /**
      * Removes a {@code Consumer} as an event handler.<p>
      *
-     * @param eventType    the type of the event
-     * @param eventHandler an event handler
+     * @param eventType    the type of the event. Must not be {@code null}.
+     * @param eventHandler an event handler. Must not be {@code null}.
      */
     <E> void removeEventHandler(Class<E> eventType, Consumer<? extends E> eventHandler);
 
@@ -59,7 +59,7 @@ public interface EventPublisher {
      * Publishes an event.<p>
      * Handlers will be notified in the same thread as the publisher.
      *
-     * @param event the event to be published
+     * @param event the event to be published. Must not be {@code null}.
      */
     <E> void publishEvent(E event);
 
@@ -67,7 +67,7 @@ public interface EventPublisher {
      * Publishes an event.<p>
      * Handlers will be notified in a different thread.
      *
-     * @param event the event to be published
+     * @param event the event to be published. Must not be {@code null}.
      */
     <E> void publishEventAsync(E event);
 }
