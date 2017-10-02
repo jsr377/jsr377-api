@@ -13,13 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.action;
 
 /**
  * @author Andres Almiray
  */
-public interface ExitState {
-    int exitCode();
+public interface Action {
+    String KEY_ENABLED = "enabled";
 
-    boolean canShutdown();
+    ActionMetadata getActionMetadata();
+
+    Object getOwner();
+
+    boolean isEnabled();
+
+    void setEnabled(boolean enabled);
+
+    void execute(Object... args);
 }

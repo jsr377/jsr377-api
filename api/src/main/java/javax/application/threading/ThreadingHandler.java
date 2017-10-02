@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.threading;
 
 import java.util.concurrent.Callable;
 
@@ -49,8 +49,19 @@ public interface ThreadingHandler {
 
     /**
      * Executes a code block outside of the UI thread.
+     * The {@code runnable} will be invoked on the same thread as the caller if the caller
+     * is already outside the UI thread.
      *
      * @param runnable block of code that must be executed. Must not be {@code null}.
      */
     void runOutsideUI(Runnable runnable);
+
+    /**
+     * Executes a code block on a background thread, always.
+     * The {@code runnable} will be invoked on a different thread regardless of the thread
+     * where the caller issued the call.
+     *
+     * @param runnable block of code that must be executed. Must not be {@code null}.
+     */
+    void runOutsideUIAsync(Runnable runnable);
 }

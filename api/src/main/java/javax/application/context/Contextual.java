@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.context;
 
+import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Marks the annotated element to be a candidate for contextual injection.
+ *
  * @author Andres Almiray
+ * @see Context
  */
+@Qualifier
 @Documented
+@Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
-public @interface InjectedResource {
-    String key() default "";
-
-    String[] args() default {};
-
-    String defaultValue() default "";
-
-    String format() default "";
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+public @interface Contextual {
 }

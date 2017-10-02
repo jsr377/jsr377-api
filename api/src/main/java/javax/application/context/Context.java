@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.context;
 
 import java.util.Set;
 
@@ -270,7 +270,7 @@ public interface Context {
     <T> T getConverted(String key, Class<T> type, T defaultValue);
 
     /**
-     * Inject properties and members annotated with {@code javax.application.Contextual}.
+     * Inject properties and members annotated with {@code Contextual}.
      *
      * @param instance the instance on which contextual members will be injected. Must not be {@code null}.
      * @param <T>      the type of the instance.

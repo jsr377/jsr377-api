@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.event;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.function.Consumer;
 
 /**
- * A factory for {@code Context} instances.
- *
  * @author Andres Almiray
  */
-public interface ContextFactory {
+@Retention(value = RetentionPolicy.RUNTIME)
+@Target(value = {ElementType.ANNOTATION_TYPE})
+public @interface EventFilter {
     /**
-     * Creates a new {@code Context} with an optional parent {@code Context}.
-     *
-     * @param parentContext the parent {@code Context}. May be {@code null}.
-     *
-     * @return an instance of {@code Context} whose {@code parentContext} is set to the given argument.
-     * Never returns {@code null}.
+     * A filter implementation.
      */
-    Context create(Context parentContext);
+    Class<? extends Consumer<?>> value();
 }

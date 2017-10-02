@@ -13,13 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
-
-/**
- * @author Andres Almiray
- */
-public interface ExitState {
-    int exitCode();
-
-    boolean canShutdown();
-}
+package javax.application.i18n;

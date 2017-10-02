@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.action;
 
-import javax.inject.Qualifier;
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.Annotation;
 
 /**
- * Marks the annotated element to be a candidate for contextual injection.
- *
  * @author Andres Almiray
- * @see javax.application.Context
  */
-@Qualifier
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-public @interface Contextual {
+public interface ActionParameter {
+    int getIndex();
+
+    Annotation[] getAnnotations();
+
+    Class<?> getType();
+
+    String getName();
+
+    boolean isContextual();
+
+    boolean isNullable();
 }

@@ -13,13 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.action;
+
+import java.lang.annotation.Annotation;
 
 /**
  * @author Andres Almiray
  */
-public interface ExitState {
-    int exitCode();
+public interface ActionMetadata {
+    Annotation[] getAnnotations();
 
-    boolean canShutdown();
+    Class<?> getReturnType();
+
+    ActionParameter[] getParameters();
+
+    String getActionName();
+
+    String getFullyQualifiedName();
+
+    boolean hasContextualArgs();
 }

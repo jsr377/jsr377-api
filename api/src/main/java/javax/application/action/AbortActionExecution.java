@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.action;
 
 /**
+ * Marker Exception used to abort execution of a controller action during the
+ * BEFORE phase of a ActionHandler.
+ *
  * @author Andres Almiray
  */
-public interface ExitState {
-    int exitCode();
-
-    boolean canShutdown();
+public class AbortActionExecution extends RuntimeException {
+    private static final long serialVersionUID = -8090900669443696189L;
 }

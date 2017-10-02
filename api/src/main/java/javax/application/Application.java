@@ -15,6 +15,7 @@
  */
 package javax.application;
 
+import javax.application.configuration.Configuration;
 import java.util.Locale;
 
 /**

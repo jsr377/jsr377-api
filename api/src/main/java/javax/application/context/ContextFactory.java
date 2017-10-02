@@ -13,13 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.context;
 
 /**
+ * A factory for {@code Context} instances.
+ *
  * @author Andres Almiray
  */
-public interface ExitState {
-    int exitCode();
-
-    boolean canShutdown();
+public interface ContextFactory {
+    /**
+     * Creates a new {@code Context} with an optional parent {@code Context}.
+     *
+     * @param parentContext the parent {@code Context}. May be {@code null}.
+     *
+     * @return an instance of {@code Context} whose {@code parentContext} is set to the given argument.
+     * Never returns {@code null}.
+     */
+    Context create(Context parentContext);
 }

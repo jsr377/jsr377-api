@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.configuration;
 
 /**
  * @author Andres Almiray
@@ -187,23 +187,41 @@ public interface Configuration {
      * Finds a value associated with the given key. The value is
      * converted to type {@code T} if found using a {@code Converter}.
      *
-     * @param key  the key to search. Must not be {@code null}.
-     * @param type the type to be returned. Must not be {@code null}.
-     *
-     * @return the converted value associated with {@code key}, or {@code null} if it was not found.
+     * @param key  the key to search
+     * @param type the type to be returned
      */
     <T> T getConverted(String key, Class<T> type);
+
+    /**
+     * Finds a value associated with the given key. The value is
+     * converted to type {@code T}if found using a {@code Converter}.
+     *
+     * @param key    the key to search
+     * @param type   the type to be returned
+     * @param format format used to convert the value
+     */
+    <T> T getConverted(String key, Class<T> type, String format);
 
     /**
      * Finds a value associated with the given key. The value is
      * converted to type {@code T} if found using a {@code Converter}.
      * If not found then the supplied {@code defaultValue} will be returned.
      *
-     * @param key          the key to search. Must not be {@code null}.
-     * @param type         the type to be returned. Must not be {@code null}.
-     * @param defaultValue the value to be returned if the key is not found. May be {@code null}.
-     *
-     * @return the converted value associated with {@code key}, or {@code defaultValue} if it was not found.
+     * @param key          the key to search
+     * @param type         the type to be returned
+     * @param defaultValue the value to be returned if the key is not found
      */
     <T> T getConverted(String key, Class<T> type, T defaultValue);
+
+    /**
+     * Finds a value associated with the given key. The value is
+     * converted to type {@code T} if found using a {@code Converter}.
+     * If not found then the supplied {@code defaultValue} will be returned.
+     *
+     * @param key          the key to search
+     * @param type         the type to be returned
+     * @param format       format used to convert the value
+     * @param defaultValue the value to be returned if the key is not found
+     */
+    <T> T getConverted(String key, Class<T> type, String format, T defaultValue);
 }

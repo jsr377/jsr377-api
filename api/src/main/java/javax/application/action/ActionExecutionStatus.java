@@ -13,13 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application;
+package javax.application.action;
 
 /**
  * @author Andres Almiray
  */
-public interface ExitState {
-    int exitCode();
+public enum ActionExecutionStatus {
+    /**
+     * The Action was successfully executed
+     */
+    OK,
 
-    boolean canShutdown();
+    /**
+     * An actionInterceptor aborted execution during before()
+     */
+    ABORTED,
+
+    /**
+     * The Action threw an exception during its execution
+     */
+    EXCEPTION
 }

@@ -14,12 +14,3 @@
  * limitations under the License.
  */
 package javax.application;
-
-/**
- * @author Andres Almiray
- */
-public interface ExitState {
-    int exitCode();
-
-    boolean canShutdown();
-}

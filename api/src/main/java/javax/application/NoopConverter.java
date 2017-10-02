@@ -18,8 +18,9 @@ package javax.application;
 /**
  * @author Andres Almiray
  */
-public interface ExitState {
-    int exitCode();
-
-    boolean canShutdown();
+public class NoopConverter implements Converter<Object, Object> {
+    @Override
+    public Object convert(Object value) {
+        return value;
+    }
 }
