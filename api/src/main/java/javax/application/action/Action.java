@@ -29,7 +29,7 @@ public interface Action {
     ActionMetadata getActionMetadata();
 
     /**
-     * Returns thes owner of this action, this will typically be a (@code Controller} or {@code Presenter}.
+     * Returns the owner of this action, this will typically be a (@code Controller} or {@code Presenter}.
      *
      * @return a non-null value.
      */
