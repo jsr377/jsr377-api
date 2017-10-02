@@ -21,13 +21,39 @@ package javax.application.action;
 public interface Action {
     String KEY_ENABLED = "enabled";
 
+    /**
+     * Returns the metadata associated with this action.
+     *
+     * @return a non-null value.
+     */
     ActionMetadata getActionMetadata();
 
+    /**
+     * Returns thes owner of this action, this will typically be a (@code Controller} or {@code Presenter}.
+     *
+     * @return a non-null value.
+     */
     Object getOwner();
 
+    /**
+     * Finds ouf if this action si enabled or not.
+     *
+     * @return {@code true} if the action is enabled, {@code false} otherwise.
+     */
     boolean isEnabled();
 
+    /**
+     * Toggles the enabled tate of this action.
+     *
+     * @param enabled {@code true} to enabled, {@code false} to disable.
+     */
     void setEnabled(boolean enabled);
 
+    /**
+     * Executes the action with the given arguments.
+     * Executing an action in this way will trigger all {@code ActionHandler}s that may be registered with the application.
+     *
+     * @param args a set of arguments. Mey be {@code null}.
+     */
     void execute(Object... args);
 }

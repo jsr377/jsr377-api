@@ -21,15 +21,46 @@ import java.lang.annotation.Annotation;
  * @author Andres Almiray
  */
 public interface ActionParameter {
+    /**
+     * Returns the index of this parameter in the array of parameters for an action.
+     *
+     * @return a number equal or greater than {@code 0}.
+     */
     int getIndex();
 
+    /**
+     * Returns the set of annotations attached to parameter.
+     *
+     * @return a non-null array of annotations.
+     */
     Annotation[] getAnnotations();
 
+    /**
+     * Returns the type of this parameter.
+     *
+     * @return a non-null type.
+     */
     Class<?> getType();
 
+    /**
+     * Returns the name of this parameter.
+     *
+     * @return a non-null name.
+     */
     String getName();
 
+    /**
+     * Finds out if this parameter is a contextual one, ie., it's annotated with {@code Contextual}.
+     *
+     * @return {@code true} if annotated with {@code Contextual}, {@code false} otherwise.
+     */
     boolean isContextual();
 
+    /**
+     * Finds out if this parameter accepts null values.
+     *
+     * @return {@code true} if annotated with an implementation specific qualifier that identifies this parameter as nullable,
+     * {@code false} otherwise.
+     */
     boolean isNullable();
 }

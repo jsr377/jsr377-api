@@ -23,7 +23,6 @@ import java.lang.reflect.Method;
 public interface ActionHandler {
     /**
      * Update the action's properties.
-     * <p/>
      *
      * @param action the action to be updated. Must not be {@code null}.
      */
@@ -43,10 +42,10 @@ public interface ActionHandler {
 
     /**
      * Called before an action is executed.
-     * <p/>
+     * <p>
      * Implementors have the choice of throwing an {@code AbortActionExecution} in
      * order to signal that the action should not be invoked. In any case this method
-     * returns the arguments to be sent to the action, thus allowing the interceptor
+     * returns the arguments to be sent to the action, thus allowing the action handler
      * to modify the arguments as it deem necessary. Failure to return an appropriate
      * value will most likely cause an error during the action's execution.
      *
@@ -72,11 +71,10 @@ public interface ActionHandler {
     Object after(ActionExecutionStatus status, Action action, Object[] args, Object result);
 
     /**
-     * Called after the action has been executed when an exception occurred
+     * Called after the action has been executed, when an exception occurred
      * during execution.
-     * <p/>
-     * The exception will be rethrown by the ActionManager if is not handled by
-     * any interceptor.
+     * <p>
+     * The exception must be rethrown if was not handled by any action handler.
      *
      * @param exception the exception thrown during the action's execution. Must not be {@code null}.
      * @param action    the action to execute. Must not be {@code null}.

@@ -19,7 +19,17 @@ package javax.application;
  * @author Andres Almiray
  */
 public interface ExitState {
+    /**
+     * Returns the integer value for this code.
+     *
+     * @return an integer.
+     */
     int exitCode();
 
+    /**
+     * Finds out if this exit code is allowed to shutdown the application.
+     *
+     * @return {@code true} if the application can shutdown, {@code false} otherwise.
+     */
     boolean canShutdown();
 }

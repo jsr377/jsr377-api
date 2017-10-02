@@ -21,15 +21,67 @@ import java.lang.annotation.Annotation;
  * @author Andres Almiray
  */
 public interface ActionMetadata {
+    /**
+     * Returns the set of annotations attached to the method related to an action.
+     *
+     * @return a non-null array of annotations.
+     */
     Annotation[] getAnnotations();
 
+    /**
+     * Returns the type associated with the method related to an action.
+     *
+     * @return a non-null type.
+     */
     Class<?> getReturnType();
 
+    /**
+     * Returns the set of parameters of the method related to an action.
+     *
+     * @return a non-null array of parameters.
+     */
     ActionParameter[] getParameters();
 
+    /**
+     * Returns the simple name for the action.
+     * This value is computed from the name of the method associated with an action.
+     * Example, invoking this method returns "{@code click}" given an action defined as follows:
+     * <pre>
+     *     package org.example;
+     *
+     *     public class SampleController {
+     *         public class click(AtionEvent event) {
+     *             ...
+     *         }
+     *     }
+     * </pre>
+     *
+     * @return a non-null name.
+     */
     String getActionName();
 
+    /**
+     * Returns the name of the aciton with the fully qualified class name of its owner as prefix.</p>
+     * Example, invoking this method returns "{@code org.example.SampleController.click}" given an action defined as follows:
+     * <pre>
+     *     package org.example;
+     *
+     *     public class SampleController {
+     *         public class click(AtionEvent event) {
+     *             ...
+     *         }
+     *     }
+     * </pre>
+     * <p>
+     *
+     * @return a non-null name.
+     */
     String getFullyQualifiedName();
 
+    /**
+     * Finds out if there are any contextual arguments defined in the method's arguments.
+     *
+     * @return {@code true} if any parameter is annotated with {@code Contextual}, {@code false} otherwise.
+     */
     boolean hasContextualArgs();
 }
