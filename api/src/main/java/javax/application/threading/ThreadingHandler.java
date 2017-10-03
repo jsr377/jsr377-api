@@ -16,6 +16,7 @@
 package javax.application.threading;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionStage;
 
 /**
  * @author Andres Almiray
@@ -31,21 +32,21 @@ public interface ThreadingHandler {
      *
      * @param runnable block of code that must be executed. Must not be {@code null}.
      */
-    void runInsideUIAsync(Runnable runnable);
+    void executeInsideUIAsync(Runnable runnable);
 
     /**
      * Executes a code block synchronously on the UI thread.
      *
      * @param runnable block of code that must be executed. Must not be {@code null}.
      */
-    void runInsideUISync(Runnable runnable);
+    void executeInsideUISync(Runnable runnable);
 
     /**
      * Executes a code block synchronously on the UI thread.
      *
      * @param callable block of code that must be executed. Must not be {@code null}.
      */
-    <R> R runInsideUISync(Callable<R> callable);
+    <R> R executeInsideUISync(Callable<R> callable);
 
     /**
      * Executes a code block outside of the UI thread.
@@ -54,7 +55,7 @@ public interface ThreadingHandler {
      *
      * @param runnable block of code that must be executed. Must not be {@code null}.
      */
-    void runOutsideUI(Runnable runnable);
+    void executeOutsideUI(Runnable runnable);
 
     /**
      * Executes a code block on a background thread, always.
@@ -63,5 +64,21 @@ public interface ThreadingHandler {
      *
      * @param runnable block of code that must be executed. Must not be {@code null}.
      */
-    void runOutsideUIAsync(Runnable runnable);
+    void executeOutsideUIAsync(Runnable runnable);
+
+    /**
+     * Executes a code block on a background thread, always.
+     * The {@code callable} will be invoked on a different thread regardless of the thread
+     * where the caller issued the call.
+     *
+     * @param callable block of code that must be executed. Must not be {@code null}.
+     */
+    <R> CompletionStage<R> executeOutsideUIAsync(Callable<R> callable);
+
+    /**
+     * Executes a code block asynchronously on the UI thread.
+     *
+     * @param callable block of code that must be executed. Must not be {@code null}.
+     */
+    <R> CompletionStage<R> executeInsideUIAsync(Callable<R> callable);
 }

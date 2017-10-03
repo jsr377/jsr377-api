@@ -31,6 +31,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Threading {
+    /**
+     * Defines the threading hint to be used when executing the annotated element.
+     */
     Policy value() default Policy.OUTSIDE_UITHREAD;
 
     /**
