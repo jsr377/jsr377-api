@@ -50,7 +50,7 @@ public interface ActionMetadata {
      *     package org.example;
      *
      *     public class SampleController {
-     *         public class click(AtionEvent event) {
+     *         public class click(ActionEvent event) {
      *             ...
      *         }
      *     }
@@ -67,7 +67,7 @@ public interface ActionMetadata {
      *     package org.example;
      *
      *     public class SampleController {
-     *         public class click(AtionEvent event) {
+     *         public class click(ActionEvent event) {
      *             ...
      *         }
      *     }

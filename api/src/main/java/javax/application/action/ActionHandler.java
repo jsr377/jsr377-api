@@ -15,73 +15,31 @@
  */
 package javax.application.action;
 
-import java.lang.reflect.Method;
+import javax.application.threading.Threading;
+import javax.inject.Qualifier;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author Andres Almiray
  */
-public interface ActionHandler {
+@Qualifier
+@Documented
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
+public @interface ActionHandler {
     /**
-     * Update the action's properties.
-     *
-     * @param action the action to be updated. Must not be {@code null}.
+     * Defines the action's name.
      */
-    void update(Action action);
+    String value() default "";
 
     /**
-     * Inspect the action during the configuration phase.
-     * <p/>
-     * This is the perfect time to search for annotations or any other information
-     * required by the action. handlers have the option to cache such inspections
-     * and recall them during {@code before()}, {@code after()} and {@code exception()}.
-     *
-     * @param action the action to be configured. Must not be {@code null}.
-     * @param method the method that represents the action itself. Must not be {@code null}.
+     * Defines the threading hint to be used when executing this action.
      */
-    void configure(Action action, Method method);
-
-    /**
-     * Called before an action is executed.
-     * <p>
-     * Implementors have the choice of throwing an {@code AbortActionExecution} in
-     * order to signal that the action should not be invoked. In any case this method
-     * returns the arguments to be sent to the action, thus allowing the action handler
-     * to modify the arguments as it deem necessary. Failure to return an appropriate
-     * value will most likely cause an error during the action's execution.
-     *
-     * @param action the action to execute. Must not be {@code null}.
-     * @param args   the action's arguments. Must not be {@code null}.
-     *
-     * @return arguments to be sent to the action
-     *
-     * @throws AbortActionExecution if action execution should be aborted.
-     */
-    Object[] before(Action action, Object[] args);
-
-    /**
-     * Called after the action has been aborted or executed, even if an exception
-     * occurred during execution.
-     * <p/>
-     *
-     * @param status a flag that indicates the execution status of the action. Must not be {@code null}.
-     * @param action the action to execute. Must not be {@code null}.
-     * @param args   the arguments sent to the action. Must not be {@code null}.
-     * @param result the result of executing the action. May be {@code null}.
-     */
-    Object after(ActionExecutionStatus status, Action action, Object[] args, Object result);
-
-    /**
-     * Called after the action has been executed, when an exception occurred
-     * during execution.
-     * <p>
-     * The exception must be rethrown if was not handled by any action handler.
-     *
-     * @param exception the exception thrown during the action's execution. Must not be {@code null}.
-     * @param action    the action to execute. Must not be {@code null}.
-     * @param args      the arguments sent to the action during execution. Must not be {@code null}.
-     *
-     * @return {@code true} if the exception was handled successfully,
-     * {@code false} otherwise.
-     */
-    boolean exception(Exception exception, Action action, Object[] args);
+    Threading.Policy threading() default Threading.Policy.OUTSIDE_UITHREAD;
 }

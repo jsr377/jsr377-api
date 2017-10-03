@@ -19,7 +19,8 @@ package javax.application.action;
  * @author Andres Almiray
  */
 public interface Action {
-    String KEY_ENABLED = "enabled";
+    String PROPERTY_NAME = "name";
+    String PROPERTY_ENABLED = "enabled";
 
     /**
      * Returns the metadata associated with this action.
@@ -36,7 +37,22 @@ public interface Action {
     Object getOwner();
 
     /**
-     * Finds ouf if this action si enabled or not.
+     * Returns the name of this action.
+     * The value for this property may be empty but not null.
+     *
+     * @return the name of this action.
+     */
+    String getName();
+
+    /**
+     * Sets the name of this action.
+     *
+     * @param name the name of this action. Must not be {@code null} but may be emtpy.
+     */
+    void setName(String name);
+
+    /**
+     * Finds ouf if this action is enabled or not.
      *
      * @return {@code true} if the action is enabled, {@code false} otherwise.
      */

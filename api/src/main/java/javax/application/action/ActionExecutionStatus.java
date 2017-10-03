@@ -25,7 +25,7 @@ public enum ActionExecutionStatus {
     OK,
 
     /**
-     * An action handler aborted execution during before()
+     * An action interceptor aborted execution during before()
      */
     ABORTED,
 

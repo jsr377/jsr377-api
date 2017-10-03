@@ -47,7 +47,7 @@ public @interface Threading {
      * @author Andres Almiray
      * @see Threading
      */
-    public enum Policy {
+    enum Policy {
         /**
          * Skip threading injection
          */
