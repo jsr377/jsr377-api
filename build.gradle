@@ -77,10 +77,6 @@ subprojects { subproj ->
             options.compilerArgs = ['-Xlint:all', '-Xlint:deprecation', '-Xlint:unchecked']
         }
 
-        dependencies {
-            testCompile 'junit:junit:4.12'
-        }
-
         task sourcesJar(type: Jar) {
             group 'Build'
             description 'An archive of the source code'
@@ -93,6 +89,10 @@ subprojects { subproj ->
             description 'An archive of the javadoc'
             classifier 'javadoc'
             from javadoc.destinationDir
+        }
+
+        tasks.withType(Jar) {
+            baseName = 'jsr377-' + subproj.name
         }
 
         artifacts {
@@ -116,6 +116,5 @@ subprojects { subproj ->
 
         subproj.apply from: rootProject.file('gradle/publishing.gradle')
         subproj.apply from: rootProject.file('gradle/code-quality.gradle')
-        subproj.apply from: rootProject.file('gradle/code-coverage.gradle')
     }
 }

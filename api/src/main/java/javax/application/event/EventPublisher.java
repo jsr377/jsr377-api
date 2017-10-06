@@ -15,8 +15,6 @@
  */
 package javax.application.event;
 
-import java.util.function.Consumer;
-
 /**
  * Base contract for classes that can publish events using their own
  * event bus.
@@ -29,31 +27,14 @@ public interface EventPublisher {
      *
      * @param handler an event handler. Must not be {@code null}.
      */
-    void addEventHandler(Object handler);
-
-    /**
-     * Adds a {@code Consumer} as event handler.<p>
-     *
-     * @param eventType    the type of the event. Must not be {@code null}.
-     * @param eventHandler an event handler. Must not be {@code null}.
-     * @param eventFilters event filters to be applied (if any)
-     */
-    <E> void addEventHandler(Class<E> eventType, Consumer<? extends E> eventHandler, Consumer<? extends E>... eventFilters);
+    void subscribe(Object handler);
 
     /**
      * Removes an event handler.<p>
      *
      * @param handler an event handler. Must not be {@code null}.
      */
-    void removeEventHandler(Object handler);
-
-    /**
-     * Removes a {@code Consumer} as an event handler.<p>
-     *
-     * @param eventType    the type of the event. Must not be {@code null}.
-     * @param eventHandler an event handler. Must not be {@code null}.
-     */
-    <E> void removeEventHandler(Class<E> eventType, Consumer<? extends E> eventHandler);
+    void unsubscribe(Object handler);
 
     /**
      * Publishes an event.<p>

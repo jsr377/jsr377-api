@@ -19,7 +19,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @author Andres Almiray
@@ -30,5 +30,5 @@ public @interface EventFilter {
     /**
      * A filter implementation.
      */
-    Class<? extends Consumer<?>> value();
+    Class<? extends Function<?, Boolean>> value();
 }
