@@ -16,25 +16,21 @@
 package javax.application.event;
 
 /**
- * Base contract for classes that can publish events using their own
+ * Base contract for classes that will provide event handlers using their own
  * event bus.
- *
- * @author Andres Almiray
  */
-public interface EventPublisher {
+public interface EventSubscriber {
     /**
-     * Publishes an event.<p>
-     * Handlers will be notified in the same thread as the publisher.
+     * Adds an event handler.<p>
      *
-     * @param event the event to be published. Must not be {@code null}.
+     * @param handler an event handler. Must not be {@code null}.
      */
-    <E> void publishEvent(E event);
+    void subscribe(Object handler);
 
     /**
-     * Publishes an event.<p>
-     * Handlers will be notified in a different thread.
+     * Removes an event handler.<p>
      *
-     * @param event the event to be published. Must not be {@code null}.
+     * @param handler an event handler. Must not be {@code null}.
      */
-    <E> void publishEventAsync(E event);
+    void unsubscribe(Object handler);
 }
