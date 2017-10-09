@@ -27,8 +27,9 @@ import java.util.function.Function;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = {ElementType.ANNOTATION_TYPE})
 public @interface EventFilter {
+
     /**
      * A filter implementation.
      */
-    Class<? extends Function<?, Boolean>> value();
+    Class<? extends Function<EventMetadata<?>, Boolean>> value();
 }
