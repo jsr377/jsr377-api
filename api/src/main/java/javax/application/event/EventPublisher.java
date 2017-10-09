@@ -20,21 +20,41 @@ package javax.application.event;
  * event bus.
  *
  * @author Andres Almiray
+ * @author Hendrik Ebbers
  */
 public interface EventPublisher {
+
     /**
-     * Adds an event handler.<p>
+     * Adds an event handler.<p> This event handler will automatically be registered for all
+     * event types that are supported by the handler.
      *
      * @param handler an event handler. Must not be {@code null}.
      */
     void subscribe(Object handler);
 
     /**
-     * Removes an event handler.<p>
+     * Adds an event handler.<p> This event handler will only be registered for the given
+     * event type.
+     * @param eventType the event type. Must not be {@code null}.
+     * @param handler an event handler. Must not be {@code null}.
+     */
+    void subscribe(Class<?> eventType, Object handler);
+
+    /**
+     * Removes an event handler.<p> This event handler will automatically be deregistered for all
+     * event types that are supported by the handler.
      *
      * @param handler an event handler. Must not be {@code null}.
      */
     void unsubscribe(Object handler);
+
+    /**
+     * Removes an event handler.<p> This event handler will only be deregistered for the given
+     * event type.
+     * @param eventType the event type. Must not be {@code null}.
+     * @param handler an event handler. Must not be {@code null}.
+     */
+    void unsubscribe(Class<?> eventType, Object handler);
 
     /**
      * Publishes an event.<p>
