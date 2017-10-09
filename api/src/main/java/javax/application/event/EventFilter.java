@@ -22,7 +22,9 @@ import java.lang.annotation.Target;
 import java.util.function.Function;
 
 /**
+ * Annotation to define a filter for an {@link EventHandler}.
  * @author Andres Almiray
+ * @author Hendrik Ebbers
  */
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = {ElementType.ANNOTATION_TYPE})
