@@ -20,7 +20,7 @@ package javax.application.converter;
  */
 public class NoopConverter implements Converter<Object, Object> {
     @Override
-    public Object convert(Object value) {
+    public Object convert(Object value) throws ConversionException {
         return value;
     }
 }

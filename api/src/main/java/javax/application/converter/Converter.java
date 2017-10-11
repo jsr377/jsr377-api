@@ -26,5 +26,5 @@ public interface Converter<FROM, TO> {
      *
      * @return the converted value. May be {@code null}.
      */
-    TO convert(FROM value);
+    TO convert(FROM value) throws ConversionException;
 }
