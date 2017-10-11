@@ -34,13 +34,15 @@ import java.lang.annotation.Target;
 public @interface Configured {
     String NO_VALUE = "javax.application.configuration.Configured.NO_VALUE";
 
-    String configuration() default "";
-
     String value();
+
+    String[] args() default {};
 
     String defaultValue() default NO_VALUE;
 
     String format() default "";
 
     Class<? extends Converter<?, ?>> converter() default NoopConverter.class;
+
+    String configuration() default "";
 }

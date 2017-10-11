@@ -32,11 +32,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 public @interface InjectedResource {
-    String key() default "";
+    String NO_VALUE = "javax.application.resources.InjectedResource.NO_VALUE";
+
+    String value() default "";
 
     String[] args() default {};
 
-    String defaultValue() default "";
+    String defaultValue() default NO_VALUE;
 
     String format() default "";
 

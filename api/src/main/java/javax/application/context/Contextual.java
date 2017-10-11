@@ -15,6 +15,8 @@
  */
 package javax.application.context;
 
+import javax.application.converter.Converter;
+import javax.application.converter.NoopConverter;
 import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -35,4 +37,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 public @interface Contextual {
+    String value() default "";
+
+    String format() default "";
+
+    Class<? extends Converter<?, ?>> converter() default NoopConverter.class;
 }
