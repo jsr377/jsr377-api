@@ -1,17 +1,23 @@
 package javax.application.event;
 
+import java.time.Instant;
+
 /**
- * Defines all metadata of an event. This is used to provide additional information for an {@link EventFilter}
+ * Defines metadata of an event. This type provides additional information that can be used in a {@link EventFilter}
+ *
  * @param <E> type of the event
  *
  * @author Hendrik Ebbers
+ * @author Andres Almiray
  */
 public interface EventMetadata<E> {
+    /**
+     * The point in time when this event was published.
+     */
+    Instant getTimestamp();
 
     /**
-     * The event 
-     * @return the event
+     * The event that was published.
      */
     E getEvent();
-
 }
