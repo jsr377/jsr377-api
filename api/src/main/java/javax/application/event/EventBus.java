@@ -16,45 +16,45 @@
 package javax.application.event;
 
 /**
- * Base contract for classes that can publish events using their own
- * event bus.
+ * Base contract for classes that can publish events.
+ * <p>
+ * Events can be published int two ways: synchronous (publishEvent) and asynchronous (publishEventAsync). In synchronous
+ * publishing, the event emitter will wait for all matching event handlers to be called and finish handling the event. In
+ * asynchronous publishing the event emitter continues its work immediately after firing the event and does not wait for
+ * matching event handlers.
+ * <p>
+ * An event handler is a class that has at least one method annotated with {@code EventHandler} and a
+ * single argument that defines the type of event hat can be handled, for example
+ * <pre>
+ * public class CustomEventHandler {
+ *     &#064;EventHandler
+ *     private void handleEvent(CustomEvent event) {
+ *         ...
+ *     }
+ * }
+ * </pre>
+ *
+ * Event handlers may define more than one method. The method name is not important and its visibility modifier may be any
+ * of the supported modifiers by the Java platform.
  *
  * @author Andres Almiray
- * @author Hendrik Ebbers
  */
-public interface EventPublisher {
-
+public interface EventBus {
     /**
-     * Adds an event handler.<p> This event handler will automatically be registered for all
-     * event types that are supported by the handler.
+     * Adds an event handler.<p>
+     * An event handler is a class that has at least one method annotated with {@code EventHandler} and a
+     * single argument that defines the type of event hat can be handled.
      *
      * @param handler an event handler. Must not be {@code null}.
      */
     void subscribe(Object handler);
 
     /**
-     * Adds an event handler.<p> This event handler will only be registered for the given
-     * event type.
-     * @param eventType the event type. Must not be {@code null}.
-     * @param handler an event handler. Must not be {@code null}.
-     */
-    void subscribe(Class<?> eventType, Object handler);
-
-    /**
-     * Removes an event handler.<p> This event handler will automatically be deregistered for all
-     * event types that are supported by the handler.
+     * Removes an event handler.<p>
      *
      * @param handler an event handler. Must not be {@code null}.
      */
     void unsubscribe(Object handler);
-
-    /**
-     * Removes an event handler.<p> This event handler will only be deregistered for the given
-     * event type.
-     * @param eventType the event type. Must not be {@code null}.
-     * @param handler an event handler. Must not be {@code null}.
-     */
-    void unsubscribe(Class<?> eventType, Object handler);
 
     /**
      * Publishes an event.<p>
@@ -66,7 +66,7 @@ public interface EventPublisher {
 
     /**
      * Publishes an event.<p>
-     * Handlers will be notified in a different thread.
+     * Handlers will be notified in a background thread.
      *
      * @param event the event to be published. Must not be {@code null}.
      */

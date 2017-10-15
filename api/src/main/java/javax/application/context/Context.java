@@ -54,14 +54,15 @@ public interface Context {
 
     /**
      * Removes a key from this context. Does not affect the context's hierarchy. The value is
-     * converted to type {@code T} if found using a {@code PropertyEditor}.
+     * converted to type {@code T} if found using a {@code Converter}.
      *
      * @param key  the key to be removed. Must not be {@code null}.
      * @param type the type to be returned. Must not be {@code null}.
      *
      * @return the value associated with the key or {@code null} if there wasn't any value.
      *
-     * @throws ClassCastException if the value is not of the expected type.
+     * @throws ClassCastException  if the value is not of the expected type.
+     * @throws ConversionException if the value could not be converted to the target type {@code T}.
      */
     <T> T removeConverted(String key, Class<T> type);
 
