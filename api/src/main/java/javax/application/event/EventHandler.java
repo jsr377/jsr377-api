@@ -32,19 +32,9 @@ import java.lang.annotation.Target;
 public @interface EventHandler {
 
     /**
-     * Default value for a low priority.
-     */
-    int LOW_PRIORITY = -100;
-
-    /**
      * Default priority
      */
     int DEFAULT_PRIORITY = 0;
-
-    /**
-     * Default value for a high priority.
-     */
-    int HIGH_PRIORITY = 100;
 
     /**
      * Defines filters for this event handler. All filters are evaluated before the handler is invoked, which
