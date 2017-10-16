@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2017 the original author or authors.
+ * Copyright 2008-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,12 @@ package javax.application.converter;
 /**
  * @author Andres Almiray
  */
-public class NoopConverter implements Converter<Object> {
-    @Override
-    public Object fromObject(Object value) throws ConversionException {
-        return value;
+public abstract class AbstractConverter<T> implements Converter<T> {
+    protected ConversionException illegalValue(Object value, Class<?> klass) {
+        throw new ConversionException(value, klass);
     }
 
-    @Override
-    public String toString(Object value) {
-        return value == null ? null : String.valueOf(value);
+    protected ConversionException illegalValue(Object value, Class<?> klass, Exception e) {
+        throw new ConversionException(value, klass, e);
     }
 }

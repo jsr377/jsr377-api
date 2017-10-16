@@ -18,13 +18,26 @@ package javax.application.converter;
 /**
  * @author Andres Almiray
  */
-public interface Converter<FROM, TO> {
+public interface Converter<T> {
     /**
-     * Converts the input argument of type {@code FROM} to the given type {@code TO}.
+     * Converts the input argument to the given type {@code T}.
      *
      * @param value the value to be converted. May be {@code null}.
      *
      * @return the converted value. May be {@code null}.
+     *
+     * @throws ConversionException if the given value coul not be converted to the target type.
      */
-    TO convert(FROM value) throws ConversionException;
+    T fromObject(Object value) throws ConversionException;
+
+    /**
+     * Converts the input argument to the a {@code String}.
+     *
+     * @param value the value to be converted. May be {@code null}.
+     *
+     * @return the {@code String} representation of the given value. May be {@code null}.
+     *
+     * @throws ConversionException if the given value could not be converted to a String.
+     */
+    String toString(T value) throws ConversionException;
 }

@@ -19,24 +19,35 @@ package javax.application.converter;
  * @author Andres Almiray
  */
 public class ConversionException extends RuntimeException {
-    private static final long serialVersionUID = -4136598465838746894L;
+    private static final long serialVersionUID = -9122143348121235390L;
 
-    public ConversionException() {
+    private final transient Object value;
+    private Class<?> type;
+
+    public ConversionException(Object value) {
+        this(value, (Exception) null);
     }
 
-    public ConversionException(String message) {
-        super(message);
+    public ConversionException(Object value, Class<?> type) {
+        this(value, type, null);
     }
 
-    public ConversionException(String message, Throwable cause) {
-        super(message, cause);
+    public ConversionException(Object value, Class<?> type, Exception cause) {
+        super("Can't convert '" + value + "' into " + type.getName(), cause);
+        this.value = value;
+        this.type = type;
     }
 
-    public ConversionException(Throwable cause) {
-        super(cause);
+    public ConversionException(Object value, Exception cause) {
+        super("Can't convert '" + value + "'", cause);
+        this.value = value;
     }
 
-    public ConversionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public Object getValue() {
+        return value;
+    }
+
+    public Class<?> getType() {
+        return type;
     }
 }
