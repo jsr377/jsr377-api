@@ -26,7 +26,7 @@ public interface Converter<T> {
      *
      * @return the converted value. May be {@code null}.
      *
-     * @throws ConversionException if the given value coul not be converted to the target type.
+     * @throws ConversionException if the given value could not be converted to the target type.
      */
     T fromObject(Object value) throws ConversionException;
 
