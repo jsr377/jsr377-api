@@ -33,7 +33,7 @@ public class CompositeConverter<T> extends AbstractConverter<T> {
     private final WeakReference<Class<? extends Converter<T>>>[] converterClasses;
     private WeakReference<Converter<T>>[] converters;
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public CompositeConverter(Class<T> targetClass, Class<? extends Converter<T>>[] converterClasses) {
         this.targetClass = requireNonNull(targetClass, "Argument 'targetClass' must not be null");
         if (converterClasses == null) {
@@ -54,7 +54,7 @@ public class CompositeConverter<T> extends AbstractConverter<T> {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public CompositeConverter<T> copyOf() {
         List<Class<? extends Converter<T>>> classes = new ArrayList<>();
 
@@ -64,10 +64,10 @@ public class CompositeConverter<T> extends AbstractConverter<T> {
             }
         }
 
-        return new CompositeConverter(targetClass, classes.toArray(new Class[classes.size()]));
+        return new CompositeConverter<>(targetClass, classes.toArray(new Class[classes.size()]));
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public CompositeConverter<T> copyOf(Class<? extends Converter<T>> converterClass) {
         requireNonNull(converterClass, "Argument 'converterClass' must not be null");
 
@@ -81,7 +81,7 @@ public class CompositeConverter<T> extends AbstractConverter<T> {
             classes.add(converterClass);
         }
 
-        return new CompositeConverter(targetClass, classes.toArray(new Class[classes.size()]));
+        return new CompositeConverter<>(targetClass, classes.toArray(new Class[classes.size()]));
     }
 
     @Override
@@ -91,7 +91,7 @@ public class CompositeConverter<T> extends AbstractConverter<T> {
         return sb.toString();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private void initConverters() {
         synchronized (lock) {
             if (converters == null) {
