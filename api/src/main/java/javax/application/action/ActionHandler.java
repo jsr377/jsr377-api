@@ -15,7 +15,6 @@
  */
 package javax.application.action;
 
-import javax.application.threading.Threading;
 import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -37,9 +36,4 @@ public @interface ActionHandler {
      * Defines the action's name.
      */
     String value() default "";
-
-    /**
-     * Defines the threading hint to be used when executing this action.
-     */
-    Threading.Policy threading() default Threading.Policy.OUTSIDE_UITHREAD;
 }
