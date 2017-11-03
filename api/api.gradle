@@ -15,6 +15,7 @@
  */
 
 apply plugin: 'java'
+apply plugin: 'jacoco'
 
 repositories {
     jcenter()
@@ -22,4 +23,10 @@ repositories {
 
 dependencies {
     compile 'javax.inject:javax.inject:1'
+    testCompile 'junit:junit:4.12'
+    testCompile 'pl.pragmatists:JUnitParams:1.1.0'
+}
+
+jacoco {
+    toolVersion = '0.7.9'
 }
