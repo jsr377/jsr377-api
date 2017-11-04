@@ -15,7 +15,6 @@
  */
 package javax.application.resources;
 
-import javax.application.converter.ConversionException;
 import java.util.Locale;
 
 /**
@@ -139,7 +138,7 @@ public interface ResourceResolver {
      * @return The resolved resource at the given key for the default locale.
      *
      * @throws NoSuchResourceException if no resource is found.
-     * @throws ConversionException     if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException     if the resource could not be converted to the target type {@code T}.
      */
     <T> T resolveResourceConverted(String key, Class<T> type) throws NoSuchResourceException;
 
@@ -153,7 +152,7 @@ public interface ResourceResolver {
      * @return The resolved resource at the given key for the given locale.
      *
      * @throws NoSuchResourceException if no resource is found.
-     * @throws ConversionException     if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException     if the resource could not be converted to the target type {@code T}.
      */
     <T> T resolveResourceConverted(String key, Locale locale, Class<T> type) throws NoSuchResourceException;
 
@@ -168,7 +167,7 @@ public interface ResourceResolver {
      * @return The resolved resource at the given key for the default locale.
      *
      * @throws NoSuchResourceException if no resource is found.
-     * @throws ConversionException     if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException     if the resource could not be converted to the target type {@code T}.
      */
     <T> T resolveResourceConverted(String key, Object[] args, Class<T> type) throws NoSuchResourceException;
 
@@ -184,7 +183,7 @@ public interface ResourceResolver {
      * @return The resolved resource at the given key for the given locale.
      *
      * @throws NoSuchResourceException if no resource is found.
-     * @throws ConversionException     if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException     if the resource could not be converted to the target type {@code T}.
      */
     <T> T resolveResourceConverted(String key, Object[] args, Locale locale, Class<T> type) throws NoSuchResourceException;
 
@@ -198,7 +197,7 @@ public interface ResourceResolver {
      *
      * @return The resolved resource at the given key for the default locale.
      *
-     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T resolveResourceConverted(String key, T defaultValue, Class<T> type);
 
@@ -213,7 +212,7 @@ public interface ResourceResolver {
      *
      * @return The resolved resource at the given key for the given locale.
      *
-     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T resolveResourceConverted(String key, Locale locale, T defaultValue, Class<T> type);
 
@@ -229,7 +228,7 @@ public interface ResourceResolver {
      *
      * @return The resolved resource at the given key for the default locale.
      *
-     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T resolveResourceConverted(String key, Object[] args, T defaultValue, Class<T> type);
 
@@ -246,7 +245,7 @@ public interface ResourceResolver {
      *
      * @return The resolved resource at the given key for the given locale.
      *
-     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T resolveResourceConverted(String key, Object[] args, Locale locale, T defaultValue, Class<T> type);
 
