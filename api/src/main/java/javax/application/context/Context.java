@@ -15,7 +15,6 @@
  */
 package javax.application.context;
 
-import javax.application.converter.ConversionException;
 import java.util.Set;
 
 /**
@@ -61,8 +60,8 @@ public interface Context {
      *
      * @return the value associated with the key or {@code null} if there wasn't any value.
      *
-     * @throws ClassCastException  if the value is not of the expected type.
-     * @throws ConversionException if the value could not be converted to the target type {@code T}.
+     * @throws ClassCastException                                                          if the value is not of the expected type.
+     * @throws javax.application.converter.javax.application.converter.ConversionException if the value could not be converted to the target type {@code T}.
      */
     <T> T removeConverted(String key, Class<T> type);
 
@@ -130,7 +129,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code false} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to a {@code boolean}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to a {@code boolean}.
      */
     boolean getAsBoolean(String key);
 
@@ -144,7 +143,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to a {@code boolean}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to a {@code boolean}.
      */
     boolean getAsBoolean(String key, boolean defaultValue);
 
@@ -156,7 +155,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code 0} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to an {@code int}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to an {@code int}.
      */
     int getAsInt(String key);
 
@@ -170,7 +169,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to an {@code int}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to an {@code int}.
      */
     int getAsInt(String key, int defaultValue);
 
@@ -182,7 +181,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code 0L} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to a {@code long}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to a {@code long}.
      */
     long getAsLong(String key);
 
@@ -196,7 +195,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to a {@code long}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to a {@code long}.
      */
     long getAsLong(String key, long defaultValue);
 
@@ -208,7 +207,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code 0.0f} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to a {@code float}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to a {@code float}.
      */
     float getAsFloat(String key);
 
@@ -222,7 +221,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to a {@code float}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to a {@code float}.
      */
     float getAsFloat(String key, float defaultValue);
 
@@ -234,7 +233,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code 0.0d} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to a {@code double}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to a {@code double}.
      */
     double getAsDouble(String key);
 
@@ -248,7 +247,7 @@ public interface Context {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to a {@code double}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to a {@code double}.
      */
     double getAsDouble(String key, double defaultValue);
 
@@ -284,7 +283,7 @@ public interface Context {
      *
      * @return the converted value associated with {@code key}, or {@code null} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type);
 
@@ -299,7 +298,7 @@ public interface Context {
      *
      * @return the converted value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the value could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the value could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type, T defaultValue);
 

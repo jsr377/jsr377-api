@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2017 the original author or authors.
+ * Copyright 2015-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,10 +32,14 @@ public class EnumConverter<T extends Enum<T>> extends AbstractConverter<T> {
 
     @Override
     public T fromObject(Object value) throws ConversionException {
+        if (null == enumType) {
+            throw new IllegalStateException("A value for enumType must be set");
+        }
+
         if (null == value) {
             return null;
         } else if (value instanceof CharSequence) {
-            return handleAsString(String.valueOf(value));
+            return convertFromString(String.valueOf(value).trim());
         } else if (enumType.isAssignableFrom(value.getClass())) {
             return enumType.cast(value);
         } else {
@@ -48,8 +52,8 @@ public class EnumConverter<T extends Enum<T>> extends AbstractConverter<T> {
         return value == null ? null : value.name();
     }
 
-    protected T handleAsString(String str) {
-        if (str == null || str.isEmpty()) {
+    protected T convertFromString(String str) {
+        if (isBlank(str)) {
             return null;
         }
 

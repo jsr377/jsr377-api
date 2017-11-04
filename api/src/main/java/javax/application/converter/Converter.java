@@ -39,5 +39,10 @@ public interface Converter<T> {
      *
      * @throws ConversionException if the given value could not be converted to a String.
      */
-    String toString(T value) throws ConversionException;
+    default String toString(T value) throws ConversionException {
+        if (null == value) {
+            return null;
+        }
+        return String.valueOf(value);
+    }
 }
