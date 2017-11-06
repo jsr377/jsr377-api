@@ -33,7 +33,7 @@ package javax.application.event;
  *     }
  * }
  * </pre>
- *
+ * <p>
  * Event handlers may define more than one method. The method name is not important and its visibility modifier may be any
  * of the supported modifiers by the Java platform.
  *
