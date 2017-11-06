@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.application.converter;
+package javax.application.converter.spi;
+
+import javax.application.converter.Converter;
 
 /**
- * A {@code Converter} that performs no cconversion; it simply returns the given value as is.
- *
  * @author Andres Almiray
  */
-public class NoopConverter implements Converter<Object> {
-    @Override
-    public Object fromObject(Object value) throws ConversionException {
-        return value;
-    }
+public interface ConverterProvider<T> {
+    Class<T> getTargetType();
+
+    Class<? extends Converter<T>> getConverterType();
 }

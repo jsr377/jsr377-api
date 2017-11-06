@@ -33,31 +33,26 @@ public interface ConverterRegistry {
      * if either the target or converter class is unloaded.
      * <p>
      *
-     * @param targetType     the class object of the type to be converted
-     * @param converterClass the class object of the converter class
+     * @param targetType     the class object of the type to be converted. Must not be {@code null}
+     * @param converterClass the class object of the converter class. Must not be {@code null}
      */
     <T> void registerConverter(Class<T> targetType, Class<? extends Converter<T>> converterClass);
 
     /**
      * Unregisters converter class used to convert values of the given target class.
      *
-     * @param targetType     the class object of the type to be converted
-     * @param converterClass the class object of the converter class
+     * @param targetType     the class object of the type to be converted. Must not be {@code null}
+     * @param converterClass the class object of the converter class. Must not be {@code null}
      */
     <T> void unregisterConverter(Class<T> targetType, Class<? extends Converter<T>> converterClass);
 
     /**
      * Locates a value converter for a given target type.
-     * <p>
-     * If the input {@code type} is an Enum then an instance of {@code EnumPropertyEditor}
-     * is returned with the {@code type} set as {@code enumType}.
      *
-     * @param targetType The Class object for the type to be converter
+     * @param targetType The Class object for the type to be converter. Must not be {@code null}
      *
      * @return A converter object for the given target class.
-     * The result is null if no suitable converter can be found.
-     *
-     * @see javax.application.converter.EnumConverter
+     * The result is {@code null} if no suitable converter can be found.
      */
     <T> Converter<T> findConverter(Class<T> targetType);
 }
