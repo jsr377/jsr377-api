@@ -15,8 +15,6 @@
  */
 package javax.application.configuration;
 
-import javax.application.converter.ConversionException;
-
 /**
  * @author Andres Almiray
  */
@@ -65,7 +63,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code false} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to a {@code boolean}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to a {@code boolean}.
      */
     boolean getAsBoolean(String key);
 
@@ -79,7 +77,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to a {@code boolean}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to a {@code boolean}.
      */
     boolean getAsBoolean(String key, boolean defaultValue);
 
@@ -91,7 +89,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code 0} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to an {@code int}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to an {@code int}.
      */
     int getAsInt(String key);
 
@@ -105,7 +103,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to an {@code int}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to an {@code int}.
      */
     int getAsInt(String key, int defaultValue);
 
@@ -117,7 +115,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code 0L} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to a {@code long}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to a {@code long}.
      */
     long getAsLong(String key);
 
@@ -131,7 +129,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to a {@code long}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to a {@code long}.
      */
     long getAsLong(String key, long defaultValue);
 
@@ -143,7 +141,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code 0.0f} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to a {@code float}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to a {@code float}.
      */
     float getAsFloat(String key);
 
@@ -157,7 +155,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to a {@code float}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to a {@code float}.
      */
     float getAsFloat(String key, float defaultValue);
 
@@ -169,7 +167,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code 0.0d} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to a {@code double}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to a {@code double}.
      */
     double getAsDouble(String key);
 
@@ -183,7 +181,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to a {@code double}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to a {@code double}.
      */
     double getAsDouble(String key, double defaultValue);
 
@@ -218,7 +216,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type);
 
@@ -232,7 +230,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, {@code null} otherwise.
      *
-     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type, String format);
 
@@ -247,7 +245,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type, T defaultValue);
 
@@ -263,7 +261,7 @@ public interface Configuration {
      *
      * @return the value associated with {@code key}, or {@code defaultValue} if it was not found.
      *
-     * @throws ConversionException if the resource could not be converted to the target type {@code T}.
+     * @throws javax.application.converter.ConversionException if the resource could not be converted to the target type {@code T}.
      */
     <T> T getConverted(String key, Class<T> type, String format, T defaultValue);
 }
