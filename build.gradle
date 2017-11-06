@@ -19,17 +19,20 @@ import java.text.SimpleDateFormat
 buildscript {
     repositories {
         jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
 
     dependencies {
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
         classpath 'org.ajoberstar:gradle-git:1.7.2'
         classpath 'net.nemerosa:versioning:2.6.1'
+        classpath 'org.kordamp.gradle:stats-gradle-plugin:0.2.0'
     }
 }
 
+apply plugin: 'idea'
 apply plugin: 'net.nemerosa.versioning'
 
 Date buildTimeAndDate = new Date()
@@ -39,6 +42,13 @@ ext {
     buildTime = new SimpleDateFormat('HH:mm:ss.SSSZ').format(buildTimeAndDate)
     buildRevision = versioning.info.commit
     buildCreatedBy = "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})".toString()
+}
+
+idea {
+    project {
+        jdkName rootProject.sourceCompatibility
+        languageLevel rootProject.sourceCompatibility
+    }
 }
 
 allprojects {
@@ -55,21 +65,11 @@ allprojects {
             options.addStringOption('Xdoclint:none', '-quiet')
         }
     }
-
-    idea {
-        project {
-            jdkName rootProject.sourceCompatibility
-            languageLevel rootProject.sourceCompatibility
-        }
-    }
 }
 
 subprojects { subproj ->
     plugins.withType(JavaPlugin) {
-        configurations {
-            compileOnly
-            testCompileOnly
-        }
+        subproj.apply plugin: 'org.kordamp.gradle.stats'
 
         subproj.tasks.withType(JavaCompile) {
             sourceCompatibility = rootProject.sourceCompatibility
@@ -91,10 +91,6 @@ subprojects { subproj ->
             from javadoc.destinationDir
         }
 
-        tasks.withType(Jar) {
-            baseName = 'jsr377-' + subproj.name
-        }
-
         artifacts {
             sourcesJar
             javadocJar
@@ -111,7 +107,7 @@ subprojects { subproj ->
             options.windowTitle = "$subproj.name $version"
             options.docTitle    = "$subproj.name $version"
             options.footer      = rootProject.javadocFooter
-            options.links       = ['http://docs.oracle.com/javase/7/docs/api/']
+            options.links       = ['http://docs.oracle.com/javase/8/docs/api/']
         }
 
         subproj.apply from: rootProject.file('gradle/publishing.gradle')

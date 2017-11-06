@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 
-import java.text.SimpleDateFormat
-
-Date buildTimeAndDate = new Date()
-ext {
-    buildDate = new SimpleDateFormat('yyyy-MM-dd').format(buildTimeAndDate)
-    buildTime = new SimpleDateFormat('HH:mm:ss.SSSZ').format(buildTimeAndDate)
-}
-
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 

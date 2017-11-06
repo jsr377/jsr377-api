@@ -1,16 +1,20 @@
 = JSR 377 - Desktop|Embedded Application API
 :linkattrs:
+:project-name: jsr377-api
+:plugin-version: 1.0.0-SNAPSHOT
 
 Contains the specification and API sources for link:https://jcp.org/en/jsr/detail?id=377[JSR-377].
 
+image:http://img.shields.io/travis/jsr377/{project-name}/master.svg["Build Status", link="https://travis-ci.org/jsr377/{project-name}"]
 image:https://badges.gitter.im/Join%20Chat.svg[Gitter, link="https://gitter.im/jsr377/jsr377-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"]
+image:http://img.shields.io/badge/license-ASF2-blue.svg["Apache License 2", link="http://www.apache.org/licenses/LICENSE-2.0.txt"]
 
 == Contributing
 
  - All contributions made by JSR377 Expert Group members are governed by the JSPA.
  - All contributions made by non Expert Group members are governed by the Apache Software License v2.
 
-If you'd like to join the EG then please send your nomination to link:https://jcp.org/en/jsr/egnom?id=377[https://jcp.org/en/jsr/egnom?id=377, window="_blank"] Please bear in mind that you must be an JCP member and have signed the JSPA. You may require an additional signed Exhibit B depending on your membership type.
+If you'd like to join the EG then please send your nomination to link:https://jcp.org/en/jsr/egnom?id=377[https://jcp.org/en/jsr/egnom?id=377, window="_blank"] Please bear in mind that you must be a JCP member and have signed the JSPA. You may require an additional signed Exhibit B depending on your membership type.
 
 To get started (non-EG contributors), link:https://www.clahub.com/agreements/jsr377/jsr377-api[sign the Contributor License Agreement, window="_blank"].
 

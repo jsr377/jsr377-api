@@ -1,5 +1,21 @@
 language: java
-script: ./gradlew clean build jacocoTestReport
-jdk: oraclejdk7
+install: true
+jdk: oraclejdk8
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.sonar/cache/
+before_script:
+  - ./gradlew --no-daemon --version
+script: ./gradlew --console=plain --no-daemon clean build
 env: TERM=dumb
-after_success: ./gradlew coveralls
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/dcdd3e11e41d08952578
+    on_success: change
+    on_failure: always
+    on_start: never
