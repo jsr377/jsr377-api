@@ -71,7 +71,7 @@ publishing {
 
             pom.withXml {
                 asNode().children().last() + pomConfig 
-                asNode().appendNode('description', project.pomDescription)
+                asNode().appendNode('description', project.project_description)
             }
         }
     }
