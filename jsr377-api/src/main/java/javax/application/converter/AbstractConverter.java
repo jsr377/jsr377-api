@@ -26,4 +26,28 @@ public abstract class AbstractConverter<T> implements Converter<T> {
     protected ConversionException illegalValue(Object value, Class<?> klass, Exception e) {
         throw new ConversionException(value, klass, e);
     }
+
+    /**
+     * <p>Determines whether a given string is <code>null</code>, empty,
+     * or only contains whitespace. If it contains anything other than
+     * whitespace then the string is not considered to be blank and the
+     * method returns <code>false</code>.</p>
+     *
+     * @param str The string to test.
+     *
+     * @return <code>true</code> if the string is <code>null</code>, or
+     * blank.
+     */
+    protected boolean isBlank(String str) {
+        if (str == null || str.length() == 0) {
+            return true;
+        }
+        for (char c : str.toCharArray()) {
+            if (!Character.isWhitespace(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

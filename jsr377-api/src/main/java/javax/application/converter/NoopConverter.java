@@ -23,9 +23,4 @@ public class NoopConverter implements Converter<Object> {
     public Object fromObject(Object value) throws ConversionException {
         return value;
     }
-
-    @Override
-    public String toString(Object value) {
-        return value == null ? null : String.valueOf(value);
-    }
 }
