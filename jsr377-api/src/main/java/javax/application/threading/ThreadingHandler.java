@@ -45,6 +45,8 @@ public interface ThreadingHandler {
      * Executes a code block synchronously on the UI thread.
      *
      * @param callable block of code that must be executed. Must not be {@code null}.
+     *
+     * @return return value from the executed block. May be {@code null}.
      */
     <R> R executeInsideUISync(Callable<R> callable);
 
@@ -72,6 +74,8 @@ public interface ThreadingHandler {
      * where the caller issued the call.
      *
      * @param callable block of code that must be executed. Must not be {@code null}.
+     *
+     * @return a {@code CompletionStage} that can be used to signal the resolution or rejection of the code block. Never returns {@code null}.
      */
     <R> CompletionStage<R> executeOutsideUIAsync(Callable<R> callable);
 
@@ -79,6 +83,8 @@ public interface ThreadingHandler {
      * Executes a code block asynchronously on the UI thread.
      *
      * @param callable block of code that must be executed. Must not be {@code null}.
+     *
+     * @return a {@code CompletionStage} that can be used to signal the resolution or rejection of the code block. Never returns {@code null}.
      */
     <R> CompletionStage<R> executeInsideUIAsync(Callable<R> callable);
 }

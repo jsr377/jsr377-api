@@ -45,7 +45,7 @@ public interface Application {
      * Lifecycle method. Shutdowns the application gracefully.
      * {@code ApplicationPhase} should be set automatically to {@code ApplicationPhase.SHUTDOWN}.
      *
-     * @return the exit code that may be sent to the underlying platform process as exit value.
+     * @return the exit code that may be sent to the underlying platform process as exit value. Never returns {@code null}.
      */
     ExitState shutdown();
 

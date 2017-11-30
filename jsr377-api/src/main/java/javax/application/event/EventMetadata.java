@@ -28,11 +28,15 @@ import java.time.Instant;
 public interface EventMetadata<E> {
     /**
      * The point in time when this event was published.
+     *
+     * @return Never returns {@code null}.
      */
     Instant getTimestamp();
 
     /**
      * The event that was published.
+     *
+     * @return Never returns {@code null}.
      */
     E getEvent();
 }
