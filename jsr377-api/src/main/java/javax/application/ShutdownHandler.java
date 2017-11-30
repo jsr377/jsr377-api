@@ -27,7 +27,9 @@ public interface ShutdownHandler {
      *
      * @return {@code true} if the shutdown sequence can proceed, {@code false} otherwise
      */
-    boolean canShutdown(Application application);
+    default boolean canShutdown(Application application) {
+        return true;
+    }
 
     /**
      * Called when the shutdown sequence continues.

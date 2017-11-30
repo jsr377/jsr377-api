@@ -31,5 +31,7 @@ public interface ExitState {
      *
      * @return {@code true} if the application can shutdown, {@code false} otherwise.
      */
-    boolean canShutdown();
+    default boolean canShutdown() {
+        return true;
+    }
 }
