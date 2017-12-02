@@ -26,7 +26,8 @@ public interface ExceptionHandler {
      * Implementors must guarantee that no further exceptions or throwables will be thrown
      * from this method.
      *
+     * @param thread    the {@code Thread} on which the throwable was thrown. Must not be {@code null}.
      * @param throwable an uncaught throwable. Must not be {@code null}.
      */
-    void handleUncaught(Throwable throwable);
+    void handleUncaught(Thread thread, Throwable throwable);
 }
