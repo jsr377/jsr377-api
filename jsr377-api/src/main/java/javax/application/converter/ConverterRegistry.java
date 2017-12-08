@@ -26,12 +26,6 @@ package javax.application.converter;
 public interface ConverterRegistry {
     /**
      * Registers a converter class used to convert values of the given target class.
-     * If the converter class is {@code null},
-     * then any existing definition will be removed.
-     * Thus this method can be used to cancel the registration.
-     * The registration is canceled automatically
-     * if either the target or converter class is unloaded.
-     * <p>
      *
      * @param targetType     the class object of the type to be converted. Must not be {@code null}
      * @param converterClass the class object of the converter class. Must not be {@code null}
@@ -39,10 +33,12 @@ public interface ConverterRegistry {
     <T> void registerConverter(Class<T> targetType, Class<? extends Converter<T>> converterClass);
 
     /**
-     * Unregisters converter class used to convert values of the given target class.
+     * Unregisters a converter class used to convert values of the given target class.
+     * If the given {@code converterClass} is {@code null} then all registrations matching {@code targetType}
+     * are removed.
      *
      * @param targetType     the class object of the type to be converted. Must not be {@code null}
-     * @param converterClass the class object of the converter class. Must not be {@code null}
+     * @param converterClass the class object of the converter class. May be {@code null}
      */
     <T> void unregisterConverter(Class<T> targetType, Class<? extends Converter<T>> converterClass);
 
@@ -55,4 +51,9 @@ public interface ConverterRegistry {
      * The result is {@code null} if no suitable converter can be found.
      */
     <T> Converter<T> findConverter(Class<T> targetType);
+
+    /**
+     * Removes all currently registered converters.
+     */
+    void clear();
 }
