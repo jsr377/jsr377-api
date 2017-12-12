@@ -27,7 +27,8 @@ jar {
             'Build-Revision': project.buildRevision,
             'Specification-Title': project.name,
             'Specification-Version': project.version,
-            'Specification-Vendor': project.project_vendor
+            'Specification-Vendor': project.project_vendor,
+            'Automatic-Module-Name': 'javax.application'
         )
     }
 }
