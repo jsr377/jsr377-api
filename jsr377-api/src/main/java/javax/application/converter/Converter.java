@@ -15,6 +15,8 @@
  */
 package javax.application.converter;
 
+import java.util.Objects;
+
 /**
  * @author Andres Almiray
  */
@@ -40,9 +42,6 @@ public interface Converter<T> {
      * @throws ConversionException if the given value could not be converted to a String.
      */
     default String toString(T value) throws ConversionException {
-        if (null == value) {
-            return null;
-        }
-        return String.valueOf(value);
+        return Objects.toString(value, null);
     }
 }

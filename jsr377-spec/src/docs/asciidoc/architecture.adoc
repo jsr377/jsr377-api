@@ -4,7 +4,7 @@
 
 This specification defines a powerful set of complementary services that help improve the structure of application code.
 
- * dependency injection via JSR330.
+ * dependency injection via JSR-330.
  * common application structure.
  * application life-cycle.
  * localized resources.
@@ -16,9 +16,8 @@ This specification defines a powerful set of complementary services that help im
  * component life-cycle.
  * light-weight event bus.
  * honor threading concerns (specific to UI toolkit).
- * application extensibility via plugins (implies modularity).
 
-Lorem ipsum dolor sit amet.
+The facilities defined by this specification allow developers to write applications with clear separation of concerns between business logic and UI. In this way, application code becomes more flexible, enabling components to be built with low coupling and high cohesion.
 
 == Contracts
 
@@ -27,13 +26,253 @@ This specification defines the responsibilities of:
  * the application developer who uses these services, and
  * the vendor who implements the functionality defined by this specification and provides a runtime environment in which the application executes.
 
-Lorem ipsum dolor sit amet.
+The application's runtime is in charge of directing the application through each one of its phases. Each phases describes the behavior that may be executed at that particular point in time during the application's lifetime. The application's lifecycle is thus controlled by these phases.
 
 == Relationship to other specifications
 
-Lorem ipsum dolor sit amet.
+This sections identifies how JSR-377 relates to other existing specifications defined under the JCP.
 
 === Relationship to Dependency Injection for Java
 
-The Dependency Injection for Java specification defines a set of annotations for the declaring injected fields, methods and constructors of a bean. The dependency injection service makes use of these annotations.
+The Dependency Injection for Java specification (JSR-330) defines a set of annotations for the declaring injected fields, methods and constructors of a bean. The dependency injection service required by JSR-377 compliant applications makes use of these annotations. It's possible to combine JSR-377 with Contexts and Dependency Injection for Java 2.0 (known as JSR-365 or CDI 2.0 for short) as long as the implementing framework complies with CDI as well.
 
+=== Relationship to Configuration API 1.0
+
+The Configuration API 1.0 (known as JSR-382) provides an API to obtain configuration properties through several environment-aware sources both internal and external to the application and made available through dependency injection or lookup. This API may be used by an implementing framework provided sensible defaults are put in place to bridge it with JSR-377's own configuration API, as the former is more generic and the latter is more powerful and delivers specific upgrades required by desktop applications.
+
+== Introductory Example
+
+The following example relies on JavaFX as the UI toolkit of choice and the MVC pattern to separate business logic from any UI concerns. The Controller defines behavior via actions; the Model holds the data shared between Controller and View; the View defines the looks via UI widgets and relies on data binding to display data provided by the Model. The UI for this example looks like this
+
+[source]
+----
++------------------------+
+| Name: ________________ |
+|                        |
+|       +--------------+ |
+|       |   Greeting!  | |
+|       +--------------+ |
+|                        |
+| ...................... |
++------------------------+
+----
+
+That's a label with the text "Name:"; a textfield where you'll input a name; a button with the text "Greeting!" which should trigger a 'greeting' action; a non-editable output (the dotted lines) that will display the computed greeting. The rules for computing the value of the greeting are:
+
+ 1. If a non-blank name is given then the greeting results in "Hello $name!".
+ 2. If a blank name is given then the greeting results in "Howdy stranger".
+
+Assuming there's an implementing framework that provides MVC support, where each member of the MVC triad is bound/grouped to an instance of MVCGroup, the Controller contains action definitions, the Model provides data between Controller and View, the View displays the data and routes user events to the actions. We can start with the Controller as it's the one that's closely tied to this JSR due to actions
+
+.com/acme/GreetingController.java
+[source,java]
+----
+package com.acme;
+import javax.application.action.ActionHandler;
+import javax.application.i18n.MessageSource;
+
+public class GreetingController {
+  @Inject private MessageSource messageSource;
+  @Inject private GreetingModel model;
+
+  @ActionHandler
+  public void greeting() {
+    String input = model.getInput();
+    if (StringUtils.isBlank(input)) {
+      model.setOutput(messageSource.getMessage("greeting.default"));
+    } else {
+      model.setOutput(messageSource.getMessage("greeting.parameterized", new Object[]{ input }));
+    }
+  }
+}
+----
+
+Assume that there's a `StringUtils` class provided by the framework or some other utility. Also, it doesn't matter what type of dependency injection is used (constructor, field, setter).
+We can gather the following bits from this example so far
+
+ - there's a single action whose identifier is "greeting".
+ - the fully qualified identifier for this action is "com.acme.GreetingController.greeting".
+ - the Controller requires the Model to have to String based properties: input and output.
+ - the framework injects the application's default `MessageSource` into the Controller. Alternatively the framework could provide a base/abstract Controller class with some common dependencies already injected such as the `Application` instance, `MessageSource`, `EventBus`, etc.
+ - the framework injects the corresponding Model member of the MVC group. It does so using JSR-330's `@Inject` annotation, however it could do so with a different set of annotations if the implementing framework so requires.
+ - the `MessageSource` will resolve messages based on its configured resources, which may be a properties file, JSON, YAML, XML, etc; from the POV of the Controller is does not matter.
+
+The Model is implemented as a container for two observable properties using standard JavaFX support, in other words
+
+.com/acme/GreetingModel.java
+[source,java]
+----
+package com.acme;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+public class GreetingModel {
+  private final StringProperty input = new SimpleStringProperty(this, "input");
+  private final StringProperty output = new SimpleStringProperty(this, "output");
+  // getters & setters
+}
+----
+
+Nothing exciting here, nothing specific to this JSR either as these properties are related to the chosen UI toolkit. Finally we arrive to the View where the Model and Controller are hooked into the UI, which could look like this
+
+.com/acme/GreetingView.java
+[source,java]
+----
+package com.acme;
+import javax.application.threading.ThreadingHandler;
+
+public class GreetingView {
+  @Inject private GreetingController controller;
+  @Inject private GreetingModel      model;
+  @Inject private ThreadingHandler   threadingHandler;
+
+  @PostConstruct
+  public void init() {
+    threadingHandler.executeInsideUISync(this::buildUI);
+  }
+
+  private void buildUI() {
+    // 1. build UI programmatically and/or load FXML
+    // 2. bind textfield to model.input
+    // 3. bind label to model.output
+    // 4. find and wire greeting action to button
+  }
+}
+----
+
+Building the UI (most importantly, attaching the nodes to the SceneGraph) must happen inside the UI thread, thus we wrap the initialization code with a call to `ThreadingHandler.executeInsideUISync`, because we want the UI to be finished building itself before the application continues. Items #1, #2, #3 are UI specific and do not require any kind of support from this JSR. Item #4 is a bit of a gray area as it requires an implementation of `javax.application.action.Action` that has a relationship with the "greeting" action defined in the Controller. JSR377 does not define how Actions must be discovered, stored, and retrieved; this is a task left to implementors.
+
+The last step is to find a way to bootstrap and launch the application, this could be done using a framework class that understands the life cycle of `javax.application.Application`, such as an hypothetical AcmeJavaFXApplication.
+
+.com/acme/Launcher.java
+[source,java]
+----
+package com.acme;
+
+public class Launcher {
+  public static void main(String[] args) {
+    AcmeJavaFXApplication.run(args);
+  }
+}
+----
+
+It's the job of this implementor specific class to locate the configuration, bootstrap and configure the DI container, switch the application's phases from INITIALIZE->STARTUP->READY->MAIN as it moves through the setup. From the POV of the developer the whole application is comprised of (at least) 5 files
+
+ - Controller
+ - Model
+ - View
+ - Launcher
+ - a properties file that contains the i18n messages to be resolved
+
+Additional files such as Dependency Injection configuration (think a Google Guice `Module` or a Spring `@Configuration` file), services files, or others may be required by the particular implementing framework.
+
+== Core APIs
+
+=== Application Life Cycle
+
+TBD
+
+==== The Application interface
+
+Lorem ipsum
+
+==== Application Phases
+
+Lorem ipsum
+
+==== Exist Status
+
+Lorem ipsum
+
+==== Shutdown Handlers
+
+Lorem ipsum
+
+=== Configuration
+
+TBD
+
+==== The Configuration Interface
+
+Lorem ipsum
+
+==== Injected Configuration
+
+Lorem ipsum
+
+==== Relationship with JSR-382
+
+Lorem ipsum
+
+=== Actions
+
+TBD
+
+==== The Action Interface
+
+Lorem ipsum
+
+==== Action Metadata
+
+Lorem ipsum
+
+==== Action Handlers
+
+Lorem ipsum
+
+==== Action Interceptors
+
+Lorem ipsum
+
+
+=== Internationalization (I18N)
+
+TBD
+
+==== The MessageSource Interface
+
+Lorem ipsum
+
+=== Resources
+
+TBD
+
+==== The ResourceResolver Interface
+
+Lorem ipsum
+
+==== Injected Resources
+
+Lorem ipsum
+
+=== Type Conversion
+
+TBD
+
+==== The Converter Interface
+
+Lorem ipsum
+
+==== Converter Registry
+
+Lorem ipsum
+
+=== Events
+
+TBD
+
+=== Threading
+
+TBD
+
+==== The Threading Handler Interface
+
+Lorem ipsum
+
+=== Exception Handling
+
+TBD
+
+==== The Exception Handler Interface
+
+Lorem ipsum
