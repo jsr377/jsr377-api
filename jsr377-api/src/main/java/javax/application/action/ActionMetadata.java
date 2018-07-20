@@ -43,6 +43,25 @@ public interface ActionMetadata {
     ActionParameter[] getParameters();
 
     /**
+     * Returns the id for the action.
+     * This value is computed from the name of the method associated with an action.
+     * Example, invoking this method returns "{@code click}" given an action defined as follows:
+     * <pre>
+     *     package org.example;
+     *
+     *     public class SampleController {
+     *         &#064;ActionHandler
+     *         public class click(ActionEvent event) {
+     *             ...
+     *         }
+     *     }
+     * </pre>
+     *
+     * @return a non-null name.
+     */
+    String getActionId();
+
+    /**
      * Returns the simple name for the action.
      * This value is computed from the name of the method associated with an action.
      * Example, invoking this method returns "{@code click}" given an action defined as follows:
@@ -50,6 +69,21 @@ public interface ActionMetadata {
      *     package org.example;
      *
      *     public class SampleController {
+     *         &#064;ActionHandler
+     *         public class click(ActionEvent event) {
+     *             ...
+     *         }
+     *     }
+     * </pre>
+     *
+     * The computed value may be overridden by supplying a different value to the {@code name} attribute
+     * of the &#064;{@code ActionHandler} annotation, in the following example the result of invoking this method
+     * is "{@code clickAndGo}"
+     * <pre>
+     *     package org.example;
+     *
+     *     public class SampleController {
+     *         &#064;ActionHandler(name = "clickAndGo")
      *         public class click(ActionEvent event) {
      *             ...
      *         }
@@ -61,12 +95,13 @@ public interface ActionMetadata {
     String getActionName();
 
     /**
-     * Returns the name of the aciton with the fully qualified class name of its owner as prefix.</p>
+     * Returns the name of the action with the fully qualified class name of its owner as prefix.</p>
      * Example, invoking this method returns "{@code org.example.SampleController.click}" given an action defined as follows:
      * <pre>
      *     package org.example;
      *
      *     public class SampleController {
+     *         &#064;ActionHandler
      *         public class click(ActionEvent event) {
      *             ...
      *         }

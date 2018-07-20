@@ -33,7 +33,17 @@ import java.lang.annotation.Target;
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
 public @interface ActionHandler {
     /**
-     * Defines the action's name.
+     * Defines the action's id.
      */
     String value() default "";
+
+    /**
+     * Defines the action's name.
+     */
+    String name() default "";
+
+    /**
+     * Defines the action's enabled state.
+     */
+    boolean enabled() default true;
 }

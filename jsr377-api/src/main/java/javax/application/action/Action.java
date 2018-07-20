@@ -19,6 +19,7 @@ package javax.application.action;
  * @author Andres Almiray
  */
 public interface Action {
+    String PROPERTY_ID= "id";
     String PROPERTY_NAME = "name";
     String PROPERTY_ENABLED = "enabled";
 
@@ -35,6 +36,21 @@ public interface Action {
      * @return a non-null value.
      */
     Object getOwner();
+
+    /**
+     * Returns the id of this action.
+     * The value for this property must not be null.
+     *
+     * @return the id of this action.
+     */
+    String getId();
+
+    /**
+     * Sets the id of this action.
+     *
+     * @param id the id of this action. Must not be {@code null}, empty, nor blank.
+     */
+    void setId(String id);
 
     /**
      * Returns the name of this action.
