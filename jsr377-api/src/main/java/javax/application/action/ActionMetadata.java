@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2017 the original author or authors.
+ * Copyright 2015-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +77,7 @@ public interface ActionMetadata {
      * </pre>
      *
      * The computed value may be overridden by supplying a different value to the {@code name} attribute
-     * of the &#064;{@code ActionHandler} annotation, in the following example the result of invoking this method
+     * of the {@code &#064;ActionHandler} annotation, in the following example the result of invoking this method
      * is "{@code clickAndGo}"
      * <pre>
      *     package org.example;
