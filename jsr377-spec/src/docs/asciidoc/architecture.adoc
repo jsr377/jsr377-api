@@ -17,16 +17,21 @@ This specification defines a powerful set of complementary services that help im
  * light-weight event bus.
  * honor threading concerns (specific to UI toolkit).
 
-The facilities defined by this specification allow developers to write applications with clear separation of concerns between business logic and UI. In this way, application code becomes more flexible, enabling components to be built with low coupling and high cohesion.
+The facilities defined by this specification allow developers to write applications with clear separation of concerns between
+business logic and UI. In this way, application code becomes more flexible, enabling components to be built with low coupling
+and high cohesion.
 
 == Contracts
 
 This specification defines the responsibilities of:
 
  * the application developer who uses these services, and
- * the vendor who implements the functionality defined by this specification and provides a runtime environment in which the application executes.
+ * the vendor who implements the functionality defined by this specification and provides a runtime environment in which
+ the application executes.
 
-The application's runtime is in charge of directing the application through each one of its phases. Each phases describes the behavior that may be executed at that particular point in time during the application's lifetime. The application's lifecycle is thus controlled by these phases.
+The application's runtime is in charge of directing the application through each one of its phases. Each phases describes
+the behavior that may be executed at that particular point in time during the application's lifetime. The application's
+lifecycle is thus controlled by these phases.
 
 == Relationship to other specifications
 
@@ -34,15 +39,25 @@ This sections identifies how JSR-377 relates to other existing specifications de
 
 === Relationship to Dependency Injection for Java
 
-The Dependency Injection for Java specification (JSR-330) defines a set of annotations for the declaring injected fields, methods and constructors of a bean. The dependency injection service required by JSR-377 compliant applications makes use of these annotations. It's possible to combine JSR-377 with Contexts and Dependency Injection for Java 2.0 (known as JSR-365 or CDI 2.0 for short) as long as the implementing framework complies with CDI as well.
+The Dependency Injection for Java specification (JSR-330) defines a set of annotations for the declaring injected fields,
+methods and constructors of a bean. The dependency injection service required by JSR-377 compliant applications makes use
+of these annotations. It's possible to combine JSR-377 with Contexts and Dependency Injection for Java 2.0 (known as JSR-365
+or CDI 2.0 for short) as long as the implementing framework complies with CDI as well.
 
 === Relationship to Configuration API 1.0
 
-The Configuration API 1.0 (known as JSR-382) provides an API to obtain configuration properties through several environment-aware sources both internal and external to the application and made available through dependency injection or lookup. This API may be used by an implementing framework provided sensible defaults are put in place to bridge it with JSR-377's own configuration API, as the former is more generic and the latter is more powerful and delivers specific upgrades required by desktop applications.
+The Configuration API 1.0 (known as JSR-382) provides an API to obtain configuration properties through several environment-aware
+sources both internal and external to the application and made available through dependency injection or lookup. This API
+may be used by an implementing framework provided sensible defaults are put in place to bridge it with JSR-377's own
+configuration API, as the former is more generic and the latter is more powerful and delivers specific upgrades required
+by desktop applications.
 
 == Introductory Example
 
-The following example relies on JavaFX as the UI toolkit of choice and the MVC pattern to separate business logic from any UI concerns. The Controller defines behavior via actions; the Model holds the data shared between Controller and View; the View defines the looks via UI widgets and relies on data binding to display data provided by the Model. The UI for this example looks like this
+The following example relies on JavaFX as the UI toolkit of choice and the MVC pattern to separate business logic from any
+UI concerns. The Controller defines behavior via actions; the Model holds the data shared between Controller and View; the
+View defines the looks via UI widgets and relies on data binding to display data provided by the Model. The UI for this
+example looks like this
 
 [source]
 ----
@@ -57,12 +72,17 @@ The following example relies on JavaFX as the UI toolkit of choice and the MVC p
 +------------------------+
 ----
 
-That's a label with the text "Name:"; a textfield where you'll input a name; a button with the text "Greeting!" which should trigger a 'greeting' action; a non-editable output (the dotted lines) that will display the computed greeting. The rules for computing the value of the greeting are:
+That's a label with the text "Name:"; a textfield where you'll input a name; a button with the text "Greeting!" which should
+trigger a 'greeting' action; a non-editable output (the dotted lines) that will display the computed greeting. The rules
+for computing the value of the greeting are:
 
  1. If a non-blank name is given then the greeting results in "Hello $name!".
  2. If a blank name is given then the greeting results in "Howdy stranger".
 
-Assuming there's an implementing framework that provides MVC support, where each member of the MVC triad is bound/grouped to an instance of MVCGroup, the Controller contains action definitions, the Model provides data between Controller and View, the View displays the data and routes user events to the actions. We can start with the Controller as it's the one that's closely tied to this JSR due to actions
+Assuming there's an implementing framework that provides MVC support, where each member of the MVC triad is bound/grouped
+to an instance of MVCGroup, the Controller contains action definitions, the Model provides data between Controller and View,
+the View displays the data and routes user events to the actions. We can start with the Controller as it's the one that's
+closely tied to this JSR due to actions
 
 .com/acme/GreetingController.java
 [source,java]
@@ -87,15 +107,20 @@ public class GreetingController {
 }
 ----
 
-Assume that there's a `StringUtils` class provided by the framework or some other utility. Also, it doesn't matter what type of dependency injection is used (constructor, field, setter).
+Assume that there's a `StringUtils` class provided by the framework or some other utility. Also, it doesn't matter what
+type of dependency injection is used (constructor, field, setter).
 We can gather the following bits from this example so far
 
  - there's a single action whose identifier is "greeting".
  - the fully qualified identifier for this action is "com.acme.GreetingController.greeting".
  - the Controller requires the Model to have to String based properties: input and output.
- - the framework injects the application's default `MessageSource` into the Controller. Alternatively the framework could provide a base/abstract Controller class with some common dependencies already injected such as the `Application` instance, `MessageSource`, `EventBus`, etc.
- - the framework injects the corresponding Model member of the MVC group. It does so using JSR-330's `@Inject` annotation, however it could do so with a different set of annotations if the implementing framework so requires.
- - the `MessageSource` will resolve messages based on its configured resources, which may be a properties file, JSON, YAML, XML, etc; from the POV of the Controller is does not matter.
+ - the framework injects the application's default `MessageSource` into the Controller. Alternatively the framework could
+   provide a base/abstract Controller class with some common dependencies already injected such as the `Application`
+   instance, `MessageSource`, `EventBus`, etc.
+ - the framework injects the corresponding Model member of the MVC group. It does so using JSR-330's `@Inject` annotation,
+   however it could do so with a different set of annotations if the implementing framework so requires.
+ - the `MessageSource` will resolve messages based on its configured resources, which may be a properties file, JSON, YAML,
+   XML, etc; from the POV of the Controller is does not matter.
 
 The Model is implemented as a container for two observable properties using standard JavaFX support, in other words
 
@@ -113,7 +138,8 @@ public class GreetingModel {
 }
 ----
 
-Nothing exciting here, nothing specific to this JSR either as these properties are related to the chosen UI toolkit. Finally we arrive to the View where the Model and Controller are hooked into the UI, which could look like this
+Nothing exciting here, nothing specific to this JSR either as these properties are related to the chosen UI toolkit.
+Finally we arrive to the View where the Model and Controller are hooked into the UI, which could look like this
 
 .com/acme/GreetingView.java
 [source,java]
@@ -140,9 +166,15 @@ public class GreetingView {
 }
 ----
 
-Building the UI (most importantly, attaching the nodes to the SceneGraph) must happen inside the UI thread, thus we wrap the initialization code with a call to `ThreadingHandler.executeInsideUISync`, because we want the UI to be finished building itself before the application continues. Items #1, #2, #3 are UI specific and do not require any kind of support from this JSR. Item #4 is a bit of a gray area as it requires an implementation of `javax.application.action.Action` that has a relationship with the "greeting" action defined in the Controller. JSR377 does not define how Actions must be discovered, stored, and retrieved; this is a task left to implementors.
+Building the UI (most importantly, attaching the nodes to the SceneGraph) must happen inside the UI thread, thus we wrap
+the initialization code with a call to `ThreadingHandler.executeInsideUISync`, because we want the UI to be finished
+building itself before the application continues. Items #1, #2, #3 are UI specific and do not require any kind of support
+from this JSR. Item #4 is a bit of a gray area as it requires an implementation of `javax.application.action.Action` that
+has a relationship with the "greeting" action defined in the Controller. JSR377 does not define how Actions must be
+discovered, stored, and retrieved; this is a task left to implementors.
 
-The last step is to find a way to bootstrap and launch the application, this could be done using a framework class that understands the life cycle of `javax.application.Application`, such as an hypothetical AcmeJavaFXApplication.
+The last step is to find a way to bootstrap and launch the application, this could be done using a framework class that
+understands the life cycle of `javax.application.Application`, such as an hypothetical AcmeJavaFXApplication.
 
 .com/acme/Launcher.java
 [source,java]
@@ -156,7 +188,9 @@ public class Launcher {
 }
 ----
 
-It's the job of this implementor specific class to locate the configuration, bootstrap and configure the DI container, switch the application's phases from INITIALIZE->STARTUP->READY->MAIN as it moves through the setup. From the POV of the developer the whole application is comprised of (at least) 5 files
+It's the job of this implementor specific class to locate the configuration, bootstrap and configure the DI container,
+switch the application's phases from INITIALIZE->STARTUP->READY->MAIN as it moves through the setup. From the POV of the
+developer the whole application is comprised of (at least) 5 files
 
  - Controller
  - Model
@@ -164,13 +198,12 @@ It's the job of this implementor specific class to locate the configuration, boo
  - Launcher
  - a properties file that contains the i18n messages to be resolved
 
-Additional files such as Dependency Injection configuration (think a Google Guice `Module` or a Spring `@Configuration` file), services files, or others may be required by the particular implementing framework.
+Additional files such as Dependency Injection configuration (think a Google Guice `Module` or a Spring `@Configuration`
+file), services files, or others may be required by the particular implementing framework.
 
 == Core APIs
 
-=== Application Life Cycle
-
-TBD
+=== Application
 
 ==== The Application interface
 
@@ -178,15 +211,45 @@ Lorem ipsum
 
 ==== Application Phases
 
-Lorem ipsum
+The application's lifecycle is determined by `javax.application.ApplicationPhase` and its transitions as shown in the
+following diagram:
 
-==== Exist Status
+image::javax/application/application-phases.png[alt="application-phases"]
+
+The expected behavior of each of the phases is described next:
+
+[horizontal]
+INITIALIZE:: The initialization phase is the first to be called by the application's life cycle.
+             The application instance has just been created and its configuration has been read.
+             This phase is typically used to tweak the application for the current platform,
+             including its Look & Feel. The {link_jsr330} compatible Dependecy Injection container should
+             be initialized at this point.
+STARTUP:: This phase is responsible for instantiating all internal components required by the implementing
+          framework as well as any application specific components such as MVC groups, resource allocation
+          such as database connections, network clients, etc.
+READY:: This phase will be called right after `STARTUP` with the condition that no pending
+        events are available in the UI queue. The application's main window should be displayed
+        at the end of this phase.
+MAIN:: The application should be fully operational at this point.
+SHUTDOWN:: Called when the application should close. Any application component can invoke the shutdown
+           sequence by calling `shutdown()` on the `javax.application.Application` instance.
+
+==== Exit Status
 
 Lorem ipsum
 
 ==== Shutdown Handlers
 
-Lorem ipsum
+Applications have the option to let particular components abort the shutdown sequence and/or perform a task while the
+shutdown sequence is in process. Components that desire to be part of the shutdown sequence should implement the 
+`javax.application.ShutdownHandler` interface and register themselves with the application instance.
+
+The contract of a `javax.application.ShutdownHandler` is very simple:
+
+* `boolean canShutdown(Application application)` - return *`false`* to abort the shutdown sequence.
+* `void onShutdown(Application application)` - called if the shutdown sequence was not aborted.
+
+``javax.application.ShutdownHandler``s will be called in the same order as they were registered.
 
 === Configuration
 
@@ -224,26 +287,260 @@ Lorem ipsum
 
 Lorem ipsum
 
-
 === Internationalization (I18N)
 
-TBD
+This section describes the Internationalization (`I18N`) features available to all applications.
 
 ==== The MessageSource Interface
 
-Lorem ipsum
+Applications have the ability to resolve internationalizable messages by leveraging the behavior provided by
+`javax.application.i18n.MessageSource`. This interface exposes the following methods:
+
+ - String getMessage(String key)
+ - String getMessage(String key, Locale locale)
+ - String getMessage(String key, Object[] args)
+ - String getMessage(String key, Object[] args, Locale locale)
+ - String formatMessage(String message, Object[] args)
+ - ResourceBundle asResourceBundle()
+
+The first set throws a `NoSuchMessageException` if a message could not be resolved given the key sent as argument.
+The following methods take an additional `defaultMessage` parameter that may be used if no configured message is found.
+If this optional parameter is null, then the `key` should used as the message; in other words, these methods never throw
+a `NoSuchMessageException` nor return `null` unless the passed in `key` is null.
+
+ - String getMessage(String key, String defaultMessage)
+ - String getMessage(String key, Locale locale, String defaultMessage)
+ - String getMessage(String key, Object[] args, String defaultMessage)
+ - String getMessage(String key, Object[] args, Locale locale, String defaultMessage)
+
+The simplest way to resolve a message is as follows:
+
+[source,java,options="nowrap"]
+----
+MessageSource messageSource = ... // grab it from DI container
+messageSource.getMessage("some.key")
+----
+
+==== Resource Files
+
+There are no restrictions on the type of resources files that may be used to resolve messages. The usage of properties
+files is prevalent, typically these files are read using a `{link_resource_bundle}` implementation, this being said,
+implementors may pick additional file formats such as Groovy and or Kotlin scripts, JSON, YAML, XML, or more.
+
+==== Message Formats
+
+Implementors are free to choose the message format to be used in the source files, at the very least they should support
+the standar format as defined by the JDK `{link_message_format}` facilities. These formats must work  with all versions
+of the `getMessage()` method defined by `MessageSource`. An  example of this message format follows, first the file that
+contains message definitions
+
+[source,java,linenums,options="nowrap"]
+.messages.properties
+----
+healthy.proverb = An {0} a day keeps the {1} away
+yoda.says = {0} is the path to the dark side. {0} leads to {1}. {1} leads to {2}. {2} leads to suffering.
+----
+
+Then the code used to resolve these messages looks like this:
+
+[source,java,options="nowrap"]
+----
+String quote = messageSource.getMessage("yoday.says", new Object[]{"Fear", "Anger", "Hate"});
+assertEquals(quote, "Fear is the path to the dark side. Fear leads to Anger. Anger leads to Hate. Hate leads to suffering");
+----
 
 === Resources
 
-TBD
+This section describes resource management and injection features available to all applications.
 
 ==== The ResourceResolver Interface
 
-Lorem ipsum
+Applications have the ability to resolve internationalizable messages by leveraging the behavior provided by 
+`javax.application.resources.ResourceResolver`. This interface exposes the following methods:
 
+ - Object resolveResource(String key)
+ - Object resolveResource(String key, Locale locale)
+ - Object resolveResource(String key, Object[] args)
+ - Object resolveResource(String key, Object[] args, Locale locale)
+ - String formatResource(String resource, Object[] args)
+
+The first set throws `NoSuchResourceException` if a message could not be resolved given the key sent as argument. The 
+following methods take an additional `defaultValue` parameter which will be used if no configured resource is found. If
+this optional parameter were to be null, then the `key` should be used as the literal value of the resource; in other words,
+these methods never throw `NoSuchResourceException` nor return `null` unless the passed-in `key` is null.
+
+ - Object resolveResource(String key, Object defaultValue)
+ - Object resolveResource(String key, Locale locale, Object defaultValue)
+ - Object resolveResource(String key, Object[] args, Object defaultValue)
+ - Object resolveResource(String key, Object[] args, Locale locale, Object defaultValue)
+
+There is also another set of methods which convert the resource value using ``Converter``s:
+
+ - <T> T resolveResourceConverted(String key, Class<T> type)
+ - <T> T resolveResourceConverted(String key, Locale locale, Class<T> type)
+ - <T> T resolveResourceConverted(String key, Object[] args, Class<T> type)
+ - <T> T resolveResourceConverted(String key, Object[] args, Locale locale, Class<T> type)
+
+with default value support too:
+
+ - <T> T resolveResourceConverted(String key, Object defaultValue, Class<T> type)
+ - <T> T resolveResourceConverted(String key, Locale locale, Object defaultValue, Class<T> type)
+ - <T> T resolveResourceConverted(String key, Object[] args, Object defaultValue, Class<T> type)
+ - <T> T resolveResourceConverted(String key, Object[] args, Locale locale, Object defaultValue, Class<T> type)
+
+The simplest way to resolve a message is thus
+
+[source,java,options="nowrap"]
+----
+ResourceResolver resourceResolver = ... // grab it from DI container
+resourceResolver.resolveResource("menu.icon");
+----
+
+==== Resource Files
+
+There are no restrictions on the type of resources files that may be used to resolve messages. The usage of properties
+files is prevalent, typically these files are read using a `{link_resource_bundle}` implementation, this being said,
+implementors may pick additional file formats such as Groovy and or Kotlin scripts, JSON, YAML, XML, or more.
+
+==== Message Formats
+
+Implementors are free to choose the message format to be used in the source files, at the very least they should support
+the standar format as defined by the JDK `{link_message_format}` facilities. These formats must work  with all versions
+of the `resolveResource()` method defined by `ResourceResolver`. An  example of this message format follows, first the
+file that contains message definitions
+
+[source,java,options="nowrap"]
+.resources.properties
+----
+menu.icon = /img/icons/menu-{0}.png
+----
+
+Assuming there are three icon files available in the classpath whose filenames are `menu-small.png`, `menu-medium.png` and
+`menu-large.png`, a component may resolve any of them with
+
+[source,java,options="nowrap"]
+----
+Icon smallIcon = resourceResolver.resolveResourceConverted("menu.icon", new Object[]{"small"], Icon.class);
+Icon mediumIcon = resourceResolver.resolveResourceConverted("menu.icon", new Object[]{"medium"], Icon.class);
+Icon largeIcon = resourceResolver.resolveResourceConverted("menu.icon", new Object[]{"large"], Icon.class);
+----
+
+==== Type Conversion
+
+Note that the return value of the `resolveResource` methods is marked as `T`, but you'll get, You'll have to rely on
+converters in order to transform the value into the correct type. <<_resources_injected_resources,Injected resources>>
+are automatically transformed to the expected type.
+
+Here's how it can be done:
+
+[source,java,options="nowrap"]
+----
+import javax.swing.Icon;
+import javax.application.converter.Converter;
+import javax.application.converter.ConverterRegistry;
+...
+Object iconValue = resourceResolver.resolveResource("menu.icon", new Object[]{"large"]);
+Converter<Icon> converter = ConverterRegistry.findConverter(Icon);
+Icon icon = converter.fromObject(String.valueOf(iconValue));
+----
+
+As an alternative you may call `resolveResourceConverted` instead which automatically locates a suitable `Converter`.
+
+[[_resources_injected_resources]]
 ==== Injected Resources
 
-Lorem ipsum
+Resources may be automatically injected into any instance created via the application's Dependency Injector container.
+Injection points must be annotated with `@javax.application.resources.InjectedResource` which may be applied on fields
+or setter methods. The following example shows a class named `SampleModel` that's managed by the application's Dependency
+Injection container
+
+[source,java,options="nowrap"]
+.resources.properties
+----
+sample.SampleModel.logo = /jsr377-logo-48x48.png
+logo = /jsr377-logo-{0}x{0}.png
+----
+
+[source,groovy,linenums,options="nowrap"]
+.src/main/java/sample/SampleModel.java
+----
+package sample;
+
+import javax.application.resources.InjectedResource;
+import javax.swing.Icon;
+
+public class SampleModel {
+    @InjectedResource private Icon logo;
+
+    @InjectedResource(value="logo", args={"16"})
+    private Icon smallLogo;
+
+    @InjectedResource(value="logo", args={"64"})
+    private Icon largeLogo;
+}
+----
+
+`@InjectedResource` assumes a naming convention in order to determine the resource key to use. These are the rules applied
+by the default by `javax.application.resources.ResourceInjector`:
+
+ - If a value is specified for the `value` argument, then use it as is.
+ - otherwise, construct a key based in the field name prefixed with the full qualified
+   class name of the field's owner.
+
+You may also specify a default value if the resource definition is not found; however, be aware that this value must be set
+as a `String`, thus guaranteeing a type conversion. An optional `format` value may be specified as a hint to the `Converter`
+used during value conversion, for example:
+
+[source,groovy,linenums,options="nowrap"]
+.src/main/java/sample/SampleModel.java
+----
+package sample;
+
+import java.util.Date;
+import javax.application.resources.InjectedResource;
+
+public class SampleModel {
+    @InjectedResource(defaultValue="10.04.2013 2:30 PM", format="dd.MM.yyyy h:mm a")
+    private Date date;
+}
+----
+
+The next table describes all properties pertaining `@InjectedResource`
+
+[cols="4*", header]
+|===
+
+| Property
+| Type
+| Default Value
+| Responsibility
+
+| value
+| String
+| ""
+| Defines a explicit key used to locate the resource.
+
+| args
+| String[]
+|
+| Arguments that may be used to format the literal  resource value before conversion takes place.
+
+| defaultValue
+| String
+|
+| Resource value to be used if no configured value may be found.
+
+| format
+| String
+| ""
+| Additional format that may be used to parse the literal resource value.
+
+| converter
+| Class<? extends Converter<?>>
+| javax.application.converter.NoopConverter
+| Explicit `Converter` that may be used to convert the literal resource value into a specific type.
+
+|===
 
 === Type Conversion
 
@@ -263,11 +560,163 @@ TBD
 
 === Threading
 
-TBD
+Building a well-behaved multi-threaded desktop application has been a hard task for many years; however, it does not have
+to be that way anymore. The following sections explain the threading facilities provided by this JSR.
 
 ==== The Threading Handler Interface
 
-Lorem ipsum
+The `javax.application.threading.ThreadingHandler` defines the contract that every component must follow to interact with
+the toolkit specific UI thread and remaining threads. This interface defines methods that execute code inside and outside
+of the UI thread, in synchronously and asynchronoulsy fashions. For the following examples it's assumed that the implementing
+framework provides a base type `AbstractFrameworkController` that implements the  `ThreadingHandler` interface and that of its
+methods marked with `@ActionHandler` are executed outside of the UI thread by default.
+
+==== Synchronous Calls
+
+Synchronous calls inside the UI thread are made by invoking the `executeInsideUISync` methods. There are two variants of
+this method, one that returns no value and one that does. Implementors should take note that invocations of these methods
+must be re-entrant safe, that is, if the caller is already inside the UI thread then the invocation proceeds normally, the
+reason for this note is that UI toolkits such as Swing prevent such invocations to take place
+
+[source,java,linenums,options="nowrap"]
+----
+package sample;
+
+import com.acme.mvc.AbstractFrameworkController;
+import javax.application.action.ActionHandler;
+
+public class SampleController extends AbstractFrameworkController {
+    @ActionHandler
+    public void work) {
+        // will be invoked outside of the UI thread by default
+        // do some calculations
+        executeInsideUISync(() -> {
+            // back inside the UI thread
+        });
+        // the following code waits for the previous block to finish its execution
+    }
+}
+----
+
+The following are the method signatures that provide blocking execution (synchronous) inside the UI thread:
+
+[source,java]
+----
+void executeInsideUISync(Runnable runnable);
+<R> R executeInsideUISync(Callable<R> callable);
+----
+
+==== Asynchronous Calls
+
+Similarly to synchronous calls, asynchronous calls inside the UI thread are made by invoking the `executeInsideUIAsync`
+methods. These methods should post an event into the UI queue and return immediately; their behavior is equivalent to calling
+`SwingUtilities.invokeLater()` when using Swing or `Platform.runLater()` when using JavaFX.
+
+[source,java,linenums,options="nowrap"]
+----
+package sample;
+
+import com.acme.mvc.AbstractFrameworkController;
+import javax.application.action.ActionHandler;
+
+public class SampleController extends AbstractFrameworkController {
+    @ActionHandler
+    public void work) {
+        // will be invoked outside of the UI thread by default
+        // do some calculations
+        executeInsideUIAsync(() ->{
+            // back inside the UI Thread
+        });
+        // the following code is executed immediately and do not waits for the previous block
+    }
+}
+----
+
+There are two variants, one that does not return a value, another one that returns a `CompletionStage<R>`. The method
+signatures are as follows:
+
+[source,java]
+----
+void executeInsideUIAsync(Runnable runnable);
+<R> CompletionStage<R> executeInsideUIAsync(Callable<R> callable);
+----
+
+==== Outside UI Thread Synchronous Calls
+
+Making sure a block of code is executed outside the UI thread is accomplished by invoking the `executeOutsideUI` method.
+Implementations of this method should be smart enough to figure out if the unit of work is already outside of the UI thread,
+in which case execution occurs in the same calling thread; otherwise it instructs the implemnting runtime to run the unit
+in a different thread. This is usually performed by a helper `java.util.concurrent.ExecutorService` or some other thread
+utilities.
+
+[source,java,linenums,options="nowrap"]
+----
+package sample;
+
+import com.acme.mvc.AbstractFrameworkController;
+import javax.application.action.ActionHandler;
+
+public class SampleController extends AbstractFrameworkController {
+    @ActionHandler
+    public void work) {
+        // will be invoked outside of the UI thread by default
+        // do some calculations
+        executeInsideUIAsync(() ->{
+            // back inside the UI Thread
+            executeOutsideUI(() -> {
+                // do more calculations
+            });
+        });
+    }
+}
+----
+
+The method signature is as follows
+
+[source,java]
+----
+void executeOutsideUI(Runnable runnable)
+----
+
+==== Outside UI Thread Asynchronous Calls
+
+Lastly, making sure a block of code is executed on a background thread is accomplished by invoking the `executeOutsideUIAsync`
+methods. These methods always run the code on a background thread regardless of the caller/invoking thread. This is usually
+performed by a helper `java.util.concurrent.ExecutorService` or some other thread utilities.
+
+[source,java,linenums,options="nowrap"]
+----
+package sample;
+
+import com.acme.mvc.AbstractFrameworkController;
+import javax.application.action.ActionHandler;
+
+public class SampleController extends AbstractFrameworkController {
+    @ActionHandler
+    public void work) {
+        // will be invoked outside of the UI thread by default
+        // do some calculations
+        executeInsideUIAsync(() ->{
+            // back inside the UI Thread
+            CompletionStage<String> promise = executeOutsideUIAsync(() -> {
+                // do more calculations
+                return "value";
+            });
+            promise.thenAccept(s -> {
+                // executed inside UI Thread
+            });
+        });
+    }
+}
+----
+
+The following are the method signatures that provide blocking execution (synchronous) inside the UI thread:
+
+[source,java]
+----
+void executeOutsideUIAsync(Runnable runnable);
+<R> CompletionStage<R> executeOutsideUIAsync(Callable<R> callable);
+----
 
 === Exception Handling
 
@@ -276,3 +725,4 @@ TBD
 ==== The Exception Handler Interface
 
 Lorem ipsum
+

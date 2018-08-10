@@ -23,3 +23,13 @@ repositories {
 dependencies {
     compile 'javax.inject:javax.inject:1'
 }
+
+evaluationDependsOn(':diagrams')
+
+task copyDiagrams(type: Copy) {
+    dependsOn project(':diagrams').asciidoctor
+    from project(':diagrams').file('build/asciidoc/html5/images')
+    into javadoc.destinationDir
+}
+
+javadoc.finalizedBy copyDiagrams

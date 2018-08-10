@@ -10,7 +10,8 @@ include::_license_jcp.adoc[]
 
 == Foreword
 
-Desktop|Embedded Application API 1.0 is lorem ipsum dolor sit amet.
+Desktop|Embedded Application API 1.0 defines a set of APIs for commonly used behavior observed in desktop and embedded
+applications written with JVM languages.
 
 == Conventions and Terms
 

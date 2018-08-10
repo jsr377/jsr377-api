@@ -17,48 +17,72 @@
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
+task generateMinPom {
+    doLast {
+        String pomHeader = """<?xml version="1.0" encoding="UTF-8"?>
+            <project xmlns="http://maven.apache.org/POM/4.0.0"
+                     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <modelVersion>4.0.0</modelVersion>
+                <groupId>${project.group}</groupId>
+                <artifactId>${project.name}</artifactId>
+                <version>${project.version}</version>
+        """.stripIndent(12)
+
+        def dependencyTemplate = { dep -> """
+            <dependency>
+                <groupId>$dep.group</groupId>
+                <artifactId>$dep.name</artifactId>
+                <version>$dep.version</version>
+            </dependency>
+        """.stripIndent(4)
+        }
+
+        String deps = configurations.runtime.allDependencies.findAll({it.name!= 'unspecified'})
+            .collect({ dep -> dependencyTemplate(dep)}).join('')
+
+        String pom = pomHeader
+        if (deps) {
+            pom += "    <dependencies>\n$deps\n    </dependencies>\n"
+        }
+        pom += "</project>"
+
+        project.file("$buildDir/tmp/maven").mkdirs()
+        project.file("$buildDir/tmp/maven/pom.xml").text = pom
+    }
+}
+
 jar {
+    dependsOn 'generateMinPom'
     manifest {
         attributes(
-            'Built-By': project.buildBy,
             'Created-By': project.buildCreatedBy,
-            'Build-Date': project.buildDate,
-            'Build-Time': project.buildTime,
-            'Build-Revision': project.buildRevision,
+            'X-Built-By': project.buildBy,
+            'X-Build-Date': project.buildDate,
+            'X-Build-Time': project.buildTime,
+            'X-Build-Revision': project.buildRevision,
             'Specification-Title': project.name,
             'Specification-Version': project.version,
             'Specification-Vendor': project.project_vendor,
             'Automatic-Module-Name': 'javax.application'
         )
     }
-}
 
-def pomConfig = {
-    name project.name
-    description project.project_description
-    url project.project_url
-    inceptionYear '2015'
-    licenses {
-        license([:]) {
-            name 'The Apache Software License, Version 2.0'
-            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-            distribution 'repo'
+    metaInf {
+        from(rootProject.file('.')) {
+            include 'LICENSE'
         }
-    }
-    scm {
-        url project.project_scm
-    }
-    developers {
-        [
-            aalmiray : 'Andres Almiray'
-        ].each { devId, devName ->
-            developer {
-                id devId
-                name devName
-                roles {
-                    role 'JSR-377 Spec lead'
-                }
-            }
+        from(rootProject.file('src/maven')) {
+            into "maven/${project.group}/${project.name}"
+            expand(
+                'gradle_version': gradle.gradleVersion,
+                'project_version': project.version,
+                'project_group': project.group,
+                'project_name': project.name,
+            )
+        }
+        from(rootProject.file("$buildDir/tmp/maven")) {
+            into "maven/${project.group}/${project.name}"
         }
     }
 }
@@ -70,9 +94,32 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
 
-            pom.withXml {
-                asNode().children().last() + pomConfig 
-                asNode().appendNode('description', project.project_description)
+            pom {
+                name = project.name
+                description = project.project_description
+                url = project.project_url
+                inceptionYear = '2015'
+                licenses {
+                    license {
+                        name = 'The Apache Software License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution = 'repo'
+                    }
+                }
+                scm {
+                    url = project.project_scm
+                }
+                developers {
+                    [
+                        aalmiray : 'Andres Almiray'
+                    ].each { devId, devName ->
+                        developer {
+                            id = devId
+                            name = devName
+                            roles = ['JSR-377 Spec lead']
+                        }
+                    }
+                }
             }
         }
     }
@@ -80,6 +127,8 @@ publishing {
 
 if (!project.hasProperty('bintrayUsername')) ext.bintrayUsername = ''
 if (!project.hasProperty('bintrayApiKey')) ext.bintrayApiKey = ''
+if (!project.hasProperty('mavenUsername')) ext.mavenUsername = ''
+if (!project.hasProperty('mavenPassword')) ext.mavenPassword = ''
 
 bintray {
     user = project.bintrayUsername
@@ -96,5 +145,15 @@ bintray {
         issueTrackerUrl = project.project_issues
         vcsUrl = project.project_scm
         publicDownloadNumbers = true
+        githubRepo = 'jsr377/jsr377-api'
+        version {
+            name = project.version
+            vcsTag = "${project.name}-${project.version}"
+            mavenCentralSync {
+                sync = true
+                user = project.mavenUsername
+                password = project.mavenPassword
+            }
+        }
     }
 }

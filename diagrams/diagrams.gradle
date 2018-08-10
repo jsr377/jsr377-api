@@ -21,36 +21,24 @@ buildscript {
 
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.8.1'
-        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
         classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.9'
     }
 }
 
 apply plugin: 'org.asciidoctor.convert'
 
+
 asciidoctor {
-    dependsOn project(':diagrams').asciidoctor
     options doctype: 'book'
 
-    backends = ['html5'] //, 'pdf']
+    backends = ['html5']
     requires = ['asciidoctor-diagram']
 
     attributes 'source-highlighter'    : 'coderay',
-               'coderay-linenums-mode' : 'table',
-               imagesdir               : 'images',
-               toc                     : 'left',
-               icon                    : 'font',
-               linkattrs               : true,
-               encoding                : 'utf-8'
-
-    sources {
-        include 'index.adoc'
-    }
-
-    resources {
-        from file('src/resources')
-        from(project(':diagrams').file('build/asciidoc/html5/images')) {
-            into 'images'
-        }
-    }
+        'coderay-linenums-mode' : 'table',
+        imagesdir               : 'images',
+        toc                     : 'left',
+        icon                    : 'font',
+        linkattrs               : true,
+        encoding                : 'utf-8'
 }

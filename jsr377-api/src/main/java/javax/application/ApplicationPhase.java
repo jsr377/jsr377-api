@@ -16,12 +16,33 @@
 package javax.application;
 
 /**
+ * Defines the application's life-cycle phases.<p>
+ * <p>Every instance of {@code javax.application.Application} must follow this life-cycle.</p>
+ * The life-cycle has few transitions between phases, as shown by the following diagram.
+ *
+ * <img src="application-phases.png" alt="application-phases"/>
+ *
  * @author Andres Almiray
  */
 public enum ApplicationPhase {
+    /**
+     * 1st phase. All applications start with this one
+     */
     INITIALIZE,
+    /**
+     * 2nd phase. This is where MVC groups are created
+     */
     STARTUP,
+    /**
+     * 3rd phase. Called after main window is shown
+     */
     READY,
+    /**
+     * Main phase.
+     */
     MAIN,
+    /**
+     * Last phase.
+     */
     SHUTDOWN
 }

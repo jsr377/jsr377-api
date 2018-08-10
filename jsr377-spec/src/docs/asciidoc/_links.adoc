@@ -1,0 +1,4 @@
+
+:link_jsr330: link:https://jcp.org/en/jsr/detail?id=330[JSR-300, window="_blank"]
+:link_resource_bundle: link:https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.html[ResourceBundle, window="_blank"]
+:link_message_format: link:http://docs.oracle.com/javase/8/docs/api/java/text/MessageFormat.html[MessageFormat, window="_blank"]

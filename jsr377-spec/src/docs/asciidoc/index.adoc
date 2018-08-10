@@ -2,6 +2,8 @@
 :toclevels: 3
 :numbered:
 
+include::_links.adoc[]
+
 :leveloffset: 1
 include::preface.adoc[]
 include::architecture.adoc[]
