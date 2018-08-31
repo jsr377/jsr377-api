@@ -15,6 +15,7 @@
  */
 
 apply plugin: 'java'
+apply plugin: 'org.jonnyzzz.java9c'
 
 repositories {
     jcenter()

@@ -29,6 +29,7 @@ buildscript {
         classpath 'org.ajoberstar:gradle-git:1.7.2'
         classpath 'net.nemerosa:versioning:2.7.1'
         classpath 'org.kordamp.gradle:stats-gradle-plugin:0.2.2'
+        classpath 'gradle.plugin.gradle-java9-collision:plugin:0.2.3'
     }
 }
 
