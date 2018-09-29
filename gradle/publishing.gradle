@@ -67,29 +67,31 @@ task generateMinPom {
     }
 }
 
-jar {
-    dependsOn 'generateMinPom'
-    manifest {
-        attributes(
-            'Created-By': buildCreatedBy,
-            'x-Built-By': buildBy,
-            'x-Build-Jdk': buildJdk,
-            'x-Build-Date': buildDate,
-            'x-Build-Time': buildTime,
-            'x-Build-Revision': buildRevision,
-            'Specification-Title': project.name,
-            'Specification-Version': project.version,
-            'Specification-Vendor': project.project_vendor,
-            'Automatic-Module-Name': 'javax.application'
-        )
-    }
-
-    metaInf {
-        from(rootProject.file('.')) {
-            include 'LICENSE'
+if (Boolean.valueOf((rootProject.findProperty('release') ?: false))) {
+    jar {
+        dependsOn 'generateMinPom'
+        manifest {
+            attributes(
+                'Created-By': buildCreatedBy,
+                'x-Built-By': buildBy,
+                'x-Build-Jdk': buildJdk,
+                'x-Build-Date': buildDate,
+                'x-Build-Time': buildTime,
+                'x-Build-Revision': buildRevision,
+                'Specification-Title': project.name,
+                'Specification-Version': project.version,
+                'Specification-Vendor': project.project_vendor,
+                'Automatic-Module-Name': 'javax.application'
+            )
         }
-        from(file("$buildDir/tmp/maven")) {
-            into "maven/${project.group}/${project.name}"
+
+        metaInf {
+            from(rootProject.file('.')) {
+                include 'LICENSE'
+            }
+            from(file("$buildDir/tmp/maven")) {
+                into "maven/${project.group}/${project.name}"
+            }
         }
     }
 }

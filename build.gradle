@@ -90,6 +90,7 @@ subprojects { subproj ->
             group 'Build'
             description 'An archive of the javadoc'
             classifier 'javadoc'
+            dependsOn javadoc
             from javadoc.destinationDir
         }
 
