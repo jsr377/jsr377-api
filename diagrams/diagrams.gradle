@@ -20,13 +20,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.8.1'
-        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.9'
+        classpath "org.asciidoctor:asciidoctor-gradle-plugin:$asciidoctorVersion"
+        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.10'
     }
 }
 
 apply plugin: 'org.asciidoctor.convert'
-
 
 asciidoctor {
     options doctype: 'book'

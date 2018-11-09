@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import java.text.SimpleDateFormat
-
 buildscript {
     repositories {
         jcenter()
@@ -23,27 +21,92 @@ buildscript {
     }
 
     dependencies {
-        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
+        classpath 'org.kordamp.gradle:project-gradle-plugin:0.7.0'
         classpath 'org.ajoberstar:gradle-git:1.7.2'
-        classpath 'net.nemerosa:versioning:2.7.1'
-        classpath 'org.kordamp.gradle:stats-gradle-plugin:0.2.2'
         classpath 'gradle.plugin.gradle-java9-collision:plugin:0.2.3'
     }
 }
 
-apply plugin: 'idea'
-apply plugin: 'net.nemerosa.versioning'
+apply plugin: 'org.kordamp.gradle.project'
 
-Date buildTimeAndDate = new Date()
-ext {
-    buildBy = System.properties['user.name']
-    buildDate = new SimpleDateFormat('yyyy-MM-dd').format(buildTimeAndDate)
-    buildTime = new SimpleDateFormat('HH:mm:ss.SSSZ').format(buildTimeAndDate)
-    buildRevision = versioning.info.commit
-    buildJdk = "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})".toString()
-    buildCreatedBy = "Gradle ${gradle.gradleVersion}"
+if (!project.hasProperty('bintrayUsername')) ext.bintrayUsername = ''
+if (!project.hasProperty('bintrayApiKey')) ext.bintrayApiKey = ''
+if (!project.hasProperty('sonatypeUsername')) ext.sonatypeUsername = ''
+if (!project.hasProperty('sonatypePassword')) ext.sonatypePassword = ''
+
+config {
+    release = (rootProject.findProperty('release') ?: false).toBoolean()
+
+    info {
+        name          = 'jsr377-api'
+        vendor        = 'JSR-377'
+        description   = 'JSR 377 - Desktop|Embedded Application API'
+        inceptionYear = '2015'
+        tags          = ['desktop', 'java', 'jsr377']
+
+        links {
+            website      = 'https://github.com/jsr377/jsr377-api'
+            issueTracker = 'https://github.com/jsr377/jsr377-api/issues'
+            scm          = 'https://github.com/jsr377/jsr377-api.git'
+        }
+
+        people {
+            person {
+                id    = 'aalmiray'
+                name  = 'Andres Almiray'
+                roles = ['Spec Lead', 'Developer']
+            }
+        }
+
+        specification {
+            title = 'JSR-377 API'
+        }
+
+        implementation { enabled = false }
+
+        credentials {
+            sonatype {
+                username = project.sonatypeUsername
+                password = project.sonatypePassword
+            }
+        }
+    }
+
+    license {
+        licenses {
+            license {
+                id = 'Apache-2.0'
+            }
+        }
+    }
+
+    bintray {
+        credentials {
+            username = project.bintrayUsername
+            password = project.bintrayApiKey
+        }
+        userOrg = 'jsr377'
+        name    = 'jsr377-api'
+    }
+
+    stats {
+        formats = ['xml', 'txt']
+    }
+
+    javadoc {
+
+        options {
+            links('http://docs.oracle.com/javase/8/docs/api')
+        }
+    }
+}
+
+allprojects {
+    apply plugin: 'idea'
+
+    repositories {
+        jcenter()
+    }
 }
 
 idea {
@@ -53,67 +116,12 @@ idea {
     }
 }
 
-allprojects {
-    apply plugin: 'base'
-    apply plugin: 'idea'
-    apply plugin: 'com.github.ben-manes.versions'
-
-    repositories {
-        jcenter()
-    }
-
-    if (JavaVersion.current().isJava8Compatible()) {
-        tasks.withType(Javadoc) {
-            options.addStringOption('Xdoclint:none', '-quiet')
-        }
-    }
-}
-
 subprojects { subproj ->
     plugins.withType(JavaPlugin) {
-        subproj.apply plugin: 'org.kordamp.gradle.stats'
-
         subproj.tasks.withType(JavaCompile) {
             sourceCompatibility = rootProject.sourceCompatibility
             targetCompatibility = rootProject.sourceCompatibility
             options.compilerArgs = ['-Xlint:all', '-Xlint:deprecation', '-Xlint:unchecked']
         }
-
-        task sourcesJar(type: Jar) {
-            group 'Build'
-            description 'An archive of the source code'
-            classifier 'sources'
-            from sourceSets.main.allSource
-        }
-
-        task javadocJar(type: Jar) {
-            group 'Build'
-            description 'An archive of the javadoc'
-            classifier 'javadoc'
-            dependsOn javadoc
-            from javadoc.destinationDir
-        }
-
-        artifacts {
-            sourcesJar
-            javadocJar
-        }
-
-        javadoc {
-            excludes = ['**/*.html', 'META-INF/**', '**/*.groovy']
-
-            options.use         = true
-            options.splitIndex  = true
-            options.encoding    = 'UTF-8'
-            options.author      = true
-            options.version     = true
-            options.windowTitle = "$subproj.name $version"
-            options.docTitle    = "$subproj.name $version"
-            options.footer      = rootProject.javadocFooter
-            options.links       = ['http://docs.oracle.com/javase/8/docs/api/']
-        }
-
-        subproj.apply from: rootProject.file('gradle/publishing.gradle')
-        subproj.apply from: rootProject.file('gradle/code-quality.gradle')
     }
 }
