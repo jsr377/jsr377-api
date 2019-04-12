@@ -9,8 +9,8 @@ cache:
   - $HOME/.gradle/wrapper/
   - $HOME/.sonar/cache/
 before_script:
-  - ./gradlew --no-daemon --version
-script: ./gradlew --console=plain --no-daemon clean build --scan
+  - ./gradlew --version
+script: ./gradlew --console=plain clean build --scan
 env: TERM=dumb
 notifications:
   webhooks:
