@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2018 the original author or authors.
+ * Copyright 2015-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.kordamp.gradle:project-gradle-plugin:0.11.0'
+        classpath 'org.kordamp.gradle:project-gradle-plugin:0.17.0'
         classpath 'org.ajoberstar:gradle-git:1.7.2'
         classpath 'gradle.plugin.gradle-java9-collision:plugin:0.2.3'
     }
@@ -29,10 +29,10 @@ buildscript {
 
 apply plugin: 'org.kordamp.gradle.project'
 
-if (!project.hasProperty('bintrayUsername')) ext.bintrayUsername = ''
-if (!project.hasProperty('bintrayApiKey')) ext.bintrayApiKey = ''
-if (!project.hasProperty('sonatypeUsername')) ext.sonatypeUsername = ''
-if (!project.hasProperty('sonatypePassword')) ext.sonatypePassword = ''
+if (!project.hasProperty('bintrayUsername'))  ext.bintrayUsername  = '**undefined**'
+if (!project.hasProperty('bintrayApiKey'))    ext.bintrayApiKey    = '**undefined**'
+if (!project.hasProperty('sonatypeUsername')) ext.sonatypeUsername = '**undefined**'
+if (!project.hasProperty('sonatypePassword')) ext.sonatypePassword = '**undefined**'
 
 config {
     release = (rootProject.findProperty('release') ?: false).toBoolean()
@@ -72,7 +72,7 @@ config {
         }
     }
 
-    license {
+    licensing {
         licenses {
             license {
                 id = 'Apache-2.0'
@@ -94,9 +94,8 @@ config {
     }
 
     javadoc {
-
-        options {
-            links('http://docs.oracle.com/javase/8/docs/api')
+        autoLinks {
+            enabled = false
         }
     }
 }
