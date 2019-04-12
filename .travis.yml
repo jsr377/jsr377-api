@@ -10,7 +10,7 @@ cache:
   - $HOME/.sonar/cache/
 before_script:
   - ./gradlew --no-daemon --version
-script: ./gradlew --console=plain --no-daemon clean build -PbintrayUsername=undefined -PbintrayApiKey=undefined
+script: ./gradlew --console=plain --no-daemon clean build --scan
 env: TERM=dumb
 notifications:
   webhooks:

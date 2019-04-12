@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-include 'diagrams'
-include 'jsr377-spec'
-include 'jsr377-api'
+pluginManagement {
+    repositories {
+        jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+}
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'org.kordamp.gradle:settings-gradle-plugin:0.16.0'
+    }
+}
+apply plugin: 'org.kordamp.gradle.settings'
 
 rootProject.name = 'jsr377-parent'
-rootProject.children.each { project ->
-    project.buildFileName = "${project.name}.gradle"
-    assert project.projectDir.isDirectory()
-    assert project.buildFile.isFile()
+
+projects {
+    layout = 'standard'
 }

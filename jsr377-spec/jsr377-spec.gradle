@@ -32,7 +32,7 @@ asciidoctor {
     dependsOn project(':diagrams').asciidoctor
     options doctype: 'book'
 
-    backends = ['html5'] //, 'pdf']
+    backends = ['html5']
     requires = ['asciidoctor-diagram']
 
     attributes 'source-highlighter'    : 'coderay',

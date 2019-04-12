@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-apply plugin: 'java'
-apply plugin: 'org.jonnyzzz.java9c'
-
-repositories {
-    jcenter()
+plugins {
+    id 'java'
+    id 'org.jonnyzzz.java9c' version '0.2.3'
 }
 
 dependencies {
