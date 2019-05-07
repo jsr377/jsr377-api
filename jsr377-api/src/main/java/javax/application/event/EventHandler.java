@@ -30,13 +30,13 @@ import java.lang.annotation.Target;
 @Documented
 @Inherited
 @Retention(value = RetentionPolicy.RUNTIME)
-@Target(value = {ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Target(value = {ElementType.METHOD})
 public @interface EventHandler {
     /**
      * Defines filters for this event handler. All filters are evaluated before the handler is invoked, which
-     * can only happens if all filters return {@code true}.
+     * can only happen if all filters return {@code true}.
      */
-    EventFilter[] filters() default {};
+    Class<? extends EventFilter>[] filters() default {};
 
     /**
      * Event handlers should be invoked by priority, where higher numbers takes precedence over lower numbers,

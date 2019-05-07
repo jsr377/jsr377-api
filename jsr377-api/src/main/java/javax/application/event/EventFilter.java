@@ -17,10 +17,6 @@
  */
 package javax.application.event;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.util.function.Function;
 
 /**
@@ -29,11 +25,5 @@ import java.util.function.Function;
  * @author Andres Almiray
  * @author Hendrik Ebbers
  */
-@Retention(value = RetentionPolicy.RUNTIME)
-@Target(value = {ElementType.ANNOTATION_TYPE})
-public @interface EventFilter {
-    /**
-     * A filter implementation.
-     */
-    Class<? extends Function<EventMetadata<?>, Boolean>> value();
+public interface EventFilter<E> extends Function<EventMetadata<E>, Boolean> {
 }
