@@ -10,7 +10,7 @@ cache:
   - $HOME/.sonar/cache/
 before_script:
   - ./gradlew --version
-script: ./gradlew --console=plain clean build --scan
+script: ./gradlew --console=plain clean build
 env: TERM=dumb
 notifications:
   webhooks:
