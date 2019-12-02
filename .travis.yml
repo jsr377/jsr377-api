@@ -1,6 +1,6 @@
 language: java
 install: true
-jdk: oraclejdk8
+jdk: openjdk8
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
@@ -10,7 +10,7 @@ cache:
   - $HOME/.sonar/cache/
 before_script:
   - ./gradlew --version
-script: ./gradlew --console=plain clean build
+script: ./gradlew clean build -S
 env: TERM=dumb
 notifications:
   webhooks:
