@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2015-2019 the original author or authors.
+ * Copyright 2015-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 plugins {
-    id 'java'
-    id 'org.jonnyzzz.java9c' version '0.2.3'
+    id 'java-library'
+    id 'org.jonnyzzz.java9c'
 }
 
 dependencies {
-    compile 'javax.inject:javax.inject:1'
+    api 'javax.inject:javax.inject:1'
 }
 
 evaluationDependsOn(':diagrams')
