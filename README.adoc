@@ -1,8 +1,7 @@
 = JSR 377 - Desktop|Embedded Application API
 :linkattrs:
-:project-owner:  jsr377
-:project-name:   jsr377-api
-:plugin-version: 1.0.0-SNAPSHOT
+:project-owner: jsr377
+:project-name:  jsr377-api
 
 Contains the specification and API sources for link:https://jcp.org/en/jsr/detail?id=377[JSR-377].
 
