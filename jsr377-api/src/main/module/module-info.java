@@ -15,22 +15,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id 'java-library'
-    id 'org.beryx.jar'
-    id 'org.jonnyzzz.java9c'
-}
 
-evaluationDependsOn(':diagrams')
-
-task copyDiagrams(type: Copy) {
-    dependsOn project(':diagrams').asciidoctor
-    from project(':diagrams').file('build/asciidoc/html5/images')
-    into javadoc.destinationDir
-}
-
-javadoc.finalizedBy copyDiagrams
-
-jar {
-    moduleInfoPath = 'src/main/module/module-info.java'
+module javax.application {
+    exports javax.application;
+    exports javax.application.action;
+    exports javax.application.configuration;
+    exports javax.application.converter;
+    exports javax.application.converter.spi;
+    exports javax.application.event;
+    exports javax.application.i18n;
+    exports javax.application.resources;
+    exports javax.application.threading;
 }
