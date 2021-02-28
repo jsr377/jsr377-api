@@ -15,28 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-buildscript {
-    repositories {
-        jcenter()
-        gradlePluginPortal()
-    }
-
-    dependencies {
-        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
-        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.18'
-    }
-}
 
 plugins {
-    id 'org.asciidoctor.convert'
+    id 'org.asciidoctor.jvm.convert'
+    id 'org.asciidoctor.jvm.pdf'
 }
 
-asciidoctor {
-    dependsOn project(':diagrams').asciidoctor
+asciidoctorj {
     options doctype: 'book'
 
-    backends = ['html5']
-    requires = ['asciidoctor-diagram']
+    modules {
+        diagram.use()
+        diagram.version '2.1.0'
+    }
 
     attributes 'source-highlighter'    : 'coderay',
                'coderay-linenums-mode' : 'table',
@@ -46,14 +37,23 @@ asciidoctor {
                linkattrs               : true,
                encoding                : 'utf-8'
 
+}
+
+asciidoctor {
+    dependsOn project(':diagrams').asciidoctor
+
+    baseDirFollowsSourceDir()
+
     sources {
         include 'index.adoc'
     }
 
     resources {
         from file('src/resources')
-        from(project(':diagrams').file('build/asciidoc/html5/images')) {
+        from(project(':diagrams').file('build/docs/asciidoc/images')) {
             into 'images'
         }
     }
 }
+
+build.dependsOn(asciidoctor)

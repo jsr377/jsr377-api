@@ -15,25 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-buildscript {
-    repositories {
-        jcenter()
-        gradlePluginPortal()
-    }
 
-    dependencies {
-        classpath "org.asciidoctor:asciidoctor-gradle-plugin:$asciidoctorVersion"
-        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.18'
-    }
+plugins {
+    id 'org.asciidoctor.jvm.convert'
 }
 
-apply plugin: 'org.asciidoctor.convert'
-
-asciidoctor {
+asciidoctorj {
     options doctype: 'book'
 
-    backends = ['html5']
-    requires = ['asciidoctor-diagram']
+    modules {
+        diagram.use()
+        diagram.version '2.1.0'
+    }
 
     attributes 'source-highlighter'    : 'coderay',
         'coderay-linenums-mode' : 'table',

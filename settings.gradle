@@ -17,8 +17,8 @@
  */
 pluginManagement {
     repositories {
-        jcenter()
         gradlePluginPortal()
+        mavenCentral()
         mavenLocal()
     }
     plugins {
@@ -26,13 +26,15 @@ pluginManagement {
         id 'org.kordamp.gradle.bintray'      version kordampPluginVersion
         id 'org.jonnyzzz.java9c'             version '0.2.3'
         id 'org.beryx.jar'                   version '1.2.0'
-        id 'org.asciidoctor.convert'         version asciidoctorVersion
+        id 'org.asciidoctor.jvm.convert'     version asciidoctorVersion
+        id 'org.asciidoctor.jvm.pdf'         version asciidoctorVersion
     }
 }
 
 buildscript {
     repositories {
         gradlePluginPortal()
+        mavenCentral()
         mavenLocal()
     }
     dependencies {
