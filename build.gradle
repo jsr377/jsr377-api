@@ -17,11 +17,8 @@
  */
 plugins {
     id 'org.kordamp.gradle.java-project'
-    id 'org.kordamp.gradle.bintray'
 }
 
-if (!project.hasProperty('bintrayUsername'))  ext.bintrayUsername  = '**undefined**'
-if (!project.hasProperty('bintrayApiKey'))    ext.bintrayApiKey    = '**undefined**'
 if (!project.hasProperty('sonatypeUsername')) ext.sonatypeUsername = '**undefined**'
 if (!project.hasProperty('sonatypePassword')) ext.sonatypePassword = '**undefined**'
 
@@ -69,15 +66,6 @@ config {
                 id = 'Apache-2.0'
             }
         }
-    }
-
-    bintray {
-        credentials {
-            username = project.bintrayUsername
-            password = project.bintrayApiKey
-        }
-        userOrg = 'jsr377'
-        name    = 'jsr377-api'
     }
 
     stats {
